@@ -7,6 +7,7 @@ reserved = {
     'y': 'AND',
     'de': 'FROM',
     'no': 'ELSE',
+    'leer': 'READ',
     'falso': 'FALSE',
     'lista': 'ARRAY',
     'texto': 'STRING',
@@ -21,9 +22,11 @@ reserved = {
     'agregar': 'PUSH',
     'realiza': 'DO',
     'repetir': 'FOR',
+    'imprimir': 'PRINT',
     'devolver': 'RETURN',
     'mientras': 'WHILE',
-    'variables': 'VAR',
+    'programa': 'PROGRAM',
+    'variables': 'VARIABLE',
     'verdadero': 'TRUE',
 }
 
