@@ -2,7 +2,7 @@ import ply.yacc as yacc
 from lex import tokens
 
 types = {'numero': 1, 'decimal': 2, 'texto': 3, 'binario': 4, 'lista de numero': 5,
-         'lista de decimal': 6, 'lista de texto': 7, 'lista de binario': 8}
+         'lista de decimal': 6, 'lista de texto': 7, 'lista de binario': 8, 'void': 9}
 
 # Define global helpers
 currentScope = 'global'
@@ -18,7 +18,7 @@ functionDict = {}
 
 
 def print_error(message, line):
-    print("{} en la linea {}".format(message, line))
+    print("ERROR! {} en la linea {}".format(message, line))
 
 
 def add_variable(p, idPosition):
@@ -62,6 +62,8 @@ def p_variables_opt(p):
     '''variables_opt : empty
                      | variables'''
     global currentScope
+    global currentVarType
+    currentVarType = None
     currentScope = 'local'
 
 
@@ -164,8 +166,24 @@ def p_iteration_opts(p):
 
 # Function
 def p_function(p):
-    'function : function_type FUNCTION ID "(" function_params ")" "{" function_variables_opt function_stm function_return "}"'
+    'function : function_declaration "(" function_params ")" "{" function_variables_opt function_stm function_return "}"'
+    global currentVarType
+    currentVarType = None
     localVariablesDict.clear()
+
+
+def p_function_declaration(p):
+    'function_declaration : function_type FUNCTION ID'
+    if p[3] in functionDict:
+        print_error("{}: Funcion anteriormente declarada".format(
+            p[3]), p.lineno(3))
+    else:
+        if currentVarType == None:
+            functionDict[p[3]] = {'name': p[3], 'return': 9}
+        else:
+            varType = types[currentVarType]
+            functionDict[p[3]] = {
+                'name': p[3], 'return': varType}
 
 
 def p_function_variables_opt(p):
