@@ -1,7 +1,55 @@
 import ply.yacc as yacc
 from lex import tokens
 
-# Define all rules
+types = {'numero': 1, 'decimal': 2, 'texto': 3, 'binario': 4, 'lista de numero': 5,
+         'lista de decimal': 6, 'lista de texto': 7, 'lista de binario': 8}
+
+# Define global helpers
+currentScope = 'global'
+currentVarType = None
+currentIdOrNumber = None
+globalVariablesDict = {}
+localVariablesDict = {}
+functionDict = {}
+
+##############################
+# CUSTOM FUNCTIONS
+##############################
+
+
+def print_error(message, line):
+    print("{} en la linea {}".format(message, line))
+
+
+def add_variable(p, idPosition):
+    if currentScope == 'global':
+        if p[idPosition] in globalVariablesDict:
+            print_error("{}: Variable global anteriormente declarada".format(
+                p[idPosition]), p.lineno(idPosition))
+        else:
+            varType = types[currentVarType]
+            if varType < 5:
+                globalVariablesDict[p[idPosition]] = {
+                    'name': p[idPosition], 'type': varType}
+            else:
+                globalVariablesDict[p[idPosition]] = {
+                    'name': p[idPosition], 'type': varType, 'length': currentIdOrNumber}
+    else:
+        if p[idPosition] in localVariablesDict:
+            print_error("{}: Variable global anteriormente declarada".format(
+                p[idPosition]), p.lineno(idPosition))
+        else:
+            varType = types[currentVarType]
+            if varType < 5:
+                localVariablesDict[p[idPosition]] = {
+                    'name': p[idPosition], 'type': varType}
+            else:
+                localVariablesDict[p[idPosition]] = {
+                    'name': p[idPosition], 'type': varType, 'length': currentIdOrNumber}
+
+##############################
+# GRAMMAR
+##############################
 
 # Main
 
@@ -13,6 +61,8 @@ def p_main(p):
 def p_variables_opt(p):
     '''variables_opt : empty
                      | variables'''
+    global currentScope
+    currentScope = 'local'
 
 
 def p_main_func(p):
@@ -59,10 +109,14 @@ def p_var_body_rec(p):
 def p_var_opts(p):
     '''var_opts : base_type
                 | ARRAY FROM base_type FROM id_or_number'''
+    global currentVarType
+    if len(p) > 2:
+        currentVarType = "{} {} {}".format(p[1], p[2], currentVarType)
 
 
 def p_var_id(p):
     'var_id : ID var_id_rec'
+    add_variable(p, 1)
 
 
 def p_var_id_rec(p):
@@ -110,7 +164,13 @@ def p_iteration_opts(p):
 
 # Function
 def p_function(p):
-    'function : function_type FUNCTION ID "(" function_params ")" "{" variables_opt function_stm function_return "}"'
+    'function : function_type FUNCTION ID "(" function_params ")" "{" function_variables_opt function_stm function_return "}"'
+    localVariablesDict.clear()
+
+
+def p_function_variables_opt(p):
+    '''function_variables_opt : empty
+                              | variables'''
 
 
 def p_function_type(p):
@@ -121,6 +181,8 @@ def p_function_type(p):
 def p_function_params(p):
     '''function_params : empty
                        | type ID function_params_rec'''
+    if len(p) > 2:
+        add_variable(p, 2)
 
 
 def p_function_params_rec(p):
@@ -188,7 +250,7 @@ def p_list_access(p):
 
 # Random number
 def p_random(p):
-    'random : RANDOM "(" FROM id_or_number "," TO id_or_number ")"'
+    'random : RANDOM "(" FROM CONST_I "," TO CONST_I ")"'
 
 
 # Expression
@@ -264,11 +326,16 @@ def p_term_body_types(p):
 def p_type(p):
     '''type : base_type
             | ARRAY FROM base_type'''
+    global currentVarType
+    if len(p) > 2:
+        currentVarType = "{} {} {}".format(p[1], p[2], currentVarType)
 
 
 def p_id_or_number(p):
     '''id_or_number : ID
                     | CONST_I'''
+    global currentIdOrNumber
+    currentIdOrNumber = p[1]
 
 
 def p_base_type(p):
@@ -276,6 +343,8 @@ def p_base_type(p):
                  | FLOAT
                  | STRING
                  | BOOLEAN'''
+    global currentVarType
+    currentVarType = p[1]
 
 
 def p_binary_operators(p):

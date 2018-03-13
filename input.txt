@@ -3,9 +3,8 @@ programa
 
 variables: numero x1; decimal y1;
 
-funcion x() {
-    variables: numero x1; decimal y1;
-
+funcion x(numero x2) {
+    variables: numero x1; decimal y1; lista de texto de 10 n1;
 }
 
 {
