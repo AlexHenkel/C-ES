@@ -68,6 +68,11 @@ t_GTE = r'\>='
 t_LTE = r'\<='
 
 
+def t_COMMENT(t):
+    r'\/\/.*'
+    pass
+
+
 def t_CONST_S(t):
     r'\".*\"'
     return t

@@ -1,5 +1,7 @@
+// Comentario inicial
 programa variables: numero x1; decimal y1;
 {
+    // Comentario uno totalmente descartado
     numero1 = 5
     numero2 = 10
 
