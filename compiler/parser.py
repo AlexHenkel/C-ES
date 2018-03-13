@@ -32,6 +32,8 @@ def p_block_stm_opt(p):
 
 
 # Statement
+
+
 def p_statement(p):
     '''statement : assignation
                  | condition
@@ -106,7 +108,7 @@ def p_iteration_opts(p):
                        | FOR "(" id_or_number'''
 
 
-# Condition
+# Function
 def p_function(p):
     'function : function_type FUNCTION ID "(" function_params ")" "{" variables_opt function_stm function_return "}"'
 
@@ -117,12 +119,13 @@ def p_function_type(p):
 
 
 def p_function_params(p):
-    'function_params : type ID function_params_rec'
+    '''function_params : empty
+                       | type ID function_params_rec'''
 
 
 def p_function_params_rec(p):
     '''function_params_rec : empty
-                           | function_params'''
+                           | "," function_params'''
 
 
 def p_function_stm(p):
@@ -156,7 +159,8 @@ def p_print(p):
 
 # Parameters
 def p_expr_params(p):
-    'expr_params : expression expr_params_rec'
+    '''expr_params : empty
+                   | expression expr_params_rec'''
 
 
 def p_expr_params_rec(p):
