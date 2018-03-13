@@ -42,7 +42,16 @@ def p_statement(p):
 
 
 def p_variables(p):
-    'variables : VARIABLE ":" var_opts var_id'
+    'variables : VARIABLE ":" var_body'
+
+
+def p_var_body(p):
+    'var_body : var_opts var_id ";" var_body_rec'
+
+
+def p_var_body_rec(p):
+    '''var_body_rec : empty
+                    | var_body'''
 
 
 def p_var_opts(p):

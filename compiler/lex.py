@@ -13,7 +13,6 @@ reserved = {
     'texto': 'STRING',
     'numero': 'INT',
     'sucede': 'HAPPENS',
-    'random': 'RANDOM',
     'quitar': 'POP',
     'ultimo': 'LAST',
     'binario': 'BOOLEAN',
@@ -26,11 +25,15 @@ reserved = {
     'devolver': 'RETURN',
     'mientras': 'WHILE',
     'programa': 'PROGRAM',
+    'aleatorio': 'RANDOM',
     'variables': 'VARIABLE',
     'verdadero': 'TRUE',
 }
 
 literals = [
+    ':',
+    ',',
+    ';',
     '[',
     ']',
     '(',

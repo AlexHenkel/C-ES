@@ -1,0 +1,41 @@
+programa variables: numero x1; decimal y1;
+{
+    numero1 = 5
+    numero2 = 10
+
+    si sucede(numero1 == 5 y numero2 == 10) realiza {
+        resultado = numero1 + numero2
+    }
+
+    si sucede(numero1 == 5 y numero2 == 10) realiza {
+        resultado = numero1 - numero2
+    } o si sucede (numero1 == 0 y numero2 == 0) realiza {
+        resultado = numero1 * numero2
+    }
+
+    numero1 = 10
+    numero2 = 2
+    numero3 = aleatorio(de 1, a 10)
+
+    si sucede(numero1 == 5 y numero2 == 10) realiza {
+        resultado = numero1 - numero2
+    } no sucede {
+        resultado = numero1 / numero2
+    }
+
+    mientras sucede (i <= 1) realiza {
+        resultado = numero1 + numero2
+    }
+
+    repetir (1) realiza {
+        resultado = numero1 + numero2
+    }
+
+    imprimir(resultado)
+
+    agregar a lista1(5)
+
+    quitar ultimo de lista1()
+
+    imprimir(lista1[0])
+}
