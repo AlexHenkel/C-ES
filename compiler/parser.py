@@ -1,8 +1,6 @@
 import ply.yacc as yacc
 from lex import tokens
-
-types = {'numero': 1, 'decimal': 2, 'texto': 3, 'binario': 4, 'lista de numero': 5,
-         'lista de decimal': 6, 'lista de texto': 7, 'lista de binario': 8, 'void': 9}
+from semantic_cube import types, get_semantic_result
 
 # Define global helpers
 currentScope = 'global'
