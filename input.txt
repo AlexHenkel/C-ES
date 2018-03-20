@@ -1,7 +1,7 @@
 // Comentario inicial
 programa 
 
-variables: numero x1, numero1, numero2, numero3, resultado; decimal y1; lista de  de numero 10 lista1;
+variables: numero x1, numero1, numero2, numero3, resultado; decimal y1; lista de numero de 10 lista1;
 
 funcion x(numero x2) {
     variables: numero x1; decimal y1; lista de texto de 10 n1;

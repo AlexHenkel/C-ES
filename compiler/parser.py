@@ -481,7 +481,7 @@ def p_add_operators(p):
 
 
 def p_error(p):
-    raise ErrorSintaxis(p.lineno(0))
+    raise ErrorSintaxis(p.lineno)
 
 
 # Empty rule
