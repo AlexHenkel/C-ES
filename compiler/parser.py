@@ -3,12 +3,12 @@ from lex import tokens
 from semantic_cube import types, get_semantic_result
 
 # Define global helpers
-currentScope = 'global'
-currentVarType = None
-currentIdOrNumber = None
-globalVariablesDict = {}
-localVariablesDict = {}
-functionDict = {}
+current_scope = 'global'
+current_var_type = None
+current_id_or_number = None
+global_variables_dict = {}
+local_variables_dict = {}
+function_dict = {}
 
 ##############################
 # CUSTOM FUNCTIONS
@@ -19,31 +19,31 @@ def print_error(message, line):
     print("ERROR! {} en la linea {}".format(message, line))
 
 
-def add_variable(p, idPosition):
-    if currentScope == 'global':
-        if p[idPosition] in globalVariablesDict:
+def add_variable(p, id_position):
+    if current_scope == 'global':
+        if p[id_position] in global_variables_dict:
             print_error("{}: Variable global anteriormente declarada".format(
-                p[idPosition]), p.lineno(idPosition))
+                p[id_position]), p.lineno(id_position))
         else:
-            varType = types[currentVarType]
+            varType = types[current_var_type]
             if varType < 5:
-                globalVariablesDict[p[idPosition]] = {
-                    'name': p[idPosition], 'type': varType}
+                global_variables_dict[p[id_position]] = {
+                    'name': p[id_position], 'type': varType}
             else:
-                globalVariablesDict[p[idPosition]] = {
-                    'name': p[idPosition], 'type': varType, 'length': currentIdOrNumber}
+                global_variables_dict[p[id_position]] = {
+                    'name': p[id_position], 'type': varType, 'length': current_id_or_number}
     else:
-        if p[idPosition] in localVariablesDict:
+        if p[id_position] in local_variables_dict:
             print_error("{}: Variable global anteriormente declarada".format(
-                p[idPosition]), p.lineno(idPosition))
+                p[id_position]), p.lineno(id_position))
         else:
-            varType = types[currentVarType]
+            varType = types[current_var_type]
             if varType < 5:
-                localVariablesDict[p[idPosition]] = {
-                    'name': p[idPosition], 'type': varType}
+                local_variables_dict[p[id_position]] = {
+                    'name': p[id_position], 'type': varType}
             else:
-                localVariablesDict[p[idPosition]] = {
-                    'name': p[idPosition], 'type': varType, 'length': currentIdOrNumber}
+                local_variables_dict[p[id_position]] = {
+                    'name': p[id_position], 'type': varType, 'length': current_id_or_number}
 
 ##############################
 # GRAMMAR
@@ -59,10 +59,10 @@ def p_main(p):
 def p_variables_opt(p):
     '''variables_opt : empty
                      | variables'''
-    global currentScope
-    global currentVarType
-    currentVarType = None
-    currentScope = 'local'
+    global current_scope
+    global current_var_type
+    current_var_type = None
+    current_scope = 'local'
 
 
 def p_main_func(p):
@@ -109,9 +109,9 @@ def p_var_body_rec(p):
 def p_var_opts(p):
     '''var_opts : base_type
                 | ARRAY FROM base_type FROM id_or_number'''
-    global currentVarType
+    global current_var_type
     if len(p) > 2:
-        currentVarType = "{} {} {}".format(p[1], p[2], currentVarType)
+        current_var_type = "{} {} {}".format(p[1], p[2], current_var_type)
 
 
 def p_var_id(p):
@@ -165,22 +165,22 @@ def p_iteration_opts(p):
 # Function
 def p_function(p):
     'function : function_declaration "(" function_params ")" "{" function_variables_opt function_stm function_return "}"'
-    global currentVarType
-    currentVarType = None
-    localVariablesDict.clear()
+    global current_var_type
+    current_var_type = None
+    local_variables_dict.clear()
 
 
 def p_function_declaration(p):
     'function_declaration : function_type FUNCTION ID'
-    if p[3] in functionDict:
+    if p[3] in function_dict:
         print_error("{}: Funcion anteriormente declarada".format(
             p[3]), p.lineno(3))
     else:
-        if currentVarType == None:
-            functionDict[p[3]] = {'name': p[3], 'return': 9}
+        if current_var_type == None:
+            function_dict[p[3]] = {'name': p[3], 'return': 9}
         else:
-            varType = types[currentVarType]
-            functionDict[p[3]] = {
+            varType = types[current_var_type]
+            function_dict[p[3]] = {
                 'name': p[3], 'return': varType}
 
 
@@ -342,16 +342,16 @@ def p_term_body_types(p):
 def p_type(p):
     '''type : base_type
             | ARRAY FROM base_type'''
-    global currentVarType
+    global current_var_type
     if len(p) > 2:
-        currentVarType = "{} {} {}".format(p[1], p[2], currentVarType)
+        current_var_type = "{} {} {}".format(p[1], p[2], current_var_type)
 
 
 def p_id_or_number(p):
     '''id_or_number : ID
                     | CONST_I'''
-    global currentIdOrNumber
-    currentIdOrNumber = p[1]
+    global current_id_or_number
+    current_id_or_number = p[1]
 
 
 def p_base_type(p):
@@ -359,8 +359,8 @@ def p_base_type(p):
                  | FLOAT
                  | STRING
                  | BOOLEAN'''
-    global currentVarType
-    currentVarType = p[1]
+    global current_var_type
+    current_var_type = p[1]
 
 
 def p_binary_operators(p):

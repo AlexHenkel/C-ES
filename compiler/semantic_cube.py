@@ -54,8 +54,8 @@ semantic_cube = {
 }
 
 
-def get_semantic_result(type1, type2, operation):
-    type1_short = short_types[type1]
-    type2_short = short_types[type2]
+def get_semantic_result(type_1, type_2, operation):
+    type_1_short = short_types[type_1]
+    type_2_short = short_types[type_2]
     op_group = operation_groups[operation]
-    return semantic_cube["{}{}{}".format(type1_short, type2_short, op_group)]
+    return semantic_cube["{}{}{}".format(type_1_short, type_2_short, op_group)]
