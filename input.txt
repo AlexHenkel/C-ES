@@ -12,14 +12,14 @@ funcion x(numero x2) {
     numero1 = 5
     numero2 = 10
 
-    si sucede(numero1 == 5 y numero2 == 10) realiza {
+    si sucede(numero1 == 5 o numero2 == 10) realiza {
         resultado = numero1 + numero2
     }
 
     si sucede(numero1 == 5 y numero2 == 10) realiza {
         resultado = numero1 - numero2
     } o si sucede (numero1 == 0 y numero2 == 0) realiza {
-        resultado = numero1 * numero2
+        resultado = numero1 * - numero2
     }
 
     numero1 = 10

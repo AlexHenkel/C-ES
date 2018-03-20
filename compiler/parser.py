@@ -10,6 +10,11 @@ global_variables_dict = {}
 local_variables_dict = {}
 function_dict = {}
 
+# Define operations helpers
+variables_stack = []
+operators_stack = []
+types_stack = []
+
 ##############################
 # CUSTOM FUNCTIONS
 ##############################
@@ -276,7 +281,7 @@ def p_expression(p):
 
 def p_expression_opt(p):
     '''expression_opt : empty
-                       | binary_operators exp_comp'''
+                      | logic_operators expression'''
 
 
 def p_exp_comp(p):
@@ -285,7 +290,7 @@ def p_exp_comp(p):
 
 def p_exp_comp_opt(p):
     '''exp_comp_opt : empty
-                    | comp_operators exp_add'''
+                    | comp_operators exp_comp'''
 
 
 def p_exp_add(p):
@@ -294,7 +299,7 @@ def p_exp_add(p):
 
 def p_exp_add_opt(p):
     '''exp_add_opt : empty
-                   | add_operators exp_multiply'''
+                   | add_operators exp_add'''
 
 
 def p_exp_multiply(p):
@@ -303,7 +308,7 @@ def p_exp_multiply(p):
 
 def p_exp_multiply_opt(p):
     '''exp_multiply_opt : empty
-                        | multiply_operators term'''
+                        | multiply_operators exp_multiply'''
 
 
 # Term
@@ -322,19 +327,24 @@ def p_term_body(p):
 
 def p_term_body_opt(p):
     '''term_body_opt : empty
-                     | add_operators'''
+                     | "+"
+                     | "-"'''
+    if p[1] != None:
+        operators_stack.append("{}u".format(p[1]))
 
 
 def p_term_body_types(p):
     '''term_body_types : ID
-                     | CONST_I
-                     | CONST_F
-                     | CONST_S
-                     | TRUE
-                     | FALSE
-                     | random
-                     | list_access
-                     | function_call'''
+                       | CONST_I
+                       | CONST_F
+                       | CONST_S
+                       | TRUE
+                       | FALSE
+                       | random
+                       | list_access
+                       | function_call'''
+    if p[1] != None:
+        variables_stack.append(p[1])
 
 # General rules
 
@@ -363,9 +373,10 @@ def p_base_type(p):
     current_var_type = p[1]
 
 
-def p_binary_operators(p):
-    '''binary_operators : AND
+def p_logic_operators(p):
+    '''logic_operators : AND
                         | OR'''
+    operators_stack.append(p[1])
 
 
 def p_comp_operators(p):
@@ -376,16 +387,19 @@ def p_comp_operators(p):
                       | GTE
                       | LTE
                       '''
+    operators_stack.append(p[1])
 
 
 def p_multiply_operators(p):
     '''multiply_operators : "*"
                           | "/"'''
+    operators_stack.append(p[1])
 
 
 def p_add_operators(p):
     '''add_operators : "+"
                      | "-"'''
+    operators_stack.append(p[1])
 
 # Error rule for syntax errors
 

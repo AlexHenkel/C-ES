@@ -9,12 +9,17 @@ short_types = {
 
 # Group codes for operations used in semantic cube
 operation_groups = {
-    '+': 'SUM', '-': 'ARI', '*': 'ARI', '/': 'ARI', '=': 'ASS', '<': 'NCO', '>': 'NCO',
-    '<=': 'NCO', '>=': 'NCO', '==': 'COM', '!=': 'COM', 'AND': 'LCO', 'OR': 'LCO',
+    '': '', '+': 'SUM', '-': 'ARI', '+u': 'UAR', '-u': 'UAR', '*': 'ARI', '/': 'ARI',
+    '=': 'ASS', '<': 'NCO', '>': 'NCO', '<=': 'NCO', '>=': 'NCO', '==': 'COM', '!=': 'COM',
+    'y': 'LCO', 'o': 'LCO',
 }
 
 # Semantic cube to validate operations
 semantic_cube = {
+    # Unary ARitmetic operations results -> + -
+    'UARnum': types['numero'],
+    'UARdec': types['decimal'],
+
     # SUM operations results -> +
     'numSUMnum': types['numero'],
     'numSUMdec': types['decimal'],
