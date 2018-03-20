@@ -1,4 +1,6 @@
-**/parsetab.py
-**/parsetab.pyc
-**/lex.pyc
-**/parser.out
+.DS_Store
+
+compiler/**/*.pyc
+compiler/**/.out
+compiler/parsetab.py
+compiler/parsetab.pyc
