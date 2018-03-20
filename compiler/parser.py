@@ -1,6 +1,8 @@
 import ply.yacc as yacc
 from lex import tokens
+from random import randint
 from semantic_cube import types, get_semantic_result
+from errors import *
 
 # Define global helpers
 current_scope = 'global'
@@ -20,15 +22,11 @@ types_stack = []
 ##############################
 
 
-def print_error(message, line):
-    print("ERROR! {} en la linea {}".format(message, line))
-
-
 def add_variable(p, id_position):
     if current_scope == 'global':
         if p[id_position] in global_variables_dict:
-            print_error("{}: Variable global anteriormente declarada".format(
-                p[id_position]), p.lineno(id_position))
+            raise VariableGlobalDuplicada(
+                p[id_position], p.lineno(id_position))
         else:
             varType = types[current_var_type]
             if varType < 5:
@@ -39,8 +37,9 @@ def add_variable(p, id_position):
                     'name': p[id_position], 'type': varType, 'length': current_id_or_number}
     else:
         if p[id_position] in local_variables_dict:
-            print_error("{}: Variable global anteriormente declarada".format(
-                p[id_position]), p.lineno(id_position))
+            raise VariableLocalDuplicada(
+                p[id_position], p.lineno(id_position))
+            pass
         else:
             varType = types[current_var_type]
             if varType < 5:
@@ -49,6 +48,47 @@ def add_variable(p, id_position):
             else:
                 local_variables_dict[p[id_position]] = {
                     'name': p[id_position], 'type': varType, 'length': current_id_or_number}
+
+
+def get_variable(p, id_position):
+    if current_scope == 'global':
+        if not p[id_position] in global_variables_dict:
+            raise VariableGlobalNoDeclarada(
+                p[id_position], p.lineno(id_position))
+            pass
+        else:
+            return global_variables_dict[p[id_position]]
+    else:
+        if p[id_position] in local_variables_dict:
+            return local_variables_dict[p[id_position]]
+        elif p[id_position] in global_variables_dict:
+            return global_variables_dict[p[id_position]]
+        else:
+            raise VariableLocallNoDeclarada(
+                p[id_position], p.lineno(id_position))
+            pass
+
+
+def add_function(p, id_position):
+    if p[id_position] in function_dict:
+        raise FuncionDuplicada(p[id_position], p.lineno(id_position))
+    else:
+        if current_var_type == None:
+            function_dict[p[id_position]] = {'name': p[id_position], 'type': 9}
+        else:
+            varType = types[current_var_type]
+            function_dict[p[id_position]] = {
+                'name': p[id_position], 'type': varType}
+
+
+def get_function(p, id_position):
+    if not p[id_position] in function_dict:
+        raise FuncionNoDeclarada(
+            p[id_position], p.lineno(id_position))
+        pass
+    else:
+        return function_dict[p[id_position]]
+
 
 ##############################
 # GRAMMAR
@@ -177,16 +217,7 @@ def p_function(p):
 
 def p_function_declaration(p):
     'function_declaration : function_type FUNCTION ID'
-    if p[3] in function_dict:
-        print_error("{}: Funcion anteriormente declarada".format(
-            p[3]), p.lineno(3))
-    else:
-        if current_var_type == None:
-            function_dict[p[3]] = {'name': p[3], 'return': 9}
-        else:
-            varType = types[current_var_type]
-            function_dict[p[3]] = {
-                'name': p[3], 'return': varType}
+    add_function(p, 3)
 
 
 def p_function_variables_opt(p):
@@ -254,6 +285,10 @@ def p_expr_params_rec(p):
 # Local function call
 def p_local_function(p):
     'local_function : ID "(" expr_params ")"'
+    curr_func = get_function(p, 1)
+    # TODO: Add result of function to variables stack
+    variables_stack.append(1)
+    types_stack.append(curr_func['type'])
 
 
 # List functions
@@ -263,15 +298,28 @@ def p_list_push(p):
 
 def p_list_pop(p):
     'list_pop : POP LAST FROM ID "(" ")"'
+    var_details = get_variable(p, 4)
+    # TODO: Pop value from array and add value to stack
+    variables_stack.append(1)
+    types_stack.append(var_details['type'])
 
 
 def p_list_access(p):
     'list_access : ID "[" id_or_number "]"'
+    var_details = get_variable(p, 1)
+    # arr_len = var_details['length']
+    # TODO: Check array length to match requested index
+    # TODO: Get correct value from array
+    variables_stack.append(1)
+    types_stack.append(var_details['type'])
 
 
 # Random number
 def p_random(p):
     'random : RANDOM "(" FROM CONST_I "," TO CONST_I ")"'
+    rand = randint(p[4], p[7])
+    variables_stack.append(rand)
+    types_stack.append(types['numero'])
 
 
 # Expression
@@ -335,16 +383,44 @@ def p_term_body_opt(p):
 
 def p_term_body_types(p):
     '''term_body_types : ID
-                       | CONST_I
-                       | CONST_F
-                       | CONST_S
-                       | TRUE
-                       | FALSE
-                       | random
-                       | list_access
-                       | function_call'''
+                       | term_body_types_rest'''
+    if p[1] != None:
+        curr_var = get_variable(p, 1)
+        variables_stack.append(p[1])
+        types_stack.append(curr_var['type'])
+
+
+def p_term_body_types_rest(p):
+    '''term_body_types_rest : CONST_I term_int_add_stk
+                            | CONST_F term_float_add_stk
+                            | CONST_S term_string_add_stk
+                            | TRUE term_bool_add_stk
+                            | FALSE term_bool_add_stk
+                            | random
+                            | list_access
+                            | function_call'''
     if p[1] != None:
         variables_stack.append(p[1])
+
+
+def p_term_int_add_stk(p):
+    'term_int_add_stk : empty'
+    types_stack.append(types['numero'])
+
+
+def p_term_float_add_stk(p):
+    'term_float_add_stk : empty'
+    types_stack.append(types['decimal'])
+
+
+def p_term_string_add_stk(p):
+    'term_string_add_stk : empty'
+    types_stack.append(types['texto'])
+
+
+def p_term_bool_add_stk(p):
+    'term_bool_add_stk : empty'
+    types_stack.append(types['binario'])
 
 # General rules
 
@@ -405,7 +481,7 @@ def p_add_operators(p):
 
 
 def p_error(p):
-    print("Syntax error in input!")
+    raise ErrorSintaxis(p.lineno(0))
 
 
 # Empty rule
