@@ -1,6 +1,5 @@
 .DS_Store
 
 compiler/**/*.pyc
-compiler/**/.out
+compiler/**/*.out
 compiler/parsetab.py
-compiler/parsetab.pyc

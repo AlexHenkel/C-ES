@@ -7,6 +7,11 @@ funcion x(numero x2) {
     variables: numero x1; decimal y1; lista de texto de 10 n1;
 }
 
+numero funcion suma(numero numero1, numero numero2) {
+    devolver 5
+}
+
+
 {
     // Comentario uno totalmente descartado
     leer(x1)
