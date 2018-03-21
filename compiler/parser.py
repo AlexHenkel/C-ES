@@ -90,6 +90,24 @@ def get_function(p, id_position):
         return function_dict[p[id_position]]
 
 
+def verify_semantics(is_unary=False):
+    operation = operators_stack.pop()
+    var_2 = variables_stack.pop()
+    type_2 = types_stack.pop()
+    if is_unary:
+        var_1 = ''
+        type_1 = 0
+    else:
+        var_1 = variables_stack.pop()
+        type_1 = types_stack.pop()
+    result_type = get_semantic_result(type_1, type_2, operation)
+    # TODO: Generate quadrple
+    print((operation, var_1, var_2))
+    # TODO: Get result of operation
+    if result_type > 0:
+        variables_stack.append(1)
+        types_stack.append(result_type)
+
 ##############################
 # GRAMMAR
 ##############################
@@ -171,7 +189,20 @@ def p_var_id_rec(p):
 
 # Assignation
 def p_assignation(p):
-    'assignation : ID "=" expression'
+    'assignation : add_assignation_var "=" add_assignation_sign expression'
+    verify_semantics()
+
+
+def p_add_assignation_var(p):
+    'add_assignation_var : ID'
+    curr_var = get_variable(p, 1)
+    variables_stack.append(p[1])
+    types_stack.append(curr_var['type'])
+
+
+def p_add_assignation_sign(p):
+    'add_assignation_sign : empty'
+    operators_stack.append('=')
 
 
 # Condition
@@ -263,12 +294,31 @@ def p_function_call(p):
 
 # Read
 def p_read(p):
-    'read : READ "(" base_type ID ")"'
+    'read : READ add_read_op "(" add_read_var ")"'
+    verify_semantics(True)
+
+
+def p_add_read_var(p):
+    'add_read_var : ID'
+    curr_var = get_variable(p, 1)
+    variables_stack.append(p[1])
+    types_stack.append(curr_var['type'])
+
+
+def p_add_read_op(p):
+    'add_read_op : empty'
+    operators_stack.append('leer')
 
 
 # Print
 def p_print(p):
-    'print : PRINT "(" expr_params ")"'
+    'print : PRINT add_print_op "(" expr_params ")"'
+    verify_semantics(True)
+
+
+def p_add_print_op(p):
+    'add_print_op : empty'
+    operators_stack.append('imprimir')
 
 
 # Parameters
@@ -293,15 +343,37 @@ def p_local_function(p):
 
 # List functions
 def p_list_push(p):
-    'list_push : PUSH TO ID "(" expression ")"'
+    'list_push : PUSH TO add_list_push_sign add_list_push_var "(" expression ")"'
+    verify_semantics()
+
+
+def p_add_list_push_sign(p):
+    'add_list_push_sign : empty'
+    operators_stack.append('agregar')
+
+
+def p_add_list_push_var(p):
+    'add_list_push_var : ID'
+    curr_var = get_variable(p, 1)
+    variables_stack.append(p[1])
+    types_stack.append(curr_var['type'])
 
 
 def p_list_pop(p):
-    'list_pop : POP LAST FROM ID "(" ")"'
-    var_details = get_variable(p, 4)
-    # TODO: Pop value from array and add value to stack
-    variables_stack.append(1)
-    types_stack.append(var_details['type'])
+    'list_pop : POP LAST add_list_pop_sign FROM add_list_pop_var "(" ")"'
+    verify_semantics(True)
+
+
+def p_add_list_pop_var(p):
+    'add_list_pop_var : ID'
+    curr_var = get_variable(p, 1)
+    variables_stack.append(p[1])
+    types_stack.append(curr_var['type'])
+
+
+def p_add_list_pop_sign(p):
+    'add_list_pop_sign : empty'
+    operators_stack.append('sacar')
 
 
 def p_list_access(p):
@@ -325,6 +397,8 @@ def p_random(p):
 # Expression
 def p_expression(p):
     'expression : exp_comp expression_opt'
+    if len(operators_stack) and operators_stack[-1] in ['y', 'o']:
+        verify_semantics()
 
 
 def p_expression_opt(p):
@@ -334,6 +408,8 @@ def p_expression_opt(p):
 
 def p_exp_comp(p):
     'exp_comp : exp_add exp_comp_opt'
+    if len(operators_stack) and operators_stack[-1] in ['<', '>', '==', '!=', '<=', '>=']:
+        verify_semantics()
 
 
 def p_exp_comp_opt(p):
@@ -343,6 +419,8 @@ def p_exp_comp_opt(p):
 
 def p_exp_add(p):
     'exp_add : exp_multiply exp_add_opt'
+    if len(operators_stack) and operators_stack[-1] in ['+', '-']:
+        verify_semantics()
 
 
 def p_exp_add_opt(p):
@@ -352,6 +430,8 @@ def p_exp_add_opt(p):
 
 def p_exp_multiply(p):
     'exp_multiply : term exp_multiply_opt'
+    if len(operators_stack) and operators_stack[-1] in ['*', '/']:
+        verify_semantics()
 
 
 def p_exp_multiply_opt(p):
@@ -370,15 +450,19 @@ def p_term_nested(p):
 
 
 def p_term_body(p):
-    'term_body : term_body_opt term_body_types'
+    '''term_body : term_body_opt
+                 | term_body_types'''
 
 
 def p_term_body_opt(p):
-    '''term_body_opt : empty
-                     | "+"
-                     | "-"'''
-    if p[1] != None:
-        operators_stack.append("{}u".format(p[1]))
+    'term_body_opt : term_body_opt_signs term_body_types'
+    verify_semantics(True)
+
+
+def p_term_body_opt_signs(p):
+    '''term_body_opt_signs : "+"
+                           | "-"'''
+    operators_stack.append("{}u".format(p[1]))
 
 
 def p_term_body_types(p):

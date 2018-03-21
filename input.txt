@@ -9,6 +9,10 @@ funcion x(numero x2) {
 
 {
     // Comentario uno totalmente descartado
+    leer(x1)
+    imprimir(-1 * 1 + 10.12)
+    x1 = numero1 + numero2
+
     numero1 = 5
     numero2 = 10
 

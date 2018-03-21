@@ -1,17 +1,17 @@
+from errors import TiposErroneos
+
 # Numeric codes for each type of the language
-types = {'numero': 1, 'decimal': 2, 'texto': 3, 'binario': 4, 'lista de numero': 5,
-         'lista de decimal': 6, 'lista de texto': 7, 'lista de binario': 8, 'void': 9}
+types = {'void': 0, 'numero': 1, 'decimal': 2, 'texto': 3, 'binario': 4, 'lista de numero': 5,
+         'lista de decimal': 6, 'lista de texto': 7, 'lista de binario': 8}
 
 # Short names used in semantic cube
-short_types = {
-    'numero': 'num', 'decimal': 'dec', 'texto': 'tex', 'binario': 'bin'
-}
+short_types = ['', 'num', 'dec', 'tex', 'bin', 'num', 'dec', 'tex', 'bin']
 
 # Group codes for operations used in semantic cube
 operation_groups = {
     '': '', '+': 'SUM', '-': 'ARI', '+u': 'UAR', '-u': 'UAR', '*': 'ARI', '/': 'ARI',
     '=': 'ASS', '<': 'NCO', '>': 'NCO', '<=': 'NCO', '>=': 'NCO', '==': 'COM', '!=': 'COM',
-    'y': 'LCO', 'o': 'LCO',
+    'y': 'LCO', 'o': 'LCO', 'leer': 'UVO', 'imprimir': 'UVO', 'sacar': 'UVO', 'agregar': 'LIS',
 }
 
 # Semantic cube to validate operations
@@ -34,10 +34,10 @@ semantic_cube = {
     'decARIdec': types['decimal'],
 
     # ASSignation operations results -> =
-    'numASSnum': types['numero'],
-    'decASSdec': types['decimal'],
-    'texASStex': types['texto'],
-    'binASSbin': types['binario'],
+    'numASSnum': types['void'],
+    'decASSdec': types['void'],
+    'texASStex': types['void'],
+    'binASSbin': types['void'],
 
     # Numeric COmparison operations results -> < > <= >=
     'numNCOnum': types['binario'],
@@ -56,6 +56,18 @@ semantic_cube = {
 
     # Logical COmparison operations results -> AND OR
     'binLCObin': types['binario'],
+
+    # Unary VOid operations results -> leer, imprimir, pop
+    'UVOnum': types['void'],
+    'UVOdec': types['void'],
+    'UVOtex': types['void'],
+    'UVObin': types['void'],
+
+    # LISt operations results -> push
+    'numLISnum': types['void'],
+    'decLISdec': types['void'],
+    'texLIStex': types['void'],
+    'binLISbin': types['void'],
 }
 
 
@@ -63,4 +75,8 @@ def get_semantic_result(type_1, type_2, operation):
     type_1_short = short_types[type_1]
     type_2_short = short_types[type_2]
     op_group = operation_groups[operation]
-    return semantic_cube["{}{}{}".format(type_1_short, type_2_short, op_group)]
+    result_key = "{}{}{}".format(type_1_short, op_group, type_2_short)
+    if not result_key in semantic_cube:
+        raise TiposErroneos(operation)
+    else:
+        return semantic_cube[result_key]

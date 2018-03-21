@@ -1,6 +1,4 @@
 class ErrorSintaxis(Exception):
-    """Base class for exceptions in this module."""
-
     def __init__(self, line):
         self.line = line
 
@@ -8,9 +6,15 @@ class ErrorSintaxis(Exception):
         return "En la linea {}".format(self.line)
 
 
-class VarError(Exception):
-    """Base class for exceptions in this module."""
+class TiposErroneos(Exception):
+    def __init__(self, operation):
+        self.operation = operation
 
+    def __str__(self):
+        return "Para la operacion {}".format(self.operation)
+
+
+class VarError(Exception):
     def __init__(self, variable, line):
         self.variable = variable
         self.line = line
