@@ -1,3 +1,5 @@
+import glob
+from optparse import OptionParser
 import ply.yacc as yacc
 from lex import tokens
 from random import randint
@@ -577,11 +579,44 @@ def p_empty(p):
 # Build the parser
 parser = yacc.yacc()
 
-# Open and read input
-f = open("input.txt", "r")
-s = f.read()
-# Parse text if found
-if s:
-    result = parser.parse(s)
-# Program finished
-print("Program finished")
+# Setup command line parser
+cmd_parser = OptionParser()
+cmd_parser.add_option("-t", "--tests", action="store_true", 
+                dest="tests", default=False, help="execute tests")
+
+(options, args) = cmd_parser.parse_args()
+
+if options.tests:
+    test_files = glob.glob("./tests/test*.txt")
+    print('\n********** EXECUTING TESTS **********\n')
+    test_files.sort()
+
+    for file_name in test_files:
+        f = open(file_name, "r")
+        name = file_name[8:-4]
+        description = f.readline()
+        print('***** ' + name + ': ' + description[3:-1] + '  *****')
+        
+        s = f.read()
+
+        if s:
+            try:
+                result = parser.parse(s)
+            except Exception as error:
+                print('Error: ' + str(error))
+        
+        # Program finished
+        print("***** " + name + " finished *****\n")
+    
+    print('********** TESTS FINISHED **********\n')
+else:
+    # Open and read input
+    f = open("input.txt", "r")
+    s = f.read()
+
+    # Parse text if found
+    if s:
+        result = parser.parse(s)
+    
+    # Program finished
+    print("Program finished")

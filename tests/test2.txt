@@ -1,0 +1,8 @@
+// Test variables without definitions
+programa
+
+variables:
+
+{
+
+}
