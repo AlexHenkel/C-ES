@@ -1,7 +1,15 @@
 // Comentario inicial
 programa 
 
-variables: numero x1, numero1, numero2, numero3, resultado; decimal y1; lista de numero de 10 lista1;
+variables:
+numero numero1, numero2, numero3, resultado, x1; 
+decimal decimal1, decimal2;
+texto string1, string2;
+binario binario1, binario2;
+lista de numero de 10 miListaDeNumeros;
+lista de decimal de 10 miListaDeDecimales;
+lista de texto de 10 miListaDeStrings;
+lista de binario de 10 miListaDeBinarios;
 
 funcion x(numero x2) {
     variables: numero x1; decimal y1; lista de texto de 10 n1;
@@ -51,9 +59,9 @@ numero funcion suma(numero numero1, numero numero2) {
 
     imprimir(resultado)
 
-    agregar a lista1(5)
+    agregar a miListaDeNumeros(5)
 
-    quitar ultimo de lista1()
+    quitar ultimo de miListaDeNumeros()
 
-    imprimir(lista1[0])
+    imprimir(miListaDeNumeros[0])
 }
