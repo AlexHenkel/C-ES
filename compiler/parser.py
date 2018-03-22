@@ -30,26 +30,26 @@ def add_variable(p, id_position):
             raise VariableGlobalDuplicada(
                 p[id_position], p.lineno(id_position))
         else:
-            varType = types[current_var_type]
-            if varType < 5:
+            var_type = types[current_var_type]
+            if var_type < 5:
                 global_variables_dict[p[id_position]] = {
-                    'name': p[id_position], 'type': varType}
+                    'name': p[id_position], 'type': var_type}
             else:
                 global_variables_dict[p[id_position]] = {
-                    'name': p[id_position], 'type': varType, 'length': current_id_or_number}
+                    'name': p[id_position], 'type': var_type, 'length': current_id_or_number}
     else:
         if p[id_position] in local_variables_dict:
             raise VariableLocalDuplicada(
                 p[id_position], p.lineno(id_position))
             pass
         else:
-            varType = types[current_var_type]
-            if varType < 5:
+            var_type = types[current_var_type]
+            if var_type < 5:
                 local_variables_dict[p[id_position]] = {
-                    'name': p[id_position], 'type': varType}
+                    'name': p[id_position], 'type': var_type}
             else:
                 local_variables_dict[p[id_position]] = {
-                    'name': p[id_position], 'type': varType, 'length': current_id_or_number}
+                    'name': p[id_position], 'type': var_type, 'length': current_id_or_number}
 
 
 def get_variable(p, id_position):
@@ -78,9 +78,9 @@ def add_function(p, id_position):
         if current_var_type == None:
             function_dict[p[id_position]] = {'name': p[id_position], 'type': 9}
         else:
-            varType = types[current_var_type]
+            var_type = types[current_var_type]
             function_dict[p[id_position]] = {
-                'name': p[id_position], 'type': varType}
+                'name': p[id_position], 'type': var_type}
 
 
 def get_function(p, id_position):
