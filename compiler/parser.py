@@ -4,6 +4,7 @@ import ply.yacc as yacc
 from lex import tokens
 from random import randint
 from semantic_cube import types, get_semantic_result
+from memory import get_memory_address
 from errors import *
 
 # Define global helpers
@@ -13,6 +14,7 @@ current_id_or_number = None
 global_variables_dict = {}
 local_variables_dict = {}
 function_dict = {}
+constant_dict = {}
 
 # Define operations helpers
 variables_stack = []
@@ -33,10 +35,11 @@ def add_variable(p, id_position):
             var_type = types[current_var_type]
             if var_type < 5:
                 global_variables_dict[p[id_position]] = {
-                    'name': p[id_position], 'type': var_type}
+                    'name': p[id_position], 'type': var_type, 'address': get_memory_address('glob', var_type)}
             else:
                 global_variables_dict[p[id_position]] = {
-                    'name': p[id_position], 'type': var_type, 'length': current_id_or_number}
+                    'name': p[id_position], 'type': var_type, 'length': current_id_or_number,
+                    'address': get_memory_address('glob', var_type, current_id_or_number)}
     else:
         if p[id_position] in local_variables_dict:
             raise VariableLocalDuplicada(
@@ -46,10 +49,11 @@ def add_variable(p, id_position):
             var_type = types[current_var_type]
             if var_type < 5:
                 local_variables_dict[p[id_position]] = {
-                    'name': p[id_position], 'type': var_type}
+                    'name': p[id_position], 'type': var_type, 'address': get_memory_address('loc', var_type)}
             else:
                 local_variables_dict[p[id_position]] = {
-                    'name': p[id_position], 'type': var_type, 'length': current_id_or_number}
+                    'name': p[id_position], 'type': var_type, 'length': current_id_or_number,
+                    'address': get_memory_address('loc', var_type, current_id_or_number)}
 
 
 def get_variable(p, id_position):
@@ -76,11 +80,22 @@ def add_function(p, id_position):
         raise FuncionDuplicada(p[id_position], p.lineno(id_position))
     else:
         if current_var_type == None:
-            function_dict[p[id_position]] = {'name': p[id_position], 'type': 9}
+            function_dict[p[id_position]] = {
+                'name': p[id_position], 'type': types['void']}
         else:
             var_type = types[current_var_type]
             function_dict[p[id_position]] = {
                 'name': p[id_position], 'type': var_type}
+
+
+def add_const(curr_type, value):
+    global constant_dict
+    curr_type = types[curr_type]
+    curr_address = get_memory_address('const', curr_type)
+    constant_dict[curr_address] = {'value': value,
+                                   'type': curr_type, 'address': curr_address}
+    variables_stack.append(curr_address)
+    types_stack.append(curr_type)
 
 
 def get_function(p, id_position):
@@ -97,18 +112,18 @@ def verify_semantics(is_unary=False):
     var_2 = variables_stack.pop()
     type_2 = types_stack.pop()
     if is_unary:
-        var_1 = ''
-        type_1 = 0
+        var_1 = -1
+        type_1 = types['void']
     else:
         var_1 = variables_stack.pop()
         type_1 = types_stack.pop()
     result_type = get_semantic_result(type_1, type_2, operation)
-    # TODO: Generate quadrple
-    print((operation, var_1, var_2))
-    # TODO: Get result of operation
-    if result_type > 0:
-        variables_stack.append(1)
+    result_address = -1
+    if result_type > types['void']:
+        result_address = get_memory_address('temp', result_type)
+        variables_stack.append(result_address)
         types_stack.append(result_type)
+    print((operation, var_1, var_2, result_address))
 
 ##############################
 # GRAMMAR
@@ -200,7 +215,7 @@ def p_assignation(p):
 def p_add_assignation_var(p):
     'add_assignation_var : ID'
     curr_var = get_variable(p, 1)
-    variables_stack.append(p[1])
+    variables_stack.append(curr_var['address'])
     types_stack.append(curr_var['type'])
 
 
@@ -305,7 +320,7 @@ def p_read(p):
 def p_add_read_var(p):
     'add_read_var : ID'
     curr_var = get_variable(p, 1)
-    variables_stack.append(p[1])
+    variables_stack.append(curr_var['address'])
     types_stack.append(curr_var['type'])
 
 
@@ -340,9 +355,10 @@ def p_expr_params_rec(p):
 def p_local_function(p):
     'local_function : ID "(" expr_params ")"'
     curr_func = get_function(p, 1)
-    # TODO: Add result of function to variables stack
-    variables_stack.append(1)
-    types_stack.append(curr_func['type'])
+    func_type = curr_func['type']
+    if (curr_func['type'] > types['void']):
+        variables_stack.append(get_memory_address('temp', func_type))
+        types_stack.append(curr_func['type'])
 
 
 # List functions
@@ -359,7 +375,7 @@ def p_add_list_push_sign(p):
 def p_add_list_push_var(p):
     'add_list_push_var : ID'
     curr_var = get_variable(p, 1)
-    variables_stack.append(p[1])
+    variables_stack.append(curr_var['address'])
     types_stack.append(curr_var['type'])
 
 
@@ -371,7 +387,7 @@ def p_list_pop(p):
 def p_add_list_pop_var(p):
     'add_list_pop_var : ID'
     curr_var = get_variable(p, 1)
-    variables_stack.append(p[1])
+    variables_stack.append(curr_var['address'])
     types_stack.append(curr_var['type'])
 
 
@@ -383,19 +399,20 @@ def p_add_list_pop_sign(p):
 def p_list_access(p):
     'list_access : ID "[" id_or_number "]"'
     var_details = get_variable(p, 1)
+    arr_type = var_details['type']
     # arr_len = var_details['length']
     # TODO: Check array length to match requested index
-    # TODO: Get correct value from array
-    variables_stack.append(1)
-    types_stack.append(var_details['type'])
+    variables_stack.append(get_memory_address('temp', arr_type))
+    types_stack.append(arr_type)
 
 
 # Random number
 def p_random(p):
     'random : RANDOM "(" FROM CONST_I "," TO CONST_I ")"'
-    rand = randint(p[4], p[7])
-    variables_stack.append(rand)
-    types_stack.append(types['numero'])
+    # TODO: Add random as an operation
+    int_type = types['numero']
+    variables_stack.append(get_memory_address('temp', int_type))
+    types_stack.append(int_type)
 
 
 # Expression
@@ -474,41 +491,39 @@ def p_term_body_types(p):
                        | term_body_types_rest'''
     if p[1] != None:
         curr_var = get_variable(p, 1)
-        variables_stack.append(p[1])
+        variables_stack.append(curr_var['address'])
         types_stack.append(curr_var['type'])
 
 
 def p_term_body_types_rest(p):
-    '''term_body_types_rest : CONST_I term_int_add_stk
-                            | CONST_F term_float_add_stk
-                            | CONST_S term_string_add_stk
-                            | TRUE term_bool_add_stk
-                            | FALSE term_bool_add_stk
+    '''term_body_types_rest : add_int_const
+                            | add_float_const
+                            | add_string_const
+                            | add_bool_const
                             | random
                             | list_access
                             | function_call'''
-    if p[1] != None:
-        variables_stack.append(p[1])
 
 
-def p_term_int_add_stk(p):
-    'term_int_add_stk : empty'
-    types_stack.append(types['numero'])
+def p_add_int_const(p):
+    'add_int_const : CONST_I'
+    add_const('numero', p[1])
 
 
-def p_term_float_add_stk(p):
-    'term_float_add_stk : empty'
-    types_stack.append(types['decimal'])
+def p_add_float_const(p):
+    'add_float_const : CONST_F'
+    add_const('decimal', p[1])
 
 
-def p_term_string_add_stk(p):
-    'term_string_add_stk : empty'
-    types_stack.append(types['texto'])
+def p_add_string_const(p):
+    'add_string_const : CONST_S'
+    add_const('texto', p[1])
 
 
-def p_term_bool_add_stk(p):
-    'term_bool_add_stk : empty'
-    types_stack.append(types['binario'])
+def p_add_bool_const(p):
+    '''add_bool_const : TRUE
+                      | FALSE'''
+    add_const('binario', p[1])
 
 # General rules
 
