@@ -249,11 +249,11 @@ def p_condition(p):
 
 
 def p_cond_if(p):
-    'cond_if : IF HAPPENS "(" expression ")" cond_if_verify_bool DO block'
+    'cond_if : IF HAPPENS "(" expression ")" verify_save_cond DO block'
 
 
-def p_cond_if_verify_bool(p):
-    'cond_if_verify_bool : empty'
+def p_verify_save_cond(p):
+    'verify_save_cond : empty'
     curr_type = types_stack.pop()
     cond_result = variables_stack.pop()
     if curr_type != types['binario']:
@@ -269,11 +269,11 @@ def p_cond_else_if_opt(p):
 
 
 def p_cond_else_if(p):
-    'cond_else_if : OR IF HAPPENS cond_else_if_save_ret "(" expression ")" cond_else_if_verify_bool DO block'
+    'cond_else_if : OR IF HAPPENS save_pointer "(" expression ")" cond_else_if_verify_bool DO block'
 
 
-def p_cond_else_if_save_ret(p):
-    'cond_else_if_save_ret : empty'
+def p_save_pointer(p):
+    'save_pointer : empty'
     jumps_stack.append(quad_count)
 
 
@@ -306,7 +306,11 @@ def p_cond_else_fill_goto(p):
 
 # Iteration
 def p_iteration(p):
-    'iteration : WHILE HAPPENS "(" expression ")" DO block'
+    'iteration : WHILE HAPPENS save_pointer "(" expression ")" verify_save_cond DO block'
+    end_cond = jumps_stack.pop()
+    start_cond = jumps_stack.pop()
+    save_quad('GOTO', -1, -1, start_cond)
+    fill_quad_result(end_cond, quad_count)
 
 
 # Function
