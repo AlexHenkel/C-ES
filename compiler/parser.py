@@ -11,15 +11,21 @@ from errors import *
 current_scope = 'global'
 current_var_type = None
 current_arr_length = None
+quad_count = 0
+
+# Define dictionaries
 global_variables_dict = {}
 local_variables_dict = {}
 function_dict = {}
 constant_dict = {}
 
-# Define operations helpers
+
+# Define operations stacks helpers
 variables_stack = []
 operators_stack = []
 types_stack = []
+jumps_stack = []
+quads_list = []
 
 ##############################
 # CUSTOM FUNCTIONS
@@ -129,7 +135,17 @@ def verify_semantics(is_unary=False):
         result_address = get_memory_address('temp', result_type)
         variables_stack.append(result_address)
         types_stack.append(result_type)
-    print((operation, var_1, var_2, result_address))
+    save_quad(operation, var_1, var_2, result_address)
+
+
+def save_quad(op, var_1, var_2, result):
+    global quad_count
+    quads_list.append([op, var_1, var_2, result])
+    quad_count = quad_count + 1
+
+
+def fill_quad_result(index, result):
+    quads_list[index][3] = result
 
 ##############################
 # GRAMMAR
@@ -140,6 +156,8 @@ def verify_semantics(is_unary=False):
 
 def p_main(p):
     'main : PROGRAM variables_opt main_func block'
+    for idx, val in enumerate(quads_list):
+        print(idx, val)
 
 
 def p_variables_opt(p):
@@ -226,10 +244,23 @@ def p_add_assignation_sign(p):
 # Condition
 def p_condition(p):
     'condition : cond_if cond_else_if_opt cond_else_opt'
+    end = jumps_stack.pop()
+    fill_quad_result(end, quad_count)
 
 
 def p_cond_if(p):
-    'cond_if : IF HAPPENS "(" expression ")" DO block'
+    'cond_if : IF HAPPENS "(" expression ")" cond_if_verify_bool DO block'
+
+
+def p_cond_if_verify_bool(p):
+    'cond_if_verify_bool : empty'
+    curr_type = types_stack.pop()
+    cond_result = variables_stack.pop()
+    if curr_type != types['binario']:
+        raise TiposErroneos('if')
+    else:
+        save_quad('GOTOF', -1, cond_result, -1)
+        jumps_stack.append(quad_count - 1)
 
 
 def p_cond_else_if_opt(p):
@@ -238,12 +269,39 @@ def p_cond_else_if_opt(p):
 
 
 def p_cond_else_if(p):
-    'cond_else_if : OR IF HAPPENS "(" expression ")" DO block'
+    'cond_else_if : OR IF HAPPENS cond_else_if_save_ret "(" expression ")" cond_else_if_verify_bool DO block'
+
+
+def p_cond_else_if_save_ret(p):
+    'cond_else_if_save_ret : empty'
+    jumps_stack.append(quad_count)
+
+
+def p_cond_else_if_verify_bool(p):
+    'cond_else_if_verify_bool : empty'
+    curr_type = types_stack.pop()
+    cond_result = variables_stack.pop()
+    if curr_type != types['binario']:
+        raise TiposErroneos('if')
+    else:
+        start_cond = jumps_stack.pop()
+        last_if = jumps_stack.pop()
+        save_quad('GOTOF', -1, cond_result, -1)
+        jumps_stack.append(quad_count - 1)
+        fill_quad_result(last_if, start_cond)
 
 
 def p_cond_else_opt(p):
     '''cond_else_opt : empty
-                     | ELSE HAPPENS block'''
+                     | ELSE HAPPENS cond_else_fill_goto block'''
+
+
+def p_cond_else_fill_goto(p):
+    'cond_else_fill_goto : empty'
+    save_quad('GOTO', -1, -1, -1)
+    last_false = jumps_stack.pop()
+    jumps_stack.append(quad_count - 1)
+    fill_quad_result(last_false, quad_count)
 
 
 # Iteration
