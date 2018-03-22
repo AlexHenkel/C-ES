@@ -54,15 +54,11 @@ numero funcion suma(numero numero1, numero numero2) {
         resultado = numero1 + numero2
     }
 
-    repetir (1) realiza {
-        resultado = numero1 + numero2
-    }
-
     imprimir(resultado)
 
     agregar a miListaDeNumeros(5)
 
     quitar ultimo de miListaDeNumeros()
 
-    imprimir(miListaDeNumeros[0])
+    imprimir(accesar(miListaDeNumeros, 0))
 }

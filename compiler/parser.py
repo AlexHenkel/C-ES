@@ -10,7 +10,7 @@ from errors import *
 # Define global helpers
 current_scope = 'global'
 current_var_type = None
-current_id_or_number = None
+current_arr_length = None
 global_variables_dict = {}
 local_variables_dict = {}
 function_dict = {}
@@ -38,8 +38,8 @@ def add_variable(p, id_position):
                     'name': p[id_position], 'type': var_type, 'address': get_memory_address('glob', var_type)}
             else:
                 global_variables_dict[p[id_position]] = {
-                    'name': p[id_position], 'type': var_type, 'length': current_id_or_number,
-                    'address': get_memory_address('glob', var_type, current_id_or_number)}
+                    'name': p[id_position], 'type': var_type, 'length': current_arr_length,
+                    'address': get_memory_address('glob', var_type, current_arr_length)}
     else:
         if p[id_position] in local_variables_dict:
             raise VariableLocalDuplicada(
@@ -52,8 +52,8 @@ def add_variable(p, id_position):
                     'name': p[id_position], 'type': var_type, 'address': get_memory_address('loc', var_type)}
             else:
                 local_variables_dict[p[id_position]] = {
-                    'name': p[id_position], 'type': var_type, 'length': current_id_or_number,
-                    'address': get_memory_address('loc', var_type, current_id_or_number)}
+                    'name': p[id_position], 'type': var_type, 'length': current_arr_length,
+                    'address': get_memory_address('loc', var_type, current_arr_length)}
 
 
 def get_variable(p, id_position):
@@ -88,6 +88,15 @@ def add_function(p, id_position):
                 'name': p[id_position], 'type': var_type}
 
 
+def get_function(p, id_position):
+    if not p[id_position] in function_dict:
+        raise FuncionNoDeclarada(
+            p[id_position], p.lineno(id_position))
+        pass
+    else:
+        return function_dict[p[id_position]]
+
+
 def add_const(curr_type, value):
     global constant_dict
     curr_type = types[curr_type]
@@ -98,13 +107,10 @@ def add_const(curr_type, value):
     types_stack.append(curr_type)
 
 
-def get_function(p, id_position):
-    if not p[id_position] in function_dict:
-        raise FuncionNoDeclarada(
-            p[id_position], p.lineno(id_position))
-        pass
-    else:
-        return function_dict[p[id_position]]
+def add_id(p, id_position):
+    curr_var = get_variable(p, id_position)
+    variables_stack.append(curr_var['address'])
+    types_stack.append(curr_var['type'])
 
 
 def verify_semantics(is_unary=False):
@@ -190,10 +196,10 @@ def p_var_opts(p):
     '''var_opts : base_type
                 | ARRAY FROM base_type FROM CONST_I'''
     global current_var_type
-    global current_id_or_number
+    global current_arr_length
     if len(p) > 2:
         current_var_type = "{} {} {}".format(p[1], p[2], current_var_type)
-        current_id_or_number = p[5]
+        current_arr_length = p[5]
 
 
 def p_var_id(p):
@@ -208,15 +214,8 @@ def p_var_id_rec(p):
 
 # Assignation
 def p_assignation(p):
-    'assignation : add_assignation_var "=" add_assignation_sign expression'
+    'assignation : add_id "=" add_assignation_sign expression'
     verify_semantics()
-
-
-def p_add_assignation_var(p):
-    'add_assignation_var : ID'
-    curr_var = get_variable(p, 1)
-    variables_stack.append(curr_var['address'])
-    types_stack.append(curr_var['type'])
 
 
 def p_add_assignation_sign(p):
@@ -249,12 +248,7 @@ def p_cond_else_opt(p):
 
 # Iteration
 def p_iteration(p):
-    'iteration : iteration_opts ")" DO block'
-
-
-def p_iteration_opts(p):
-    '''iteration_opts : WHILE HAPPENS "(" expression
-                       | FOR "(" id_or_number'''
+    'iteration : WHILE HAPPENS "(" expression ")" DO block'
 
 
 # Function
@@ -313,15 +307,8 @@ def p_function_call(p):
 
 # Read
 def p_read(p):
-    'read : READ add_read_op "(" add_read_var ")"'
+    'read : READ add_read_op "(" add_id ")"'
     verify_semantics(True)
-
-
-def p_add_read_var(p):
-    'add_read_var : ID'
-    curr_var = get_variable(p, 1)
-    variables_stack.append(curr_var['address'])
-    types_stack.append(curr_var['type'])
 
 
 def p_add_read_op(p):
@@ -363,7 +350,7 @@ def p_local_function(p):
 
 # List functions
 def p_list_push(p):
-    'list_push : PUSH TO add_list_push_sign add_list_push_var "(" expression ")"'
+    'list_push : PUSH TO add_list_push_sign add_id "(" expression ")"'
     verify_semantics()
 
 
@@ -372,23 +359,9 @@ def p_add_list_push_sign(p):
     operators_stack.append('agregar')
 
 
-def p_add_list_push_var(p):
-    'add_list_push_var : ID'
-    curr_var = get_variable(p, 1)
-    variables_stack.append(curr_var['address'])
-    types_stack.append(curr_var['type'])
-
-
 def p_list_pop(p):
-    'list_pop : POP LAST add_list_pop_sign FROM add_list_pop_var "(" ")"'
+    'list_pop : POP LAST add_list_pop_sign FROM add_id "(" ")"'
     verify_semantics(True)
-
-
-def p_add_list_pop_var(p):
-    'add_list_pop_var : ID'
-    curr_var = get_variable(p, 1)
-    variables_stack.append(curr_var['address'])
-    types_stack.append(curr_var['type'])
 
 
 def p_add_list_pop_sign(p):
@@ -397,22 +370,24 @@ def p_add_list_pop_sign(p):
 
 
 def p_list_access(p):
-    'list_access : ID "[" id_or_number "]"'
-    var_details = get_variable(p, 1)
-    arr_type = var_details['type']
-    # arr_len = var_details['length']
-    # TODO: Check array length to match requested index
-    variables_stack.append(get_memory_address('temp', arr_type))
-    types_stack.append(arr_type)
+    'list_access : ACCESS add_list_access_sign "(" add_id "," id_or_number ")"'
+    verify_semantics()
+
+
+def p_add_list_access_sign(p):
+    'add_list_access_sign : empty'
+    operators_stack.append('accesar')
 
 
 # Random number
 def p_random(p):
-    'random : RANDOM "(" FROM CONST_I "," TO CONST_I ")"'
-    # TODO: Add random as an operation
-    int_type = types['numero']
-    variables_stack.append(get_memory_address('temp', int_type))
-    types_stack.append(int_type)
+    'random : RANDOM add_random_sign "(" FROM id_or_number "," TO id_or_number ")"'
+    verify_semantics()
+
+
+def p_add_random_sign(p):
+    'add_random_sign : empty'
+    operators_stack.append('aleatorio')
 
 
 # Expression
@@ -487,12 +462,8 @@ def p_term_body_opt_signs(p):
 
 
 def p_term_body_types(p):
-    '''term_body_types : ID
+    '''term_body_types : add_id
                        | term_body_types_rest'''
-    if p[1] != None:
-        curr_var = get_variable(p, 1)
-        variables_stack.append(curr_var['address'])
-        types_stack.append(curr_var['type'])
 
 
 def p_term_body_types_rest(p):
@@ -503,6 +474,11 @@ def p_term_body_types_rest(p):
                             | random
                             | list_access
                             | function_call'''
+
+
+def p_add_id(p):
+    'add_id : ID'
+    add_id(p, 1)
 
 
 def p_add_int_const(p):
@@ -537,10 +513,8 @@ def p_type(p):
 
 
 def p_id_or_number(p):
-    '''id_or_number : ID
-                    | CONST_I'''
-    global current_id_or_number
-    current_id_or_number = p[1]
+    '''id_or_number : add_id
+                    | add_int_const'''
 
 
 def p_base_type(p):

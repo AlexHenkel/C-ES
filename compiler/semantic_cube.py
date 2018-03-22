@@ -11,11 +11,15 @@ short_types = ['', 'num', 'dec', 'tex', 'bin', 'num', 'dec', 'tex', 'bin']
 operation_groups = {
     '': '', '+': 'SUM', '-': 'ARI', '+u': 'UAR', '-u': 'UAR', '*': 'ARI', '/': 'ARI',
     '=': 'ASS', '<': 'NCO', '>': 'NCO', '<=': 'NCO', '>=': 'NCO', '==': 'COM', '!=': 'COM',
-    'y': 'LCO', 'o': 'LCO', 'leer': 'UVO', 'imprimir': 'UVO', 'sacar': 'UVO', 'agregar': 'LIS',
+    'y': 'LCO', 'o': 'LCO', 'leer': 'UVO', 'imprimir': 'UVO', 'sacar': 'UVO', 'agregar': 'PUS',
+    'accesar': 'ACC', 'aleatorio': 'RAN'
 }
 
 # Semantic cube to validate operations
 semantic_cube = {
+    # RANdom operations results -> random
+    'numRANnum': types['numero'],
+
     # Unary ARitmetic operations results -> + -
     'UARnum': types['numero'],
     'UARdec': types['decimal'],
@@ -63,11 +67,17 @@ semantic_cube = {
     'UVOtex': types['void'],
     'UVObin': types['void'],
 
-    # LISt operations results -> push
-    'numLISnum': types['void'],
-    'decLISdec': types['void'],
-    'texLIStex': types['void'],
-    'binLISbin': types['void'],
+    # PUSh list operations results -> push
+    'numPUSnum': types['void'],
+    'decPUSdec': types['void'],
+    'texPUStex': types['void'],
+    'binPUSbin': types['void'],
+
+    # ACCess list operations results -> accesar
+    'numACCnum': types['numero'],
+    'decACCdec': types['decimal'],
+    'texACCtex': types['texto'],
+    'binACCbin': types['binario'],
 }
 
 
