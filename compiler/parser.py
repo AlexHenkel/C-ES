@@ -173,10 +173,12 @@ def p_var_body_rec(p):
 
 def p_var_opts(p):
     '''var_opts : base_type
-                | ARRAY FROM base_type FROM id_or_number'''
+                | ARRAY FROM base_type FROM CONST_I'''
     global current_var_type
+    global current_id_or_number
     if len(p) > 2:
         current_var_type = "{} {} {}".format(p[1], p[2], current_var_type)
+        current_id_or_number = p[5]
 
 
 def p_var_id(p):
@@ -581,8 +583,8 @@ parser = yacc.yacc()
 
 # Setup command line parser
 cmd_parser = OptionParser()
-cmd_parser.add_option("-t", "--tests", action="store_true", 
-                dest="tests", default=False, help="execute tests")
+cmd_parser.add_option("-t", "--tests", action="store_true",
+                      dest="tests", default=False, help="execute tests")
 
 (options, args) = cmd_parser.parse_args()
 
@@ -596,7 +598,7 @@ if options.tests:
         name = file_name[8:-4]
         description = f.readline()
         print('***** ' + name + ': ' + description[3:-1] + '  *****')
-        
+
         s = f.read()
 
         if s:
@@ -604,10 +606,10 @@ if options.tests:
                 result = parser.parse(s)
             except Exception as error:
                 print('Error: ' + str(error))
-        
+
         # Program finished
         print("***** " + name + " finished *****\n")
-    
+
     print('********** TESTS FINISHED **********\n')
 else:
     # Open and read input
@@ -617,6 +619,6 @@ else:
     # Parse text if found
     if s:
         result = parser.parse(s)
-    
+
     # Program finished
     print("Program finished")
