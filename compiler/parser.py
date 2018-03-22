@@ -155,9 +155,21 @@ def fill_quad_result(index, result):
 
 
 def p_main(p):
-    'main : PROGRAM variables_opt main_func block'
+    'main : PROGRAM variables_opt save_main_quad main_func fill_main_quad block'
     for idx, val in enumerate(quads_list):
         print(idx, val)
+
+
+def p_save_main_quad(p):
+    'save_main_quad : empty'
+    save_quad('GOTO', -1, -1, -1)
+    jumps_stack.append(quad_count - 1)
+
+
+def p_fill_main_quad(p):
+    'fill_main_quad : empty'
+    main = jumps_stack.pop()
+    fill_quad_result(main, quad_count)
 
 
 def p_variables_opt(p):
