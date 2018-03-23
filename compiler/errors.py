@@ -14,6 +14,14 @@ class TiposErroneos(Exception):
         return "Para la operacion {}".format(self.operation)
 
 
+class NumParametrosIncorrectos(Exception):
+    def __init__(self, function):
+        self.function = function
+
+    def __str__(self):
+        return "En la funcion {}".format(self.function)
+
+
 class VarError(Exception):
     def __init__(self, variable, line):
         self.variable = variable
