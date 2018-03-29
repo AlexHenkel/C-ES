@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+            crossorigin="anonymous">
+
+    <title>Blockly C-ES</title>
+    <script src="./blockly/blockly_compressed.js"></script>
+    <script src="./blockly/blocks_compressed.js"></script>
+    <script src="./blockly/msg/js/en.js"></script>
+    <script src="./blockly/custom-blocks/conditions.js"></script>
+    <script src="./blockly/javascript_compressed.js"></script>
+
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            font-size: 16px;
+            overflow: scroll;
+            background-color: rgb(18, 161, 197);
+            font-family: sans-serif;
+        }
+        
+        .main {
+            padding: 2rem!important;
+        }
+
+        h1 {
+            font-weight: 200;
+            font-size: 3em;
+            color: #fff;
+            margin-bottom: 3rem;
+        }
+
+        h1 strong {
+            font-weight: 800;
+        }
+
+        .blockly {
+            margin-bottom: 3rem;
+        }
+
+        #blocklyDiv {
+            float: right;
+            height: 60vh;
+        }
+
+        .code-wrapper {
+            background-color: #fff;
+        }
+
+        .code-wrapper p:first-child {
+            color: rgb(18, 161, 197);
+            font-weight: bold;
+            padding: 0.5rem 0;
+        }
+
+        .made-by {
+            color: #eee;
+        }
+
+        @media (max-width: 768px) { 
+            body {
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 576px) { 
+            body {
+                font-size: 12px;
+            }
+
+            #blocklyDiv {
+                height: 30vh;
+                margin-bottom: 3rem;
+            }
+
+            .code-wrapper {
+                height: 30vh;
+                margin: 0 15px;
+            }
+
+            .btn {
+                margin-bottom: 3rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container main">
+        <div class="row">
+            <div class="col">
+                <h1 class="text-center">¡Aprende a programar con <strong>Blockly C-ES</strong>!</h1>
+            </div>
+        </div>
+
+        <div class="row blockly">
+            <div id="blocklyDiv" class="col-xs-12 col-sm-8"></div>          
+            
+            <div class="col-xs-12 col-sm-3 offset-sm-1 code-wrapper">
+                <p>Código C-ES generado:</p>
+                <p id="textarea"></p>
+            </div>
+        </div>
+
+        <div class="row flex-column-reverse flex-sm-row">
+            <div class="col-sm-8 text-center made-by">
+                <p>⚒ por:
+                    <br>Alejandro Henkel A01270874
+                    <br>Fernando López Martínez A01172527
+                </p>
+            </div>
+
+            <div class="col-sm-3 offset-sm-1 text-center">
+                <button type="button" class="btn btn-light" onclick="executeCode()">Ejecutar código</button>
+            </div>
+        </div>
+    </div>
+
+    <xml id="toolbox" style="display: none">
+        <block type="controls_if"></block>
+        <block type="controls_repeat_ext"></block>
+        <block type="logic_compare"></block>
+        <block type="math_number"></block>
+        <block type="math_arithmetic"></block>
+        <block type="text"></block>
+        <block type="text_print"></block>
+
+        <!-- <category name="Condiciones">
+            <block type="condiciones_si_sucede"></block>
+        </category> -->
+    </xml>
+
+    <script>
+        var workspacePlayground = Blockly.inject('blocklyDiv', { 
+            toolbox: document.getElementById('toolbox'),
+            grid: {
+                spacing: 20,
+                length: 2,
+                colour: 'rgb(18, 161, 197)',
+                snap: true
+            },
+            scrollbars: true,
+            sounds: false,
+            trashcan: true
+        });
+        
+        function myUpdateFunction(event) {
+            console.log('myUpdateFunction');
+            var code = Blockly.JavaScript.workspaceToCode(workspacePlayground);
+            document.getElementById('textarea').innerHTML = code;
+            console.log('code', code);
+        }
+        workspacePlayground.addChangeListener(myUpdateFunction);
+
+        function executeCode() {
+            console.log('Execute code');
+        }
+    </script>
+</body>
+</html>
