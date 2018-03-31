@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request
 from compiler.parser import runParser
-import parser
+import json
 
 app = Flask(__name__)
 
@@ -10,16 +10,19 @@ def hello_world():
 
 @app.route('/execute', methods=['POST'])
 def executeCode():
-    if not request.json:
-        return jsonify({ 'error': 'No json data sent.' }), 400
-    
-    if not 'code' in request.json:
-        return jsonify({ 'error': 'No \'code\' property provided.' }), 400
 
-    code = request.json['code']
-    result = runParser()
-    print('code received:', code)
-    return jsonify({ 'result': result }), 200
+    try:
+        header = request.headers['Content-Type']
+    except Exception as error:
+        return jsonify({ 'error': 'No headers sent.' }), 400
+
+    if not header == 'text/plain':
+        return jsonify({ 'error': 'No correct header sent.' }), 400
+    
+    f = open('code.txt','w')
+    f.write(request.data)
+    f.close()
+    return jsonify({ 'result': request.data }), 200
 
 if __name__ == '__main__':
     app.run(debug=True,host='0.0.0.0')
