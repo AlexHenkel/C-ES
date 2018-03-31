@@ -19,11 +19,11 @@ def executeCode():
         return jsonify({ 'error': 'No correct header sent.' }), 400
     
     fileName = 'code.txt'
-    f = open(fileName,'w')
+    f = open(fileName, 'w')
     f.write(request.data)
     f.close()
     codeResult = runParserWithFile(fileName)
-    print('***', codeResult)
+    print('codeResult', codeResult)
     return codeResult, 200
     #return jsonify({ 'result': result }), 200
 

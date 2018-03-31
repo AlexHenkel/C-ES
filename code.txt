@@ -1,5 +1,5 @@
 // Comentario inicial
-programa 
+programa
 
 variables:
 numero numero1, numero2, numero3, resultado, x1; 
