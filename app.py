@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, request
-from compiler.parser import runParserWithFile
+#from compiler.parser import runParserWithFile
 import json
 
 app = Flask(__name__)
@@ -22,7 +22,8 @@ def executeCode():
     f = open(fileName, 'w')
     f.write(request.data)
     f.close()
-    codeResult = runParserWithFile(fileName)
+    #codeResult = runParserWithFile(fileName)
+    codeResult = ''
     print('codeResult', codeResult)
     return codeResult, 200
     #return jsonify({ 'result': result }), 200
