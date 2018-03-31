@@ -775,3 +775,6 @@ else:
 
     # Program finished
     print("Program finished")
+
+def runParser():
+    return 'result'
