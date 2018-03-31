@@ -770,11 +770,27 @@ else:
     s = f.read()
 
     # Parse text if found
-    if s:
-        result = parser.parse(s)
+    # if s:
+    #     result = parser.parse(s)
 
     # Program finished
     print("Program finished")
 
-def runParser():
-    return 'result'
+def runParserWithFile(filename):
+    # Open and read input
+    f = open(filename, "r")
+    s = f.read()
+
+    # Parse text if found
+    if s:
+        result = parser.parse(s)
+
+    # Program finished
+    print("runParserWithFile finished")
+
+    result = ''
+    for idx, val in enumerate(quads_list):
+        result += '(' + str(idx) + ', ' + str(val) + ')\n'
+        print(idx, val)
+
+    return result

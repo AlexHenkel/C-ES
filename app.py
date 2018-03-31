@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, request
-from compiler.parser import runParser
+from compiler.parser import runParserWithFile
 import json
 
 app = Flask(__name__)
@@ -10,7 +10,6 @@ def hello_world():
 
 @app.route('/execute', methods=['POST'])
 def executeCode():
-
     try:
         header = request.headers['Content-Type']
     except Exception as error:
@@ -19,10 +18,14 @@ def executeCode():
     if not header == 'text/plain':
         return jsonify({ 'error': 'No correct header sent.' }), 400
     
-    f = open('code.txt','w')
+    fileName = 'code.txt'
+    f = open(fileName,'w')
     f.write(request.data)
     f.close()
-    return jsonify({ 'result': request.data }), 200
+    codeResult = runParserWithFile(fileName)
+    print('***', codeResult)
+    return codeResult, 200
+    #return jsonify({ 'result': result }), 200
 
 if __name__ == '__main__':
     app.run(debug=True,host='0.0.0.0')
