@@ -1,12 +1,13 @@
-from flask import Flask, jsonify, request
-from compiler.parser import runParserWithFile
+from flask import Flask, jsonify, request, render_template, url_for
+#from compiler.parser import runParserWithFile
 import json
 
 app = Flask(__name__)
 
 @app.route('/')
-def hello_world(): 
-    return 'Lenguaje C-ES'
+def ui(): 
+    url_for('static', filename='bootstrap.min.css')
+    return render_template('index.html')
 
 @app.route('/execute', methods=['POST'])
 def executeCode():
