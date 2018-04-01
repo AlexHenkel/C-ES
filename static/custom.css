@@ -54,6 +54,8 @@ h1 strong {
     resize: none;
     min-width: 100%;
     height: 85%;
+    font-size: 1em;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 .made-by {
@@ -79,6 +81,20 @@ h1 strong {
     body {
         font-size: 14px;
     }
+    
+    #blocklyDiv {
+        height: 40vh;
+        margin-bottom: 3rem;
+    }
+    
+    .code-wrapper {
+        height: 40vh;
+        margin: 0 15px;
+    }
+    
+    .btn {
+        margin-bottom: 3rem;
+    }
 }
 
 @media (max-width: 576px) { 
@@ -88,15 +104,10 @@ h1 strong {
 
     #blocklyDiv {
         height: 30vh;
-        margin-bottom: 3rem;
     }
 
     .code-wrapper {
         height: 30vh;
-        margin: 0 15px;
     }
 
-    .btn {
-        margin-bottom: 3rem;
-    }
 }
