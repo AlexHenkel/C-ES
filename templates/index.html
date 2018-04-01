@@ -5,87 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link rel="stylesheet" href="./../static/bootstrap.min.css">
+    <link rel="stylesheet" href="./../static/custom.css">
 
     <title>Blockly C-ES</title>
     <script src="./../static/blockly/blockly_compressed.js"></script>
     <script src="./../static/blockly/blocks_compressed.js"></script>
     <script src="./../static/blockly/msg/js/en.js"></script>
-    <script src="./../static/blockly/custom-blocks/conditions.js"></script>
     <script src="./../static/blockly/javascript_compressed.js"></script>
 
     <style>
-        html, body {
-            height: 100%;
-            margin: 0;
-            font-size: 16px;
-            overflow: scroll;
-            background-color: rgb(18, 161, 197);
-            font-family: sans-serif;
-        }
         
-        .main {
-            padding: 2rem!important;
-        }
-
-        h1 {
-            font-weight: 200;
-            font-size: 3em;
-            color: #fff;
-            margin-bottom: 3rem;
-        }
-
-        h1 strong {
-            font-weight: 800;
-        }
-
-        .blockly {
-            margin-bottom: 3rem;
-        }
-
-        #blocklyDiv {
-            float: right;
-            height: 60vh;
-        }
-
-        .code-wrapper {
-            background-color: #fff;
-        }
-
-        .code-wrapper p:first-child {
-            color: rgb(18, 161, 197);
-            font-weight: bold;
-            padding: 0.5rem 0;
-        }
-
-        .made-by {
-            color: #eee;
-        }
-
-        @media (max-width: 768px) { 
-            body {
-                font-size: 14px;
-            }
-        }
-
-        @media (max-width: 576px) { 
-            body {
-                font-size: 12px;
-            }
-
-            #blocklyDiv {
-                height: 30vh;
-                margin-bottom: 3rem;
-            }
-
-            .code-wrapper {
-                height: 30vh;
-                margin: 0 15px;
-            }
-
-            .btn {
-                margin-bottom: 3rem;
-            }
-        }
     </style>
 </head>
 
@@ -101,8 +30,12 @@
             <div id="blocklyDiv" class="col-xs-12 col-sm-8"></div>          
             
             <div class="col-xs-12 col-sm-3 offset-sm-1 code-wrapper">
-                <p>Código C-ES generado:</p>
-                <p id="textarea"></p>
+                <form>
+                    <fieldset>
+                        <legend>Código C-ES generado:</legend>
+                        <textarea class="form-control" id="textarea"></textarea>
+                    </fieldset>
+                </form>
             </div>
         </div>
 
