@@ -6,7 +6,6 @@ app = Flask(__name__)
 
 @app.route('/')
 def ui(): 
-    url_for('static', filename='bootstrap.min.css')
     return render_template('index.html')
 
 @app.route('/execute', methods=['POST'])
