@@ -22,8 +22,8 @@ def executeCode():
     f = open(fileName, 'w')
     f.write(request.data)
     f.close()
-    #codeResult = runParserWithFile(fileName)
-    codeResult = ''
+    codeResult = runParserWithFile(fileName)
+    #codeResult = ''
     print('codeResult', codeResult)
     return codeResult, 200
     #return jsonify({ 'result': result }), 200
