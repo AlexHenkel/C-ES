@@ -1,5 +1,5 @@
-#import ply.lex as lex
-from ply import lex
+import ply.lex as lex
+#from ply import lex
 
 reserved = {
     'a': 'TO',
