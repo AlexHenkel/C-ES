@@ -1,6 +1,5 @@
 import glob
 from optparse import OptionParser
-#from ply import yacc
 import ply.yacc as yacc
 from random import randint
 from semantic_cube import types, get_semantic_result
