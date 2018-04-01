@@ -1,14 +1,18 @@
 from flask import Flask, jsonify, request, render_template, url_for
+from flask_cors import CORS, cross_origin
 from compiler.parser import runParserWithFile
 import json
 
 app = Flask(__name__)
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 @app.route('/')
 def ui(): 
     return render_template('index.html')
 
 @app.route('/execute', methods=['POST'])
+@cross_origin()
 def executeCode():
     try:
         header = request.headers['Content-Type']
