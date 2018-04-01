@@ -29,7 +29,73 @@
                 <form>
                     <fieldset>
                         <legend>Código C-ES generado:</legend>
-                        <textarea class="form-control" id="textarea"></textarea>
+                        <textarea class="form-control" id="textarea">
+                            // Comentario inicial
+                            programa
+
+                            variables:
+                            numero numero1, numero2, numero3, resultado, x1; 
+                            decimal decimal1, decimal2;
+                            texto string1, string2;
+                            binario binario1, binario2;
+                            lista de numero de 10 miListaDeNumeros;
+                            lista de decimal de 20 miListaDeDecimales;
+                            lista de texto de 30 miListaDeStrings;
+                            lista de binario de 40 miListaDeBinarios;
+
+                            funcion x(numero x2) {
+                                variables: numero x1; decimal y1; lista de texto de 10 n1;
+                                x1 = 10 + 10
+                            }
+
+                            numero funcion suma(numero numero1, numero numero2) {
+                                devolver 5
+                            }
+
+
+                            {
+                                // Comentario uno totalmente descartado
+                                leer(x1)
+                                imprimir(4 * 5)
+                                imprimir(-1 * 9 + 10.12)
+                                x1 = numero1 + numero2
+
+                                numero1 = 5
+                                numero2 = 10
+
+                                si sucede(numero1 == 5 o numero2 == 10) realiza {
+                                    resultado = numero1 + numero2
+                                }
+
+                                si sucede(numero1 == 5 y numero2 == 10) realiza {
+                                    resultado = numero1 - numero2
+                                } o si sucede (numero1 == 0 y numero2 == 0) realiza {
+                                    resultado = numero1 * - numero2
+                                }
+
+                                numero1 = 10
+                                numero2 = 2
+                                numero3 = aleatorio(de 1, a 10)
+
+                                si sucede(numero1 == 5 y numero2 == 10) realiza {
+                                    resultado = numero1 - numero2
+                                } no sucede {
+                                    resultado = numero1 / numero2
+                                }
+
+                                mientras sucede (numero3 <= 1) realiza {
+                                    resultado = numero1 + numero2
+                                }
+
+                                imprimir(resultado)
+
+                                agregar a miListaDeNumeros(5)
+
+                                quitar ultimo de miListaDeNumeros()
+
+                                imprimir(accesar(miListaDeNumeros, 0))
+                            }
+                        </textarea>
                     </fieldset>
                 </form>
             </div>
@@ -45,6 +111,26 @@
 
             <div class="col-sm-3 offset-sm-1 text-center">
                 <button type="button" class="btn btn-light" onclick="executeCode()">Ejecutar código</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myModalTitle">Respuesta</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+                </div>
             </div>
         </div>
     </div>
@@ -97,21 +183,21 @@
         $(function () {
             $("button").click(function () {
                 console.log('submit');
-                var code = 'programa {}'
-                $.post("https://c-es.herokuapp.com/execute", code, function (result) {
-                    $("span").html(result);
-                }, "text");
-                // jQuery.post({
-                //     type: "POST",
-                //     url: "http://c-es.herokuapp.com/execute",
-                //     data: $('form.form-horizontal').serialize(),
-                //     success: function (msg) {
-                //         alert(msg);
-                //     },
-                //     error: function () {
-                //         alert("failure");
-                //     }
-                // });
+                var code = jQuery("textarea").val();
+                $.ajax({
+                    url: "https://c-es.herokuapp.com/execute",
+                    method: "POST",
+                    contentType: "text/plain",
+                    data: code,
+                    success: function (data) {
+                        $('#myModal .modal-body').text(data);
+                        $('#myModal').modal({show: true});
+                    },
+                    error: function (erorr) {
+                        $('#myModal .modal-body').text(error);
+                        $('#myModal').modal({ show: true });
+                    }
+                });
             });
         });
     </script>
