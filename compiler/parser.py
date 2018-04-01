@@ -767,15 +767,15 @@ if options.tests:
     print('********** TESTS FINISHED **********\n')
 else:
     # Open and read input
-    #f = open("input.txt", "r")
-    #s = f.read()
+    # f = open("input.txt", "r")
+    # s = f.read()
 
-    # Parse text if found
+    # # Parse text if found
     # if s:
     #     result = parser.parse(s)
 
-    # Program finished
-    #print("Program finished")
+    # # Program finished
+    # print("Program finished")
     print("*")
 
 def runParserWithFile(filename):
