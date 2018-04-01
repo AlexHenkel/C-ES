@@ -3,8 +3,8 @@ from optparse import OptionParser
 from ply import yacc
 #import ply.yacc as yacc
 from random import randint
-from lex import tokens
 from semantic_cube import types, get_semantic_result
+from lex import tokens
 from memory import get_memory_address
 from errors import *
 
