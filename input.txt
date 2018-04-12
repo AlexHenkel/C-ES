@@ -6,10 +6,10 @@ numero numero1, numero2, numero3, resultado, x1;
 decimal decimal1, decimal2;
 texto string1, string2;
 binario binario1, binario2;
-lista de numero de 10 miListaDeNumeros;
-lista de decimal de 20 miListaDeDecimales;
-lista de texto de 30 miListaDeStrings;
-lista de binario de 40 miListaDeBinarios;
+lista de numero de 1 miListaDeNumeros;
+lista de decimal de 2 miListaDeDecimales;
+lista de texto de 3 miListaDeStrings;
+lista de binario de 4 miListaDeBinarios;
 
 funcion x(numero x2) {
     variables: numero x1; decimal y1; lista de texto de 10 n1;

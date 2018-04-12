@@ -6,6 +6,7 @@ from random import randint
 from semantic_cube import types, get_semantic_result
 from memory import get_memory_address
 from errors import *
+from virtual_machine import executeVM
 
 # Define global helpers
 current_scope = 'global'
@@ -191,8 +192,6 @@ def fill_quad_result(index, result):
 
 def p_main(p):
     'main : PROGRAM variables_opt save_main_quad main_func fill_main_quad block'
-    for idx, val in enumerate(quads_list):
-        print(idx, val)
 
 
 def p_save_main_quad(p):
@@ -768,10 +767,15 @@ else:
     # Open and read input
     f = open("input.txt", "r")
     s = f.read()
+    f.close()
 
     # Parse text if found
     if s:
+        print("Compiling code...")
         result = parser.parse(s)
+
+        executeVM(quads_list, global_variables_dict,
+                  function_dict, constant_dict)
 
     # Program finished
     print("Program finished")
