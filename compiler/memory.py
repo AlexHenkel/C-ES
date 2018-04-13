@@ -20,7 +20,10 @@ memory_addresses = {
     'const_bin': 37500,
 }
 
-initial_addresses = copy.deepcopy(memory_addresses)
+initial_addresses = [1000, 2500, 5000, 7500, 10000, 12500, 15000,
+                     17500, 20000, 22500, 25000, 27500, 30000, 32500, 35000, 37500]
+ordered_contexts = ['glob_num', 'glob_dec', 'glob_tex', 'glob_bin', 'loc_num', 'loc_dec', 'loc_tex', 'loc_bin',
+                    'temp_num', 'temp_dec', 'temp_tex', 'temp_bin', 'const_num', 'const_dec', 'const_tex', 'const_bin']
 
 
 def get_memory_address(scope, curr_type, length=1):
@@ -31,16 +34,29 @@ def get_memory_address(scope, curr_type, length=1):
 
 
 class Memory:
-    def __init__(self, global_variables_dict, constant_dict):
-        self.globalIntVars = []
-        self.globalFloatVars = []
-        self.globalTextVars = []
-        self.globalBoolVars = []
+    def __getitem__(self, name):
+        return getattr(self, name)
 
-        self.constIntVars = []
-        self.constFloatVars = []
-        self.constTextVars = []
-        self.constBoolVars = []
+    def __setitem__(self, name, value):
+        return setattr(self, name, value)
+
+    def __init__(self, global_variables_dict, constant_dict):
+        self.glob_num = []
+        self.glob_dec = []
+        self.glob_tex = []
+        self.glob_bin = []
+        self.loc_num = []
+        self.loc_dec = []
+        self.loc_tex = []
+        self.loc_bin = []
+        self.temp_num = []
+        self.temp_dec = []
+        self.temp_tex = []
+        self.temp_bin = []
+        self.const_num = []
+        self.const_dec = []
+        self.const_tex = []
+        self.const_bin = []
 
         for var in global_variables_dict:
             curr_var = global_variables_dict[var]
@@ -50,13 +66,13 @@ class Memory:
                 offset = curr_var['length']
 
             if curr_type == 'num':
-                self.globalIntVars += [None] * offset
+                self.glob_num += [None] * offset
             elif curr_type == 'dec':
-                self.globalFloatVars += [None] * offset
+                self.glob_dec += [None] * offset
             elif curr_type == 'tex':
-                self.globalTextVars += [None] * offset
+                self.glob_tex += [None] * offset
             elif curr_type == 'bin':
-                self.globalBoolVars += [None] * offset
+                self.glob_bin += [None] * offset
 
         for const in constant_dict:
             curr_const = constant_dict[const]
@@ -64,10 +80,31 @@ class Memory:
             curr_value = curr_const['value']
 
             if curr_type == 'num':
-                self.constIntVars.append(curr_value)
+                self.const_num.append(curr_value)
             elif curr_type == 'dec':
-                self.constFloatVars.append(curr_value)
+                self.const_dec.append(curr_value)
             elif curr_type == 'tex':
-                self.constTextVars.append(curr_value)
+                self.const_tex.append(curr_value)
             elif curr_type == 'bin':
-                self.constBoolVars.append(curr_value)
+                self.const_bin.append(curr_value)
+
+    def get_value_from_add(self, address):
+        pass
+
+    def get_address_context(self, address):
+        curr_context = None
+        curr_context_index = 0
+        curr_value = None
+        for index, limit in enumerate(initial_addresses):
+            if address >= limit:
+                curr_context = ordered_contexts[index]
+                curr_context_index = index
+            else:
+                break
+        calc_index = address - initial_addresses[curr_context_index]
+        if len(self[curr_context]) > calc_index:
+            curr_value = self[curr_context][calc_index]
+        return [curr_context, curr_context.split("_")[1], curr_value]
+
+    def set_value_from_context_address(self, context, address, value):
+        self[context][address][value]
