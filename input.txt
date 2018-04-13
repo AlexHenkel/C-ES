@@ -8,6 +8,7 @@ texto string1, string2;
 binario binario1, binario2;
 lista de numero de 1 miListaDeNumeros;
 lista de decimal de 2 miListaDeDecimales;
+lista de decimal de 2 miListaDeDecimales1;
 lista de texto de 3 miListaDeStrings;
 lista de binario de 4 miListaDeBinarios;
 
@@ -21,6 +22,7 @@ funcion x(numero x2) {
     numero2 = 10
     string1 = "hola"
     string2 = "adios"
+    miListaDeDecimales1 = miListaDeDecimales
     numero3 = numero1 + numero2
     string2 = string1 + string2
 

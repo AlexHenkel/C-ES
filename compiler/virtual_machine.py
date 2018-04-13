@@ -1,10 +1,11 @@
 from memory import Memory
 
 
-def executeVM(quadruples, global_variables_dict, function_dict, constant_dict):
+def executeVM(quadruples, global_variables_dict, function_dict, constant_dict, curr_func_temp_vars):
     instructionPointer = 0
     quadruplesLen = len(quadruples)
-    execution_memory = Memory(global_variables_dict, constant_dict)
+    execution_memory = Memory(global_variables_dict,
+                              constant_dict, curr_func_temp_vars)
 
     # Start executing quadruples
     while instructionPointer < quadruplesLen:

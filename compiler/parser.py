@@ -778,7 +778,7 @@ else:
         result = parser.parse(s)
 
         executeVM(quads_list, global_variables_dict,
-                  function_dict, constant_dict)
+                  function_dict, constant_dict, curr_func_temp_vars)
 
     # Program finished
     print("Program finished")

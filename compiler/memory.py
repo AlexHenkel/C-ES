@@ -40,7 +40,7 @@ class Memory:
     def __setitem__(self, name, value):
         return setattr(self, name, value)
 
-    def __init__(self, global_variables_dict, constant_dict):
+    def __init__(self, global_variables_dict, constant_dict, curr_func_temp_vars):
         self.glob_num = []
         self.glob_dec = []
         self.glob_tex = []
@@ -65,31 +65,17 @@ class Memory:
             if 'length' in curr_var:
                 offset = curr_var['length']
 
-            if curr_type == 'num':
-                self.glob_num += [None] * offset
-            elif curr_type == 'dec':
-                self.glob_dec += [None] * offset
-            elif curr_type == 'tex':
-                self.glob_tex += [None] * offset
-            elif curr_type == 'bin':
-                self.glob_bin += [None] * offset
+            self["glob_{}".format(curr_type)] += [None] * offset
 
         for const in constant_dict:
             curr_const = constant_dict[const]
             curr_type = short_types[curr_const['type']]
             curr_value = curr_const['value']
 
-            if curr_type == 'num':
-                self.const_num.append(curr_value)
-            elif curr_type == 'dec':
-                self.const_dec.append(curr_value)
-            elif curr_type == 'tex':
-                self.const_tex.append(curr_value)
-            elif curr_type == 'bin':
-                self.const_bin.append(curr_value)
+            self["const_{}".format(curr_type)].append(curr_value)
 
-    def get_value_from_add(self, address):
-        pass
+        for temp in curr_func_temp_vars:
+            self["temp_{}".format(temp)] += [None] * curr_func_temp_vars[temp]
 
     def get_address_context(self, address):
         curr_context = None
