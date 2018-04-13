@@ -1,12 +1,16 @@
 import glob
+import copy
 from optparse import OptionParser
 import ply.yacc as yacc
 from lex import tokens
 from random import randint
-from semantic_cube import types, get_semantic_result
+from semantic_cube import types, short_types, get_semantic_result
 from memory import get_memory_address
 from errors import *
 from virtual_machine import executeVM
+
+curr_func_local_vars_original = {'num': 0, 'dec': 0, 'tex': 0, 'bin': 0}
+curr_func_temp_vars_original = {'num': 0, 'dec': 0, 'tex': 0, 'bin': 0}
 
 # Define global helpers
 current_scope = 'global'
@@ -16,8 +20,8 @@ quad_count = 0
 curr_param_list = []
 curr_func_name = None
 curr_func_return_type = None
-curr_func_local_vars = 0
-curr_funct_temp_vars = 0
+curr_func_local_vars = copy.deepcopy(curr_func_local_vars_original)
+curr_func_temp_vars = copy.deepcopy(curr_func_temp_vars_original)
 curr_function_call_param = 0
 
 # Define dictionaries
@@ -107,20 +111,20 @@ def update_last_function():
     global curr_func_name
     global curr_param_list
     global curr_func_local_vars
-    global curr_funct_temp_vars
+    global curr_func_temp_vars
     global current_var_type
     global curr_func_return_type
     name = curr_func_name
     # Update functions directory
     function_dict[name]['parameters'] = curr_param_list
     function_dict[name]['local_count'] = curr_func_local_vars
-    function_dict[name]['temp_count'] = curr_funct_temp_vars
+    function_dict[name]['temp_count'] = curr_func_temp_vars
     function_dict[name]['start_p'] = jumps_stack.pop()
     # Clear state
     curr_param_list = []
     curr_func_name = None
-    curr_func_local_vars = 0
-    curr_funct_temp_vars = 0
+    curr_func_local_vars = copy.deepcopy(curr_func_local_vars_original)
+    curr_func_temp_vars = copy.deepcopy(curr_func_temp_vars_original)
     current_var_type = None
     curr_func_return_type = None
     local_variables_dict.clear()
@@ -153,7 +157,7 @@ def add_id(p, id_position):
 
 
 def verify_semantics(is_unary=False):
-    global curr_funct_temp_vars
+    global curr_func_temp_vars
     operation = operators_stack.pop()
     var_2 = variables_stack.pop()
     type_2 = types_stack.pop()
@@ -169,8 +173,7 @@ def verify_semantics(is_unary=False):
         result_address = get_memory_address('temp', result_type)
         variables_stack.append(result_address)
         types_stack.append(result_type)
-        if current_scope == 'functions':
-            curr_funct_temp_vars = curr_funct_temp_vars + 1
+        curr_func_temp_vars[short_types[result_type]] += 1
     save_quad(operation, var_1, var_2, result_address)
 
 
@@ -268,10 +271,11 @@ def p_var_opts(p):
         current_var_type = "{} {} {}".format(p[1], p[2], current_var_type)
         current_arr_length = p[5]
         if current_scope == 'functions':
-            curr_func_local_vars = curr_func_local_vars + current_arr_length
+            curr_func_local_vars[short_types[types[current_var_type]]
+                                 ] += current_arr_length
     else:
         if current_scope == 'functions':
-            curr_func_local_vars = curr_func_local_vars + 1
+            curr_func_local_vars[short_types[types[current_var_type]]] += 1
 
 
 def p_var_id(p):
@@ -480,7 +484,7 @@ def p_expr_params_rec(p):
 # Local function call
 def p_local_function(p):
     'local_function : ID local_funcion_generate_eva "(" expr_params ")"'
-    global curr_funct_temp_vars
+    global curr_func_temp_vars
     global curr_function_call_param
     global current_scope
     global curr_func_name
@@ -498,8 +502,7 @@ def p_local_function(p):
     func_type = curr_func['type']
     # TODO: Get function result from memory
     if (curr_func['type'] > types['void']):
-        if current_scope == 'functions':
-            curr_funct_temp_vars = curr_funct_temp_vars + 1
+        curr_func_temp_vars[short_types[func_type]] += 1
 
 
 def p_local_funcion_generate_eva(p):

@@ -11,10 +11,17 @@ lista de decimal de 2 miListaDeDecimales;
 lista de texto de 3 miListaDeStrings;
 lista de binario de 4 miListaDeBinarios;
 
+funcion x(numero x2) {
+    variables: numero x1; decimal y1; lista de texto de 10 n1;
+    x1 = 10 + 10
+}
+
 {
     numero1 = 5
     numero2 = 10
     string1 = "hola"
-
+    string2 = "adios"
     numero3 = numero1 + numero2
+    string2 = string1 + string2
+
 }
