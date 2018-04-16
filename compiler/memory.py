@@ -90,7 +90,7 @@ class Memory:
         calc_index = address - initial_addresses[curr_context_index]
         if len(self[curr_context]) > calc_index:
             curr_value = self[curr_context][calc_index]
-        return [curr_context, curr_context.split("_")[1], curr_value]
+        return [curr_value, curr_context.split("_")[1], curr_context, calc_index]
 
-    def set_value_from_context_address(self, context, address, value):
-        self[context][address][value]
+    def set_value_from_context_address(self, context, index, value):
+        self[context][index] = value

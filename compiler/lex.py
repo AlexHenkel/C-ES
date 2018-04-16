@@ -75,6 +75,8 @@ def t_COMMENT(t):
 
 def t_CONST_S(t):
     r'\".*\"'
+    # Remove quotes from token
+    t.value = t.value[1:-1]
     return t
 
 
