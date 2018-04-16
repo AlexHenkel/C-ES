@@ -2,9 +2,9 @@ import glob
 import copy
 from optparse import OptionParser
 import ply.yacc as yacc
-from lex import tokens
 from random import randint
 from semantic_cube import types, short_types, get_semantic_result
+from lex import tokens
 from memory import get_memory_address
 from errors import *
 from virtual_machine import executeVM
@@ -768,17 +768,90 @@ if options.tests:
     print('********** TESTS FINISHED **********\n')
 else:
     # Open and read input
-    f = open("input.txt", "r")
+    # f = open("input.txt", "r")
+    # s = f.read()
+
+    # # Parse text if found
+    # if s:
+    #     result = parser.parse(s)
+
+    # # Program finished
+    # print("Program finished")
+    print("*")
+
+
+def runParserWithFile(filename):
+    # Define global helpers
+    global current_scope
+    global current_var_type
+    global current_arr_length
+    global quad_count
+    global curr_param_list
+    global curr_func_name
+    global curr_func_return_type
+    global curr_func_local_vars
+    global curr_funct_temp_vars
+    global curr_function_call_param
+
+    # Define dictionaries
+    global global_variables_dict
+    global local_variables_dict
+    global function_dict
+    global constant_dict
+
+    # Define operations stacks helpers
+    global variables_stack
+    global operators_stack
+    global types_stack
+    global jumps_stack
+    global quads_list
+
+    current_scope = 'global'
+    current_var_type = None
+    current_arr_length = None
+    quad_count = 0
+    curr_param_list = []
+    curr_func_name = None
+    curr_func_return_type = None
+    curr_func_local_vars = 0
+    curr_funct_temp_vars = 0
+    curr_function_call_param = 0
+
+    # Define dictionaries
+    global_variables_dict = {}
+    local_variables_dict = {}
+    function_dict = {}
+    constant_dict = {}
+
+    # Define operations stacks helpers
+    variables_stack = []
+    operators_stack = []
+    types_stack = []
+    jumps_stack = []
+    quads_list = []
+
+    # Open and read input
+    f = open(filename, "r")
     s = f.read()
     f.close()
 
     # Parse text if found
     if s:
-        print("Compiling code...")
-        result = parser.parse(s)
+        #result = parser.parse(s)
+        try:
+            print("Compiling code...")
+            result = parser.parse(s)
+        except Exception as error:
+            return 'Error: ' + str(error)
 
         executeVM(quads_list, global_variables_dict,
                   function_dict, constant_dict, curr_func_temp_vars)
 
     # Program finished
-    print("Program finished")
+    print("runParserWithFile finished")
+
+    result = ''
+    for idx, val in enumerate(quads_list):
+        result += '(' + str(idx) + ', ' + str(val) + ')\n'
+
+    return result

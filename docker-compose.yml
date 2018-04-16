@@ -1,0 +1,10 @@
+version: '2'
+
+services:
+  api:
+    build: .
+    volumes:
+    - .:/usr/src/app
+    ports:
+      - 5000:5000
+    command: python app.py

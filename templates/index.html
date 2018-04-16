@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="./../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./../static/css/custom.css">
+    
+    <title>Blockly C-ES</title>
+    <script src="./../static/blockly/blockly_compressed.js"></script>
+    <script src="./../static/blockly/blocks_compressed.js"></script>
+    <script src="./../static/blockly/msg/js/en.js"></script>
+    <script src="./../static/blockly/javascript_compressed.js"></script>
+</head>
+
+<body>
+    <div class="container main">
+        <div class="row">
+            <div class="col">
+                <h1 class="text-center">¡Aprende a programar con <strong>Blockly C-ES</strong>!</h1>
+            </div>
+        </div>
+
+        <div class="row blockly">
+            <div id="blocklyDiv" class="col-xs-12 col-md-8"></div>          
+            
+            <div class="col-xs-12 col-md-3 offset-md-1 code-wrapper">
+                <form>
+                    <fieldset>
+                        <legend>Código C-ES generado:</legend>
+                        <textarea class="form-control" id="textarea">
+                            // Comentario inicial
+                            programa
+
+                            variables:
+                            numero numero1, numero2, numero3, resultado, x1; 
+                            decimal decimal1, decimal2;
+                            texto string1, string2;
+                            binario binario1, binario2;
+                            lista de numero de 10 miListaDeNumeros;
+                            lista de decimal de 20 miListaDeDecimales;
+                            lista de texto de 30 miListaDeStrings;
+                            lista de binario de 40 miListaDeBinarios;
+
+                            funcion x(numero x2) {
+                                variables: numero x1; decimal y1; lista de texto de 10 n1;
+                                x1 = 10 + 10
+                            }
+
+                            numero funcion suma(numero numero1, numero numero2) {
+                                devolver 5
+                            }
+
+
+                            {
+                                // Comentario uno totalmente descartado
+                                leer(x1)
+                                imprimir(4 * 5)
+                                imprimir(-1 * 9 + 10.12)
+                                x1 = numero1 + numero2
+
+                                numero1 = 5
+                                numero2 = 10
+
+                                si sucede(numero1 == 5 o numero2 == 10) realiza {
+                                    resultado = numero1 + numero2
+                                }
+
+                                si sucede(numero1 == 5 y numero2 == 10) realiza {
+                                    resultado = numero1 - numero2
+                                } o si sucede (numero1 == 0 y numero2 == 0) realiza {
+                                    resultado = numero1 * - numero2
+                                }
+
+                                numero1 = 10
+                                numero2 = 2
+                                numero3 = aleatorio(de 1, a 10)
+
+                                si sucede(numero1 == 5 y numero2 == 10) realiza {
+                                    resultado = numero1 - numero2
+                                } no sucede {
+                                    resultado = numero1 / numero2
+                                }
+
+                                mientras sucede (numero3 <= 1) realiza {
+                                    resultado = numero1 + numero2
+                                }
+
+                                imprimir(resultado)
+
+                                agregar a miListaDeNumeros(5)
+
+                                quitar ultimo de miListaDeNumeros()
+
+                                imprimir(accesar(miListaDeNumeros, 0))
+                            }
+                        </textarea>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+
+        <div class="row flex-column-reverse flex-sm-row">
+            <div class="col-sm-8 text-center made-by">
+                <p>⚒ por:
+                    <br>Alejandro Henkel A01270874
+                    <br>Fernando López Martínez A01172527
+                </p>
+            </div>
+
+            <div class="col-sm-3 offset-sm-1 text-center">
+                <button type="button" class="btn btn-light" onclick="executeCode()">Ejecutar código</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myModalTitle">Respuesta</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <xml id="toolbox" style="display: none">
+        <block type="controls_if"></block>
+        <block type="controls_repeat_ext"></block>
+        <block type="logic_compare"></block>
+        <block type="math_number"></block>
+        <block type="math_arithmetic"></block>
+        <block type="text"></block>
+        <block type="text_print"></block>
+
+        <!-- <category name="Condiciones">
+            <block type="condiciones_si_sucede"></block>
+        </category> -->
+    </xml>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script>
+        var workspacePlayground = Blockly.inject('blocklyDiv', { 
+            toolbox: document.getElementById('toolbox'),
+            grid: {
+                spacing: 20,
+                length: 2,
+                colour: 'rgb(18, 161, 197)',
+                snap: true
+            },
+            scrollbars: true,
+            sounds: false,
+            trashcan: true
+        });
+        
+        function myUpdateFunction(event) {
+            console.log('myUpdateFunction');
+            var code = Blockly.JavaScript.workspaceToCode(workspacePlayground);
+            document.getElementById('textarea').innerHTML = code;
+            console.log('code', code);
+        }
+        workspacePlayground.addChangeListener(myUpdateFunction);
+
+        function executeCode() {
+            console.log('Execute code');
+        }
+
+        $(function () {
+            $("button").click(function () {
+                console.log('submit');
+                var code = jQuery("textarea").val();
+                $.ajax({
+                    url: "https://c-es.herokuapp.com/execute",
+                    method: "POST",
+                    contentType: "text/plain",
+                    data: code,
+                    success: function (data) {
+                        $('#myModal .modal-body').text(data);
+                        $('#myModal').modal({show: true});
+                    },
+                    error: function (erorr) {
+                        $('#myModal .modal-body').text(error);
+                        $('#myModal').modal({ show: true });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
