@@ -1,4 +1,16 @@
 from memory import Memory
+from errors import VariableVacia
+
+
+def binaryRegularOperation(execution_memory, curr_left_op, curr_right_op, curr_result, curr_operation):
+    [value_left, _, _, _] = execution_memory.get_address_context(curr_left_op)
+    [value_right, _, _, _] = execution_memory.get_address_context(
+        curr_right_op)
+    [_, _, result_context,
+        result_calc_index] = execution_memory.get_address_context(curr_result)
+    if value_left == None or value_right == None:
+        raise VariableVacia(curr_operation)
+    return [value_left, value_right, result_context, result_calc_index]
 
 
 def executeVM(quadruples, global_variables_dict, function_dict, constant_dict, curr_func_temp_vars):
@@ -23,120 +35,80 @@ def executeVM(quadruples, global_variables_dict, function_dict, constant_dict, c
 
         # SUM OPERATION
         elif curr_operation == '+':
-            [value_left, _, _, _] = execution_memory.get_address_context(
-                curr_left_op)
-            [value_right, _, _, _] = execution_memory.get_address_context(
-                curr_right_op)
-            [_, _, result_context, result_calc_index] = execution_memory.get_address_context(
-                curr_result)
+            [value_left, value_right, result_context, result_calc_index] = binaryRegularOperation(
+                execution_memory, curr_left_op, curr_right_op, curr_result, curr_operation)
             execution_memory.set_value_from_context_address(
                 result_context, result_calc_index, value_left + value_right)
 
         # SUBTRACT OPERATION
         elif curr_operation == '-':
-            [value_left, _, _, _] = execution_memory.get_address_context(
-                curr_left_op)
-            [value_right, _, _, _] = execution_memory.get_address_context(
-                curr_right_op)
-            [_, _, result_context, result_calc_index] = execution_memory.get_address_context(
-                curr_result)
+            [value_left, value_right, result_context, result_calc_index] = binaryRegularOperation(
+                execution_memory, curr_left_op, curr_right_op, curr_result, curr_operation)
             execution_memory.set_value_from_context_address(
                 result_context, result_calc_index, value_left - value_right)
 
         # MULTIPLICATION OPERATION
         elif curr_operation == '*':
-            [value_left, _, _, _] = execution_memory.get_address_context(
-                curr_left_op)
-            [value_right, _, _, _] = execution_memory.get_address_context(
-                curr_right_op)
-            [_, _, result_context, result_calc_index] = execution_memory.get_address_context(
-                curr_result)
+            [value_left, value_right, result_context, result_calc_index] = binaryRegularOperation(
+                execution_memory, curr_left_op, curr_right_op, curr_result, curr_operation)
             execution_memory.set_value_from_context_address(
                 result_context, result_calc_index, value_left * value_right)
 
         # DIVISION OPERATION
         elif curr_operation == '/':
-            [value_left, _, _, _] = execution_memory.get_address_context(
-                curr_left_op)
-            [value_right, _, _, _] = execution_memory.get_address_context(
-                curr_right_op)
-            [_, _, result_context, result_calc_index] = execution_memory.get_address_context(
-                curr_result)
+            [value_left, value_right, result_context, result_calc_index] = binaryRegularOperation(
+                execution_memory, curr_left_op, curr_right_op, curr_result, curr_operation)
             execution_memory.set_value_from_context_address(
                 result_context, result_calc_index, value_left / value_right)
 
         # LESS THAN OPERATION
         elif curr_operation == '<':
-            [value_left, _, _, _] = execution_memory.get_address_context(
-                curr_left_op)
-            [value_right, _, _, _] = execution_memory.get_address_context(
-                curr_right_op)
-            [_, _, result_context, result_calc_index] = execution_memory.get_address_context(
-                curr_result)
+            [value_left, value_right, result_context, result_calc_index] = binaryRegularOperation(
+                execution_memory, curr_left_op, curr_right_op, curr_result, curr_operation)
             execution_memory.set_value_from_context_address(
                 result_context, result_calc_index, value_left < value_right)
 
         # LESS OR EQUAL THAN OPERATION
         elif curr_operation == '<=':
-            [value_left, _, _, _] = execution_memory.get_address_context(
-                curr_left_op)
-            [value_right, _, _, _] = execution_memory.get_address_context(
-                curr_right_op)
-            [_, _, result_context, result_calc_index] = execution_memory.get_address_context(
-                curr_result)
+            [value_left, value_right, result_context, result_calc_index] = binaryRegularOperation(
+                execution_memory, curr_left_op, curr_right_op, curr_result, curr_operation)
             execution_memory.set_value_from_context_address(
                 result_context, result_calc_index, value_left <= value_right)
 
         # GREATER THAN OPERATION
         elif curr_operation == '>':
-            [value_left, _, _, _] = execution_memory.get_address_context(
-                curr_left_op)
-            [value_right, _, _, _] = execution_memory.get_address_context(
-                curr_right_op)
-            [_, _, result_context, result_calc_index] = execution_memory.get_address_context(
-                curr_result)
+            [value_left, value_right, result_context, result_calc_index] = binaryRegularOperation(
+                execution_memory, curr_left_op, curr_right_op, curr_result, curr_operation)
             execution_memory.set_value_from_context_address(
                 result_context, result_calc_index, value_left > value_right)
 
         # GREATER OR EQUAL THAN OPERATION
         elif curr_operation == '>=':
-            [value_left, _, _, _] = execution_memory.get_address_context(
-                curr_left_op)
-            [value_right, _, _, _] = execution_memory.get_address_context(
-                curr_right_op)
-            [_, _, result_context, result_calc_index] = execution_memory.get_address_context(
-                curr_result)
+            [value_left, value_right, result_context, result_calc_index] = binaryRegularOperation(
+                execution_memory, curr_left_op, curr_right_op, curr_result, curr_operation)
             execution_memory.set_value_from_context_address(
                 result_context, result_calc_index, value_left >= value_right)
 
         # EQUAL OPERATION
         elif curr_operation == '==':
-            [value_left, _, _, _] = execution_memory.get_address_context(
-                curr_left_op)
-            [value_right, _, _, _] = execution_memory.get_address_context(
-                curr_right_op)
-            [_, _, result_context, result_calc_index] = execution_memory.get_address_context(
-                curr_result)
+            [value_left, value_right, result_context, result_calc_index] = binaryRegularOperation(
+                execution_memory, curr_left_op, curr_right_op, curr_result, curr_operation)
             execution_memory.set_value_from_context_address(
                 result_context, result_calc_index, value_left == value_right)
 
-        # EQUAL OPERATION
+        # NOT EQUAL OPERATION
         elif curr_operation == '!=':
-            [value_left, _, _, _] = execution_memory.get_address_context(
-                curr_left_op)
-            [value_right, _, _, _] = execution_memory.get_address_context(
-                curr_right_op)
-            [_, _, result_context, result_calc_index] = execution_memory.get_address_context(
-                curr_result)
+            [value_left, value_right, result_context, result_calc_index] = binaryRegularOperation(
+                execution_memory, curr_left_op, curr_right_op, curr_result, curr_operation)
             execution_memory.set_value_from_context_address(
                 result_context, result_calc_index, value_left != value_right)
 
         # ASSIGN OPERATION
         elif curr_operation == '=':
-            [_, result_type, result_context, result_calc_index] = execution_memory.get_address_context(
-                curr_left_op)
             [value, _, _, _] = execution_memory.get_address_context(
                 curr_right_op)
+            [_, result_type, result_context, result_calc_index] = execution_memory.get_address_context(
+                curr_left_op)
             if result_type == 'num':
                 value = int(value)
             elif result_type == 'dec':

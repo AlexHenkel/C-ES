@@ -31,6 +31,14 @@ class VarError(Exception):
         return "{} en la linea {}".format(self.variable, self.line)
 
 
+class VariableVacia(Exception):
+    def __init__(self, operation):
+        self.operation = operation
+
+    def __str__(self):
+        return "En la operacion '{}' una variable esta vacia".format(self.operation)
+
+
 class VariableGlobalDuplicada(VarError):
     pass
 
