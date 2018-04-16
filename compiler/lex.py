@@ -74,12 +74,15 @@ def t_COMMENT(t):
 
 
 def t_CONST_S(t):
-    r'\".*\"'
+    r'\"[^\"]*\"'
+    # Remove quotes from token
+    t.value = t.value[1:-1]
     return t
 
 
 def t_CONST_F(t):
     r'[0-9]+\.[0-9]+'
+    t.value = float(t.value)
     return t
 
 

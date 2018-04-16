@@ -39,7 +39,9 @@ semantic_cube = {
 
     # ASSignation operations results -> =
     'numASSnum': types['void'],
+    'numASSdec': types['void'],
     'decASSdec': types['void'],
+    'decASSnum': types['void'],
     'texASStex': types['void'],
     'binASSbin': types['void'],
 
