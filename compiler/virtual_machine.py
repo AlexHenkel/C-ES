@@ -20,6 +20,7 @@ def executeVM(quadruples, global_variables_dict, function_dict, constant_dict, c
             # print instructionPointer
             # instructionPointer = curr_result - 1
             pass
+
         # SUM OPERATION
         elif curr_operation == '+':
             [value_left, _, _, _] = execution_memory.get_address_context(
@@ -30,6 +31,7 @@ def executeVM(quadruples, global_variables_dict, function_dict, constant_dict, c
                 curr_result)
             execution_memory.set_value_from_context_address(
                 result_context, result_calc_index, value_left + value_right)
+
         # SUBTRACT OPERATION
         elif curr_operation == '-':
             [value_left, _, _, _] = execution_memory.get_address_context(
@@ -63,7 +65,73 @@ def executeVM(quadruples, global_variables_dict, function_dict, constant_dict, c
             execution_memory.set_value_from_context_address(
                 result_context, result_calc_index, value_left / value_right)
 
-            # ASSIGN OPERATION
+        # LESS THAN OPERATION
+        elif curr_operation == '<':
+            [value_left, _, _, _] = execution_memory.get_address_context(
+                curr_left_op)
+            [value_right, _, _, _] = execution_memory.get_address_context(
+                curr_right_op)
+            [_, _, result_context, result_calc_index] = execution_memory.get_address_context(
+                curr_result)
+            execution_memory.set_value_from_context_address(
+                result_context, result_calc_index, value_left < value_right)
+
+        # LESS OR EQUAL THAN OPERATION
+        elif curr_operation == '<=':
+            [value_left, _, _, _] = execution_memory.get_address_context(
+                curr_left_op)
+            [value_right, _, _, _] = execution_memory.get_address_context(
+                curr_right_op)
+            [_, _, result_context, result_calc_index] = execution_memory.get_address_context(
+                curr_result)
+            execution_memory.set_value_from_context_address(
+                result_context, result_calc_index, value_left <= value_right)
+
+        # GREATER THAN OPERATION
+        elif curr_operation == '>':
+            [value_left, _, _, _] = execution_memory.get_address_context(
+                curr_left_op)
+            [value_right, _, _, _] = execution_memory.get_address_context(
+                curr_right_op)
+            [_, _, result_context, result_calc_index] = execution_memory.get_address_context(
+                curr_result)
+            execution_memory.set_value_from_context_address(
+                result_context, result_calc_index, value_left > value_right)
+
+        # GREATER OR EQUAL THAN OPERATION
+        elif curr_operation == '>=':
+            [value_left, _, _, _] = execution_memory.get_address_context(
+                curr_left_op)
+            [value_right, _, _, _] = execution_memory.get_address_context(
+                curr_right_op)
+            [_, _, result_context, result_calc_index] = execution_memory.get_address_context(
+                curr_result)
+            execution_memory.set_value_from_context_address(
+                result_context, result_calc_index, value_left >= value_right)
+
+        # EQUAL OPERATION
+        elif curr_operation == '==':
+            [value_left, _, _, _] = execution_memory.get_address_context(
+                curr_left_op)
+            [value_right, _, _, _] = execution_memory.get_address_context(
+                curr_right_op)
+            [_, _, result_context, result_calc_index] = execution_memory.get_address_context(
+                curr_result)
+            execution_memory.set_value_from_context_address(
+                result_context, result_calc_index, value_left == value_right)
+
+        # EQUAL OPERATION
+        elif curr_operation == '!=':
+            [value_left, _, _, _] = execution_memory.get_address_context(
+                curr_left_op)
+            [value_right, _, _, _] = execution_memory.get_address_context(
+                curr_right_op)
+            [_, _, result_context, result_calc_index] = execution_memory.get_address_context(
+                curr_result)
+            execution_memory.set_value_from_context_address(
+                result_context, result_calc_index, value_left != value_right)
+
+        # ASSIGN OPERATION
         elif curr_operation == '=':
             [_, result_type, result_context, result_calc_index] = execution_memory.get_address_context(
                 curr_left_op)
@@ -75,4 +143,26 @@ def executeVM(quadruples, global_variables_dict, function_dict, constant_dict, c
                 value = float(value)
             execution_memory.set_value_from_context_address(
                 result_context, result_calc_index, value)
+
+        # NEGATIVE UNARY OPERATION
+        elif curr_operation == '-u':
+            [value, _, _, _] = execution_memory.get_address_context(
+                curr_right_op)
+            [_, _, result_context, result_calc_index] = execution_memory.get_address_context(
+                curr_result)
+            execution_memory.set_value_from_context_address(
+                result_context, result_calc_index, value * -1)
+
+        # POSITIVE UNARY OPERATION
+        elif curr_operation == '+u':
+            [value, _, _, _] = execution_memory.get_address_context(
+                curr_right_op)
+            [_, _, result_context, result_calc_index] = execution_memory.get_address_context(
+                curr_result)
+            if value < 0:
+                value *= -1
+            execution_memory.set_value_from_context_address(
+                result_context, result_calc_index, value)
+
+        # Advance instructor pointer
         instructionPointer += 1
