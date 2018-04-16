@@ -30,13 +30,49 @@ def executeVM(quadruples, global_variables_dict, function_dict, constant_dict, c
                 curr_result)
             execution_memory.set_value_from_context_address(
                 result_context, result_calc_index, value_left + value_right)
+        # SUBTRACT OPERATION
+        elif curr_operation == '-':
+            [value_left, _, _, _] = execution_memory.get_address_context(
+                curr_left_op)
+            [value_right, _, _, _] = execution_memory.get_address_context(
+                curr_right_op)
+            [_, _, result_context, result_calc_index] = execution_memory.get_address_context(
+                curr_result)
+            execution_memory.set_value_from_context_address(
+                result_context, result_calc_index, value_left - value_right)
+
+        # MULTIPLICATION OPERATION
+        elif curr_operation == '*':
+            [value_left, _, _, _] = execution_memory.get_address_context(
+                curr_left_op)
+            [value_right, _, _, _] = execution_memory.get_address_context(
+                curr_right_op)
+            [_, _, result_context, result_calc_index] = execution_memory.get_address_context(
+                curr_result)
+            execution_memory.set_value_from_context_address(
+                result_context, result_calc_index, value_left * value_right)
+
+        # DIVISION OPERATION
+        elif curr_operation == '/':
+            [value_left, _, _, _] = execution_memory.get_address_context(
+                curr_left_op)
+            [value_right, _, _, _] = execution_memory.get_address_context(
+                curr_right_op)
+            [_, _, result_context, result_calc_index] = execution_memory.get_address_context(
+                curr_result)
+            execution_memory.set_value_from_context_address(
+                result_context, result_calc_index, value_left / value_right)
 
             # ASSIGN OPERATION
         elif curr_operation == '=':
-            [_, _, result_context, result_calc_index] = execution_memory.get_address_context(
+            [_, result_type, result_context, result_calc_index] = execution_memory.get_address_context(
                 curr_left_op)
             [value, _, _, _] = execution_memory.get_address_context(
                 curr_right_op)
+            if result_type == 'num':
+                value = int(value)
+            elif result_type == 'dec':
+                value = float(value)
             execution_memory.set_value_from_context_address(
                 result_context, result_calc_index, value)
         instructionPointer += 1

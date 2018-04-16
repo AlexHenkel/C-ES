@@ -82,6 +82,7 @@ def t_CONST_S(t):
 
 def t_CONST_F(t):
     r'[0-9]+\.[0-9]+'
+    t.value = float(t.value)
     return t
 
 
