@@ -116,7 +116,7 @@ def executeVM(quadruples, global_variables_dict, function_dict, constant_dict, c
         # ASSIGN OPERATION
         elif curr_operation == '=':
             [value, result_type, result_context, result_calc_index] = unaryRegularOperation(
-                execution_memory, curr_right_op, curr_left_op, curr_operation)
+                execution_memory, curr_left_op, curr_right_op, curr_operation)
             if result_type == 'num':
                 value = int(value)
             elif result_type == 'dec':
