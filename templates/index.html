@@ -12,10 +12,12 @@
     <script src="./../static/blockly/blocks_compressed.js"></script>
     <script src="./../static/blockly/msg/js/en.js"></script>
     <script src="./../static/blockly/javascript_compressed.js"></script>
+   <script src="./../static/blockly/generators/javascript/custom.js"></script>
+   <script src="./../static/blockly/blocks/custom.js"></script>
 </head>
 
 <body>
-    <div class="container main">
+    <div class="container-fluid main">
         <div class="row">
             <div class="col">
                 <h1 class="text-center">¡Aprende a programar con <strong>Blockly C-ES</strong>!</h1>
@@ -23,9 +25,9 @@
         </div>
 
         <div class="row blockly">
-            <div id="blocklyDiv" class="col-xs-12 col-md-8"></div>          
+            <div id="blocklyDiv" class="col-xs-12 col-md-6"></div>          
             
-            <div class="col-xs-12 col-md-3 offset-md-1 code-wrapper">
+            <div class="col-xs-12 col-md-6 code-wrapper">
                 <form>
                     <fieldset>
                         <legend>Código C-ES generado:</legend>
@@ -135,19 +137,25 @@
         </div>
     </div>
 
-    <xml id="toolbox" style="display: none">
-        <block type="controls_if"></block>
-        <block type="controls_repeat_ext"></block>
-        <block type="logic_compare"></block>
-        <block type="math_number"></block>
-        <block type="math_arithmetic"></block>
-        <block type="text"></block>
-        <block type="text_print"></block>
-
-        <!-- <category name="Condiciones">
-            <block type="condiciones_si_sucede"></block>
-        </category> -->
-    </xml>
+   <xml id="toolbox" style="display: none">
+      <category name="Iniciar programa" colour="#00585E">
+         <block type="programa"></block>
+      </category>
+      <category name="Declaración de variables" colour="#BF2803">
+         <category name="Inicio de variables" colour="#F35B05">
+            <block type="init_variables"></block>
+         </category>
+         <category name="Variables" colour="#F38C13">
+            <block type="declare_variable"></block>
+            <block type="one_more_variable"></block>
+         </category>
+         <category name="Arreglos" colour="#F0B90C">
+            <block type="declare_array"></block>
+            <block type="one_more_array"></block>
+         </category>
+      </category>
+      
+   </xml>
 
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
@@ -171,9 +179,12 @@
         function myUpdateFunction(event) {
             console.log('myUpdateFunction');
             var code = Blockly.JavaScript.workspaceToCode(workspacePlayground);
+            code = code.replace(/^ +/gm, '');
             document.getElementById('textarea').innerHTML = code;
             console.log('code', code);
+            
         }
+
         workspacePlayground.addChangeListener(myUpdateFunction);
 
         function executeCode() {
