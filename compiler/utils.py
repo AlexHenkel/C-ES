@@ -14,3 +14,15 @@ def is_boolean(data):
         return False
 
     return parsed_data
+
+
+def cast_bool(data):
+    if data:
+        return 'verdadero'
+    return 'falso'
+
+
+def cast_bool_inverse(data):
+    if data == 'verdadero':
+        return True
+    return False

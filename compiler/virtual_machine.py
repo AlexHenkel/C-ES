@@ -1,7 +1,7 @@
 from random import randint
 from memory import Memory
 from errors import VariableVacia, TiposErroneos, FueraDeLimite
-from utils import is_float, is_boolean
+from utils import is_float, is_boolean, cast_bool, cast_bool_inverse
 
 
 def binaryRegularOperation(execution_memory, curr_left_op, curr_right_op, curr_result, curr_operation):
@@ -49,13 +49,13 @@ def executeVM(quadruples, global_variables_dict, function_dict, constant_dict, c
     # Start executing quadruples
     while instructionPointer < quadruplesLen:
         curr_quad = quadruples[instructionPointer]
-        # print curr_quad
+        print instructionPointer, curr_quad
         curr_operation = curr_quad[0]
         curr_left_op = curr_quad[1]
         curr_right_op = curr_quad[2]
         curr_result = curr_quad[3]
 
-        # GOTO OPERATION
+       # GOTO OPERATION
         if curr_operation == 'GOTO':
             # print instructionPointer
             # instructionPointer = curr_result - 1
@@ -94,56 +94,56 @@ def executeVM(quadruples, global_variables_dict, function_dict, constant_dict, c
             [value_left, value_right, result_context, result_calc_index] = binaryRegularOperation(
                 execution_memory, curr_left_op, curr_right_op, curr_result, curr_operation)
             execution_memory.set_value_from_context_address(
-                result_context, result_calc_index, value_left < value_right)
+                result_context, result_calc_index, cast_bool(value_left < value_right))
 
         # LESS OR EQUAL THAN OPERATION
         elif curr_operation == '<=':
             [value_left, value_right, result_context, result_calc_index] = binaryRegularOperation(
                 execution_memory, curr_left_op, curr_right_op, curr_result, curr_operation)
             execution_memory.set_value_from_context_address(
-                result_context, result_calc_index, value_left <= value_right)
+                result_context, result_calc_index, cast_bool(value_left <= value_right))
 
         # GREATER THAN OPERATION
         elif curr_operation == '>':
             [value_left, value_right, result_context, result_calc_index] = binaryRegularOperation(
                 execution_memory, curr_left_op, curr_right_op, curr_result, curr_operation)
             execution_memory.set_value_from_context_address(
-                result_context, result_calc_index, value_left > value_right)
+                result_context, result_calc_index, cast_bool(value_left > value_right))
 
         # GREATER OR EQUAL THAN OPERATION
         elif curr_operation == '>=':
             [value_left, value_right, result_context, result_calc_index] = binaryRegularOperation(
                 execution_memory, curr_left_op, curr_right_op, curr_result, curr_operation)
             execution_memory.set_value_from_context_address(
-                result_context, result_calc_index, value_left >= value_right)
+                result_context, result_calc_index, cast_bool(value_left >= value_right))
 
         # EQUAL OPERATION
         elif curr_operation == '==':
             [value_left, value_right, result_context, result_calc_index] = binaryRegularOperation(
                 execution_memory, curr_left_op, curr_right_op, curr_result, curr_operation)
             execution_memory.set_value_from_context_address(
-                result_context, result_calc_index, value_left == value_right)
+                result_context, result_calc_index, cast_bool(value_left == value_right))
 
         # NOT EQUAL OPERATION
         elif curr_operation == '!=':
             [value_left, value_right, result_context, result_calc_index] = binaryRegularOperation(
                 execution_memory, curr_left_op, curr_right_op, curr_result, curr_operation)
             execution_memory.set_value_from_context_address(
-                result_context, result_calc_index, value_left != value_right)
+                result_context, result_calc_index, cast_bool(value_left != value_right))
 
         # AND OPERATION
         elif curr_operation == 'y':
             [value_left, value_right, result_context, result_calc_index] = binaryRegularOperation(
                 execution_memory, curr_left_op, curr_right_op, curr_result, curr_operation)
             execution_memory.set_value_from_context_address(
-                result_context, result_calc_index, value_left and value_right)
+                result_context, result_calc_index, cast_bool(cast_bool_inverse(value_left) and cast_bool_inverse(value_right)))
 
         # OR OPERATION
         elif curr_operation == 'o':
             [value_left, value_right, result_context, result_calc_index] = binaryRegularOperation(
                 execution_memory, curr_left_op, curr_right_op, curr_result, curr_operation)
             execution_memory.set_value_from_context_address(
-                result_context, result_calc_index, value_left or value_right)
+                result_context, result_calc_index, cast_bool(cast_bool_inverse(value_left) or cast_bool_inverse(value_right)))
 
         # ASSIGN OPERATION
         elif curr_operation == '=':
@@ -181,7 +181,7 @@ def executeVM(quadruples, global_variables_dict, function_dict, constant_dict, c
             [value_left, value_right, result_context, result_calc_index] = binaryRegularOperation(
                 execution_memory, curr_left_op, curr_right_op, curr_result, curr_operation)
             execution_memory.set_value_from_context_address(
-                result_context, result_calc_index, randint(value_left, value_right))
+                result_context, result_calc_index, randint(value_right, value_left))
 
         # PRINT COMMAND
         elif curr_operation == 'imprimir':
