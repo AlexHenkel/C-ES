@@ -156,8 +156,104 @@ Blockly.JavaScript['function_without_params'] = function (block) {
 };
 
 
+// ********** Declaración de variables locales **********
+
+Blockly.JavaScript['init_local_variables'] = function (block) {
+   console.log('init_local_variables');
+   var variables = Blockly.JavaScript.statementToCode(block, 'VARIABLES');
+   var code = 'variables: \n';
+
+   if (!block.nextConnection.targetConnection) {
+      code = '';
+   } else if (block.nextConnection.targetConnection.check_.length === 2) {
+      code = '';
+   }
+   console.log(block.nextConnection.targetConnection);
+
+   return code;
+};
+
+Blockly.JavaScript['declare_local_variable'] = function (block) {
+   var type = block.getFieldValue('TYPE');
+   var name = block.getFieldValue('NAME');
+   var inputs = Blockly.JavaScript.statementToCode(block, 'INPUT').trim();
+   var code = '';
+   console.log('declare_local_variable', inputs, name, type);
+
+   if (inputs != "") {
+      code = type + ' ' + name + ', ' + inputs + ';\n';
+   } else {
+      code = type + ' ' + name + ';\n';
+   }
+   return code;
+};
+
+Blockly.JavaScript['one_more_local_variable'] = function (block) {
+   var name = block.getFieldValue('NAME');
+   var inputs = Blockly.JavaScript.statementToCode(block, 'INPUT').trim();
+   var code = '';
+   console.log('one_more_local_variable', inputs, name);
+
+   if (inputs != "") {
+      code = name + ', ' + inputs;
+   } else {
+      code = name;
+   }
+
+   return code;
+};
+
+Blockly.JavaScript['declare_local_array'] = function (block) {
+   var type = block.getFieldValue('TYPE');
+   var name = block.getFieldValue('NAME');
+   var size = block.getFieldValue('SIZE');
+   var inputs = Blockly.JavaScript.statementToCode(block, 'INPUT').trim();
+   var code = '';
+   console.log('declare_local_array', inputs, name, type, size);
+
+   if (inputs != "") {
+      code = 'lista de ' + type + ' de ' + size + ' ' + name + ', ' + inputs + ';\n';
+   } else {
+      code = 'lista de ' + type + ' de ' + size + ' ' + name + ';\n';
+   }
+
+   return code;
+};
+
+Blockly.JavaScript['one_more_local_array'] = function (block) {
+   var name = block.getFieldValue('NAME');
+   var inputs = Blockly.JavaScript.statementToCode(block, 'INPUT').trim();
+   var code = '';
+   console.log('one_more_local_array', inputs, name);
+
+   if (inputs != "") {
+      code = name + ', ' + inputs;
+   } else {
+      code = name;
+   }
+   return code;
+};
+
+
 // ********** Asignación **********
 
 Blockly.JavaScript['assignment'] = function (block) {
+   var name = block.getFieldValue('NAME');
+   code = '';
+   return name + ' = ';
+}
 
+Blockly.JavaScript['expression_simple'] = function (block) {
+   code = '';
+   return code;
+}
+
+Blockly.JavaScript['expression_compound'] = function (block) {
+   code = '';
+   return code;
+}
+
+Blockly.JavaScript['term'] = function (block) {
+   code = '';
+   return code;
 }

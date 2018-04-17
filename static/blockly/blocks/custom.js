@@ -86,7 +86,7 @@ Blockly.Blocks['function_with_params'] = {
          .appendField("Nombre: ")
          .appendField(new Blockly.FieldTextInput("nombreFunción"), "NAME")
          .appendField("Parámetros:");
-      this.appendStatementInput("BODY_FUNCTION").setCheck(["BODY_FUNCTION", "Variables"]);
+      this.appendStatementInput("BODY_FUNCTION").setCheck(["BODY_FUNCTION", "LOCAL_VARIABLES", "STATEMENT"]);
       this.setPreviousStatement(true, ["FUNCTIONS", "VARIABLE"]);
       this.setNextStatement(true, "FUNCTIONS");
       this.setColour("#3A9C2D");
@@ -111,10 +111,71 @@ Blockly.Blocks['function_without_params'] = {
          .appendField(new Blockly.FieldDropdown([["nada", "nada"], ["numero", "numero"], ["decimal", "decimal"], ["texto", "texto"], ["binario", "binario"]]), "TYPE")
          .appendField("Nombre: ")
          .appendField(new Blockly.FieldTextInput("nombreFunción"), "NAME");
-      this.appendStatementInput("BODY_FUNCTION").setCheck(["BODY_FUNCTION", "Variables"]);
+      this.appendStatementInput("BODY_FUNCTION").setCheck(["BODY_FUNCTION", "LOCAL_VARIABLES", "STATEMENT"]);
       this.setPreviousStatement(true, ["FUNCTIONS", "VARIABLE"]);
       this.setNextStatement(true, "FUNCTIONS");
       this.setColour("#3A9C2D");
+   }
+};
+
+// ********** Declaración de variables locales **********
+
+Blockly.Blocks['init_local_variables'] = {
+   init: function () {
+      this.appendDummyInput().appendField("Variables locales")
+      this.setPreviousStatement(true, "LOCAL_VARIABLES");
+      this.setNextStatement(true, ["VARIABLE_LOCAL", "STATEMENT"]);
+      this.setColour("#F35B05");
+      this.setTooltip('En este bloque se declaran las variables globales');
+   }
+};
+
+Blockly.Blocks['declare_local_variable'] = {
+   init: function () {
+      this.appendValueInput("INPUT").setCheck("OTHER_LOCAL_VARIABLE")
+         .appendField(new Blockly.FieldDropdown([["numero", "numero"], ["decimal", "decimal"], ["texto", "texto"], ["binario", "binario"]]), "TYPE")
+         .appendField(new Blockly.FieldTextInput("nombreVariable"), "NAME");
+      this.setPreviousStatement(true, "VARIABLE_LOCAL");
+      this.setNextStatement(true, ["VARIABLE_LOCAL", "STATEMENT"]);
+      this.setColour("#F38C13");
+      this.setTooltip('Declaración de una variable');
+   }
+};
+
+Blockly.Blocks['one_more_local_variable'] = {
+   init: function () {
+      this.appendValueInput("INPUT").setCheck("OTHER_LOCAL_VARIABLE")
+         .appendField(", ")
+         .appendField(new Blockly.FieldTextInput("otraVariable"), "NAME");
+      this.setOutput(true, "OTHER_LOCAL_VARIABLE");
+      this.setColour("#F38C13");
+      this.setTooltip('Declaración de otra variable');
+   }
+};
+
+Blockly.Blocks['declare_local_array'] = {
+   init: function () {
+      this.appendValueInput("INPUT").setCheck("OTHER_LOCAL_ARRAY")
+         .appendField("lista de ")
+         .appendField(new Blockly.FieldDropdown([["numero", "numero"], ["decimal", "decimal"], ["texto", "texto"], ["binario", "binario"]]), "TYPE")
+         .appendField("de ")
+         .appendField(new Blockly.FieldNumber(1, 1), "SIZE")
+         .appendField(new Blockly.FieldTextInput("nombreArreglo"), "NAME");
+      this.setPreviousStatement(true, "VARIABLE_LOCAL");
+      this.setNextStatement(true, ["VARIABLE_LOCAL", "STATEMENT"]);
+      this.setColour("#F0B90C");
+      this.setTooltip('Declaración de un arreglo');
+   }
+};
+
+Blockly.Blocks['one_more_local_array'] = {
+   init: function () {
+      this.appendValueInput("INPUT").setCheck("OTHER_LOCAL_ARRAY")
+         .appendField(", ")
+         .appendField(new Blockly.FieldTextInput("otroArreglo"), "NAME");
+      this.setOutput(true, "OTHER_LOCAL_ARRAY");
+      this.setColour("#F0B90C");
+      this.setTooltip('Aquí se declara otra variable');
    }
 };
 
@@ -123,11 +184,51 @@ Blockly.Blocks['function_without_params'] = {
 
 Blockly.Blocks['assignment'] = {
    init: function () {
-      this.appendValueInput("INPUT").setCheck("expression")
+      this.appendValueInput("INPUT").setCheck("EXPRESSION")
          .appendField(new Blockly.FieldTextInput("nombreVariable"), "NAME")
          .appendField(" = ");
-      this.setPreviousStatement(true, "FUNCTIONS");
-      this.setNextStatement(true, "FUNCTIONS");
+      this.setPreviousStatement(true, "STATEMENT");
+      this.setNextStatement(true, "STATEMENT");
       this.setColour("#F38C13");
+   }
+};
+
+
+// ********** Expresión **********
+
+Blockly.Blocks['expression_simple'] = {
+   init: function () {
+      this.appendValueInput("EXP1").setCheck("EXP");
+      this.appendDummyInput();
+      this.setOutput(true, 'Multiple');
+      this.setColour("#E183E8");
+   }
+};
+
+Blockly.Blocks['expression_compound'] = {
+   init: function () {
+      this.appendValueInput("EXP1").setCheck("EXP");
+      this.appendDummyInput()
+         .appendField(new Blockly.FieldDropdown([
+            ["Mayor que", ">"],
+            ["Menor que", "<"],
+            ["Mayor o igual que", ">="],
+            ["Menor o igual que", "<="],
+            ["Igual a", "=="],
+            ["Diferente a", "!="]
+         ]), "TYPE");
+      this.appendValueInput("EXP2").setCheck("EXP");
+      this.appendDummyInput();
+      this.setOutput(true, 'Multiple');
+      this.setColour("#E183E8");
+   }
+};
+
+Blockly.Blocks['term'] = {
+   init: function () {
+      this.appendValueInput("EXP1").setCheck("EXP");
+      this.appendDummyInput();
+      this.setOutput(true, 'Multiple');
+      this.setColour("#E183E8");
    }
 };

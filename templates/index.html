@@ -141,6 +141,7 @@
       <category name="Iniciar programa" colour="#00585E">
          <block type="programa"></block>
       </category>
+
       <category name="Declaración de variables" colour="#BF2803">
          <category name="Inicio de variables" colour="#F35B05">
             <block type="init_variables"></block>
@@ -162,13 +163,37 @@
             <block type="function_with_params"></block>
             <block type="function_param"></block>
          </category>
+
          <category name="Función sin parámetros" colour="#F35B05">
             <block type="function_without_params"></block>
          </category>
+
+         <category name="Declaración de variables locales" colour="#BF2803">
+            <category name="Inicio de variables locales" colour="#F35B05">
+               <block type="init_local_variables"></block>
+            </category>
+         
+            <category name="Variables locales" colour="#F38C13">
+               <block type="declare_local_variable"></block>
+               <block type="one_more_local_variable"></block>
+            </category>
+         
+            <category name="Arreglos locales" colour="#F0B90C">
+               <block type="declare_local_array"></block>
+               <block type="one_more_local_array"></block>
+            </category>
+         </category>
+
       </category>
 
       <category name="Asignación" colour="#00585E">
          <block type="assignment"></block>
+      </category>
+
+      <category name="Expresión" colour="#00585E">
+         <block type="expression_simple"></block>
+         <block type="expression_compound"></block>
+         <block type="term"></block>
       </category>
       
    </xml>
@@ -195,10 +220,9 @@
         function myUpdateFunction(event) {
             console.log('myUpdateFunction');
             var code = Blockly.JavaScript.workspaceToCode(workspacePlayground);
-            code = code.replace(/^ +/gm, '');
+            //code = code.replace(/^ +/gm, '');
             document.getElementById('textarea').innerHTML = code;
-            console.log('code', code);
-            
+            //console.log('code', code.length);
         }
 
         workspacePlayground.addChangeListener(myUpdateFunction);
