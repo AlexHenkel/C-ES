@@ -1,3 +1,4 @@
+from random import randint
 from memory import Memory
 from errors import VariableVacia, TiposErroneos, FueraDeLimite
 from utils import is_float, is_boolean
@@ -174,6 +175,13 @@ def executeVM(quadruples, global_variables_dict, function_dict, constant_dict, c
                 value *= -1
             execution_memory.set_value_from_context_address(
                 result_context, result_calc_index, value)
+
+        # RANDOM OPERATION
+        elif curr_operation == 'aleatorio':
+            [value_left, value_right, result_context, result_calc_index] = binaryRegularOperation(
+                execution_memory, curr_left_op, curr_right_op, curr_result, curr_operation)
+            execution_memory.set_value_from_context_address(
+                result_context, result_calc_index, randint(value_left, value_right))
 
         # PRINT COMMAND
         elif curr_operation == 'imprimir':

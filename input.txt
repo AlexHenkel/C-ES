@@ -3,11 +3,16 @@ programa
 
 variables:
 numero numero1;
-lista de numero de 1 miListaDeNumeros, miListaDeNumeros1;
+binario bin1;
+texto tex1;
+lista de numero de 10 miListaDeNumeros, miListaDeNumeros1;
 lista de texto de 3 miListaDeStrings;
 
 {
-    agregar a miListaDeNumeros(5)
-    imprimir(accesar(miListaDeStrings, 0))
-    quitar ultimo de miListaDeNumeros()
+    agregar a (miListaDeNumeros, 5, 0)
+    //imprimir(miListaDeNumeros)
+    numero1 = quitar de (miListaDeNumeros, 0)
+    //imprimir(miListaDeNumeros, numero1)
+    numero1 = aleatorio(de 1, a 10)
+    imprimir(numero1, aleatorio(de 1, a 10))
 }
