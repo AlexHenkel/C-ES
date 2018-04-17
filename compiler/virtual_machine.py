@@ -122,6 +122,20 @@ def executeVM(quadruples, global_variables_dict, function_dict, constant_dict, c
             execution_memory.set_value_from_context_address(
                 result_context, result_calc_index, value_left != value_right)
 
+        # AND OPERATION
+        elif curr_operation == 'y':
+            [value_left, value_right, result_context, result_calc_index] = binaryRegularOperation(
+                execution_memory, curr_left_op, curr_right_op, curr_result, curr_operation)
+            execution_memory.set_value_from_context_address(
+                result_context, result_calc_index, value_left and value_right)
+
+        # OR OPERATION
+        elif curr_operation == 'o':
+            [value_left, value_right, result_context, result_calc_index] = binaryRegularOperation(
+                execution_memory, curr_left_op, curr_right_op, curr_result, curr_operation)
+            execution_memory.set_value_from_context_address(
+                result_context, result_calc_index, value_left or value_right)
+
         # ASSIGN OPERATION
         elif curr_operation == '=':
             [value, result_type, result_context, result_calc_index] = unaryRegularOperation(
