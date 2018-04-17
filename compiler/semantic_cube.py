@@ -13,7 +13,7 @@ short_types_complete = ['', 'num', 'dec', 'tex',
 operation_groups = {
     '': '', '+': 'SUM', '-': 'ARI', '+u': 'UAR', '-u': 'UAR', '*': 'ARI', '/': 'ARI',
     '=': 'ASS', '<': 'NCO', '>': 'NCO', '<=': 'NCO', '>=': 'NCO', '==': 'COM', '!=': 'COM',
-    'y': 'LCO', 'o': 'LCO', 'leer': 'UVO', 'imprimir': 'UVO', 'sacar': 'UVO', 'agregar': 'PUS',
+    'y': 'LCO', 'o': 'LCO', 'leer': 'UVO', 'imprimir': 'UVA', 'sacar': 'UVA', 'agregar': 'PUS',
     'accesar': 'ACC', 'aleatorio': 'RAN'
 }
 
@@ -65,15 +65,21 @@ semantic_cube = {
     # Logical COmparison operations results -> AND OR
     'binLCObin': types['binario'],
 
-    # Unary VOid operations results -> leer, imprimir, pop
+    # Unary VOid operations results -> leer
     'UVOnum': types['void'],
     'UVOdec': types['void'],
     'UVOtex': types['void'],
     'UVObin': types['void'],
-    'UVOlist_num': types['void'],
-    'UVOlist_dec': types['void'],
-    'UVOlist_tex': types['void'],
-    'UVOlist_bin': types['void'],
+
+    # Unary Void Augmented operations results -> imprimir, pop
+    'UVAnum': types['void'],
+    'UVAdec': types['void'],
+    'UVAtex': types['void'],
+    'UVAbin': types['void'],
+    'UVAlist_num': types['void'],
+    'UVAlist_dec': types['void'],
+    'UVAlist_tex': types['void'],
+    'UVAlist_bin': types['void'],
 
     # PUSh list operations results -> push
     'list_numPUSnum': types['void'],

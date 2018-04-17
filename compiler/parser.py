@@ -79,7 +79,6 @@ def get_variable(p, id_position):
         if not p[id_position] in global_variables_dict:
             raise VariableGlobalNoDeclarada(
                 p[id_position], p.lineno(id_position))
-            pass
         else:
             return global_variables_dict[p[id_position]]
     else:
@@ -90,7 +89,15 @@ def get_variable(p, id_position):
         else:
             raise VariableLocallNoDeclarada(
                 p[id_position], p.lineno(id_position))
-            pass
+
+
+def get_variable_by_address(address):
+    for var in local_variables_dict:
+        if local_variables_dict[var]["address"] == address:
+            return local_variables_dict[var]
+    for var in global_variables_dict:
+        if global_variables_dict[var]["address"] == address:
+            return global_variables_dict[var]
 
 
 def add_function(p, id_position):
@@ -156,7 +163,7 @@ def add_id(p, id_position):
     types_stack.append(curr_var['type'])
 
 
-def verify_semantics(is_unary=False):
+def verify_semantics(is_unary=False, with_length=False):
     global curr_func_temp_vars
     operation = operators_stack.pop()
     var_2 = variables_stack.pop()
@@ -169,6 +176,17 @@ def verify_semantics(is_unary=False):
         type_1 = types_stack.pop()
     result_type = get_semantic_result(type_1, type_2, operation)
     result_address = -1
+
+    # To set array length, change variable to an array containing address and length
+    if type_1 >= types['lista de numero'] and with_length:
+        curr_arr = get_variable_by_address(var_1)
+        var_1 = [var_1, curr_arr["length"]]
+
+    if type_2 >= types['lista de numero'] and with_length:
+        curr_arr = get_variable_by_address(var_2)
+        var_2 = [var_2, curr_arr["length"]]
+
+    # Set result address in case operation create new result
     if result_type > types['void']:
         result_address = get_memory_address('temp', result_type)
         variables_stack.append(result_address)
@@ -446,13 +464,23 @@ def p_add_read_op(p):
 
 # Print
 def p_print(p):
-    'print : PRINT add_print_op "(" expr_params ")"'
-    verify_semantics(True)
+    'print : PRINT "(" print_params ")"'
 
 
-def p_add_print_op(p):
-    'add_print_op : empty'
+def p_print_params(p):
+    '''print_params : empty
+                    | expression save_print_param print_params_rec'''
+
+
+def p_save_print_param(p):
+    'save_print_param : empty'
     operators_stack.append('imprimir')
+    verify_semantics(True, True)
+
+
+def p_print_params_rec(p):
+    '''print_params_rec : empty
+                       | "," print_params'''
 
 
 # Parameters
