@@ -13,7 +13,7 @@ short_types_complete = ['', 'num', 'dec', 'tex',
 operation_groups = {
     '': '', '+': 'SUM', '-': 'ARI', '+u': 'UAR', '-u': 'UAR', '*': 'ARI', '/': 'ARI',
     '=': 'ASS', '<': 'NCO', '>': 'NCO', '<=': 'NCO', '>=': 'NCO', '==': 'COM', '!=': 'COM',
-    'y': 'LCO', 'o': 'LCO', 'leer': 'UVO', 'imprimir': 'UVA', 'sacar': 'UVA', 'agregar': 'PUS',
+    'y': 'LCO', 'o': 'LCO', 'leer': 'UVO', 'imprimir': 'UVA', 'sacar': 'ACC', 'agregar': 'PUS',
     'accesar': 'ACC', 'aleatorio': 'RAN'
 }
 
@@ -71,7 +71,7 @@ semantic_cube = {
     'UVOtex': types['void'],
     'UVObin': types['void'],
 
-    # Unary Void Augmented operations results -> imprimir, pop
+    # Unary Void Augmented operations results -> imprimir
     'UVAnum': types['void'],
     'UVAdec': types['void'],
     'UVAtex': types['void'],
@@ -87,7 +87,7 @@ semantic_cube = {
     'list_texPUStex': types['void'],
     'list_binPUSbin': types['void'],
 
-    # ACCess list operations results -> accesar
+    # ACCess list operations results -> accesar, pop
     'list_numACCnum': types['numero'],
     'list_decACCnum': types['decimal'],
     'list_texACCnum': types['texto'],

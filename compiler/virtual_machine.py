@@ -1,5 +1,5 @@
 from memory import Memory
-from errors import VariableVacia, TiposErroneos
+from errors import VariableVacia, TiposErroneos, FueraDeLimite
 from utils import is_float, is_boolean
 
 
@@ -29,6 +29,14 @@ def operationlessAction(execution_memory, curr_op, curr_operation):
     if value == None:
         raise VariableVacia(curr_operation)
     return [value, value_type]
+
+
+def verifyArrayBounds(execution_memory, index_address, arr_len):
+    [index_value, _, _, _] = execution_memory.get_address_context(
+        index_address)
+    if index_value >= arr_len:
+        raise FueraDeLimite(index_value, arr_len)
+    return index_value
 
 
 def executeVM(quadruples, global_variables_dict, function_dict, constant_dict, curr_func_temp_vars):
@@ -216,6 +224,60 @@ def executeVM(quadruples, global_variables_dict, function_dict, constant_dict, c
 
             execution_memory.set_value_from_context_address(
                 result_context, result_calc_index, user_input)
+
+        # ARRAY PUSH OPERATION
+        elif curr_operation == 'agregar':
+            arr_base_address = curr_left_op[0]
+            arr_len = curr_left_op[1]
+            value_address = curr_right_op[0]
+            index_address = curr_right_op[1]
+
+            index_value = verifyArrayBounds(
+                execution_memory, index_address, arr_len)
+            # Get value and context to save
+            [value, _, _, _] = execution_memory.get_address_context(
+                value_address)
+            [_, _, result_context, result_calc_index] = execution_memory.get_address_context(
+                arr_base_address + index_value)
+
+            execution_memory.set_value_from_context_address(
+                result_context, result_calc_index, value)
+
+        # ARRAY ACCESS OPERATION
+        elif curr_operation == 'accesar':
+            arr_base_address = curr_left_op[0]
+            arr_len = curr_left_op[1]
+
+            [_, _, result_context, result_calc_index] = execution_memory.get_address_context(
+                curr_result)
+            index_value = verifyArrayBounds(
+                execution_memory, curr_right_op, arr_len)
+            [value, _, _, _] = execution_memory.get_address_context(
+                arr_base_address + index_value)
+
+            execution_memory.set_value_from_context_address(
+                result_context, result_calc_index, value)
+
+        # ARRAY POP OPERATION
+        elif curr_operation == 'sacar':
+            arr_base_address = curr_left_op[0]
+            arr_len = curr_left_op[1]
+
+            # Get context for temporary var that will hold poped value
+            [_, _, result_context, result_calc_index] = execution_memory.get_address_context(
+                curr_result)
+            index_value = verifyArrayBounds(
+                execution_memory, curr_right_op, arr_len)
+            # Get current value of array position, and store it's context
+            [value, _, to_delete_context, to_delete_calc_index] = execution_memory.get_address_context(
+                arr_base_address + index_value)
+
+            # Clear position in array
+            execution_memory.set_value_from_context_address(
+                to_delete_context, to_delete_calc_index, None)
+            # Set previous value in temporary variable
+            execution_memory.set_value_from_context_address(
+                result_context, result_calc_index, value)
 
         # Advance instructor pointer
         instructionPointer += 1

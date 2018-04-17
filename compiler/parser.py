@@ -163,7 +163,7 @@ def add_id(p, id_position):
     types_stack.append(curr_var['type'])
 
 
-def verify_semantics(is_unary=False, with_length=False, with_name=False):
+def verify_semantics(is_unary=False, with_length=False, with_name=False, no_save=False):
     global curr_func_temp_vars
     operation = operators_stack.pop()
     var_2 = variables_stack.pop()
@@ -201,7 +201,11 @@ def verify_semantics(is_unary=False, with_length=False, with_name=False):
         variables_stack.append(result_address)
         types_stack.append(result_type)
         curr_func_temp_vars[short_types[result_type]] += 1
-    save_quad(operation, var_1, var_2, result_address)
+
+    if not no_save:
+        save_quad(operation, var_1, var_2, result_address)
+
+    return [operation, var_1, var_2, result_address]
 
 
 def save_quad(op, var_1, var_2, result):
@@ -553,8 +557,13 @@ def p_local_funcion_generate_eva(p):
 
 # List functions
 def p_list_push(p):
-    'list_push : PUSH TO add_list_push_sign add_id "(" expression ")"'
-    verify_semantics()
+    'list_push : PUSH TO add_list_push_sign "(" add_id "," expression "," id_or_number ")"'
+    # Get index data, to allow semantic verification
+    index_var = variables_stack.pop()
+    index_type = types_stack.pop()
+    # Verify insert type match array type
+    [operation, var_1, var_2, _] = verify_semantics(False, True, False, True)
+    save_quad(operation, var_1, [var_2, index_var], -1)
 
 
 def p_add_list_push_sign(p):
@@ -563,8 +572,8 @@ def p_add_list_push_sign(p):
 
 
 def p_list_pop(p):
-    'list_pop : POP LAST add_list_pop_sign FROM add_id "(" ")"'
-    verify_semantics(True)
+    'list_pop : POP FROM add_list_pop_sign "(" add_id "," id_or_number ")"'
+    verify_semantics(False, True)
 
 
 def p_add_list_pop_sign(p):
@@ -574,7 +583,7 @@ def p_add_list_pop_sign(p):
 
 def p_list_access(p):
     'list_access : ACCESS add_list_access_sign "(" add_id "," id_or_number ")"'
-    verify_semantics()
+    verify_semantics(False, True)
 
 
 def p_add_list_access_sign(p):

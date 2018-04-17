@@ -14,7 +14,6 @@ reserved = {
     'numero': 'INT',
     'sucede': 'HAPPENS',
     'quitar': 'POP',
-    'ultimo': 'LAST',
     'binario': 'BOOLEAN',
     'decimal': 'FLOAT',
     'funcion': 'FUNCTION',
