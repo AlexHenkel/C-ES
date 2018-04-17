@@ -8,7 +8,8 @@ Blockly.JavaScript['programa'] = function (block) {
    if (variablesAndFuntions === "") {
       code = '  programa\n\n{\n' + main + '\n  }';
    } else {
-      code = '  programa\n\n' + variablesAndFuntions + '\n  {\n' + main + '\n  }';
+      console.log('programa variablesAndFuntions', variablesAndFuntions);
+      code = 'programa\n' + variablesAndFuntions + '\n{\n' + main + '\n}';
    }
    return code;
 };
@@ -17,8 +18,16 @@ Blockly.JavaScript['programa'] = function (block) {
 // ********** Declaración de variables **********
 
 Blockly.JavaScript['init_variables'] = function (block) {
+   console.log('init_variables');
    var variables = Blockly.JavaScript.statementToCode(block, 'VARIABLES');
-   var code = 'variables: \n' + variables;
+   var code = '\nvariables: \n';
+   
+   if (!block.nextConnection.targetConnection) {
+      code = '';
+   } else if (block.nextConnection.targetConnection.check_.length === 2) {
+      code = '';
+   }
+
    return code;
 };
 
@@ -49,7 +58,6 @@ Blockly.JavaScript['one_more_variable'] = function (block) {
       code = name;
    }
 
-   code.trim()
    return code;
 };
 
@@ -94,20 +102,20 @@ Blockly.JavaScript['function_with_params'] = function (block) {
    var body = Blockly.JavaScript.statementToCode(block, 'BODY_FUNCTION');
    var code = '';
    console.log('function_with_params', inputs, name, type);
-
+   console.log(block);
    if (inputs === "") {
       console.log('empty');
       if (type === "nada") {
-         code = "funcion " + name + "() {\n" + body + "\n}";
+         code = "\nfuncion " + name + "() {\n" + body + "\n}\n";
       } else {
-         code = type + " funcion " + name + "() {\n" + body + "\n}";
+         code = "\n" + type + " funcion " + name + "() {\n" + body + "\n}\n";
       }
    } else {
       console.log('no empty');
       if (type === "nada") {
-         code = "funcion " + name + "(" + inputs + ") {\n" + body + "\n}";
+         code = "\nfuncion " + name + "(" + inputs + ") {\n" + body + "\n}\n";
       } else {
-         code = type + " funcion " + name + "(" + inputs + ") {\n" + body + "\n}";
+         code = "\n" + type + " funcion " + name + "(" + inputs + ") {\n" + body + "\n}\n";
       }
    }
    return code;
@@ -139,10 +147,17 @@ Blockly.JavaScript['function_without_params'] = function (block) {
    console.log('function_without_params', name, type);
 
    if (type === "nada") {
-      code = "funcion " + name + "() {\n" + body + "\n}";
+      code = "\nfuncion " + name + "() {\n" + body + "\n}\n";
    } else {
-      code = type + " funcion " + name + "() {\n" + body + "\n}";
+      code = "\n" + type + " funcion " + name + "() {\n" + body + "\n}\n";
    }
 
    return code;
 };
+
+
+// ********** Asignación **********
+
+Blockly.JavaScript['assignment'] = function (block) {
+
+}

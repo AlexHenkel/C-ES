@@ -1,4 +1,3 @@
-'use strict';
 goog.provide('Blockly.Blocks.custom');
 goog.require('Blockly.Blocks');
 
@@ -7,10 +6,10 @@ goog.require('Blockly.Blocks');
 Blockly.Blocks['programa'] = {
    init: function () {
       this.appendDummyInput().appendField("Programa");
-      this.appendStatementInput("VAR_AND_FUNCS").setCheck(["Variables", "Functions"]);
+      this.appendStatementInput("VAR_AND_FUNCS").setCheck(["VARIABLES", "FUNCTIONS"]);
       this.appendStatementInput("MAIN").setCheck("Main");
       this.setColour("#009494");
-      this.setTooltip('Aquí se declara el inicio del programa');
+      this.setTooltip('Con este bloque se declara el inicio del programa');
    }
 };
 
@@ -20,57 +19,57 @@ Blockly.Blocks['programa'] = {
 Blockly.Blocks['init_variables'] = {
    init: function () {
       this.appendDummyInput().appendField("Variables")
-      this.setPreviousStatement(true, "Variables");
-      this.setNextStatement(true, "Variable");
+      this.setPreviousStatement(true, "VARIABLES");
+      this.setNextStatement(true, "VARIABLE");
       this.setColour("#F35B05");
-      this.setTooltip('Aquí se declaran las variables globales');
+      this.setTooltip('En este bloque se declaran las variables globales');
    }
 };
 
 Blockly.Blocks['declare_variable'] = {
    init: function () {
-      this.appendValueInput("INPUT").setCheck("otraVariable")
+      this.appendValueInput("INPUT").setCheck("OTHER_VARIABLE")
       .appendField(new Blockly.FieldDropdown([["numero", "numero"], ["decimal", "decimal"], ["texto", "texto"], ["binario", "binario"]]), "TYPE")
       .appendField(new Blockly.FieldTextInput("nombreVariable"), "NAME");
-      this.setPreviousStatement(true, "Variable");
-      this.setNextStatement(true, "Variable");
+      this.setPreviousStatement(true, "VARIABLE");
+      this.setNextStatement(true, "VARIABLE");
       this.setColour("#F38C13");
-      this.setTooltip('Aquí se declara una variable');
+      this.setTooltip('Declaración de una variable');
    }
 };
 
 Blockly.Blocks['one_more_variable'] = {
    init: function () {
-      this.appendValueInput("INPUT").setCheck("otraVariable")
+      this.appendValueInput("INPUT").setCheck("OTHER_VARIABLE")
          .appendField(", ")
          .appendField(new Blockly.FieldTextInput("otraVariable"), "NAME");
-      this.setOutput(true, "otraVariable");
+      this.setOutput(true, "OTHER_VARIABLE");
       this.setColour("#F38C13");
-      this.setTooltip('Aquí se declara otra variable');
+      this.setTooltip('Declaración de otra variable');
    }
 };
 
 Blockly.Blocks['declare_array'] = {
    init: function () {
-      this.appendValueInput("INPUT").setCheck("otroArreglo")
+      this.appendValueInput("INPUT").setCheck("OTHER_ARRAY")
          .appendField("lista de ")
          .appendField(new Blockly.FieldDropdown([["numero", "numero"], ["decimal", "decimal"], ["texto", "texto"], ["binario", "binario"]]), "TYPE")
          .appendField("de ")
          .appendField(new Blockly.FieldNumber(1, 1), "SIZE")
          .appendField(new Blockly.FieldTextInput("nombreArreglo"), "NAME");
-      this.setPreviousStatement(true, "Variable");
-      this.setNextStatement(true, "Variable");
+      this.setPreviousStatement(true, "VARIABLE");
+      this.setNextStatement(true, "VARIABLE");
       this.setColour("#F0B90C");
-      this.setTooltip('Aquí se declara un arreglo');
+      this.setTooltip('Declaración de un arreglo');
    }
 };
 
 Blockly.Blocks['one_more_array'] = {
    init: function () {
-      this.appendValueInput("INPUT").setCheck("otroArreglo")
+      this.appendValueInput("INPUT").setCheck("OTHER_ARRAY")
          .appendField(", ")
          .appendField(new Blockly.FieldTextInput("otroArreglo"), "NAME");
-      this.setOutput(true, "otroArreglo");
+      this.setOutput(true, "OTHER_ARRAY");
       this.setColour("#F0B90C");
       this.setTooltip('Aquí se declara otra variable');
    }
@@ -81,25 +80,25 @@ Blockly.Blocks['one_more_array'] = {
 
 Blockly.Blocks['function_with_params'] = {
    init: function () {
-      this.appendValueInput("PARAMETERS").setCheck('otherParam')
+      this.appendValueInput("PARAMETERS").setCheck('OTHER_PARAM')
          .appendField("Regresa: ")
          .appendField(new Blockly.FieldDropdown([["nada", "nada"], ["numero", "numero"], ["decimal", "decimal"], ["texto", "texto"], ["binario", "binario"]]), "TYPE")
          .appendField("Nombre: ")
          .appendField(new Blockly.FieldTextInput("nombreFunción"), "NAME")
          .appendField("Parámetros:");
       this.appendStatementInput("BODY_FUNCTION").setCheck(["BODY_FUNCTION", "Variables"]);
-      this.setPreviousStatement(true, null);
-      this.setNextStatement(true, null);
+      this.setPreviousStatement(true, ["FUNCTIONS", "VARIABLE"]);
+      this.setNextStatement(true, "FUNCTIONS");
       this.setColour("#3A9C2D");
    }
 };
 
 Blockly.Blocks['function_param'] = {
    init: function () {
-      this.appendValueInput("PARAMETERS").setCheck("otherParam")
+      this.appendValueInput("PARAMETERS").setCheck("OTHER_PARAM")
          .appendField(new Blockly.FieldDropdown([["numero", "numero"], ["decimal", "decimal"], ["texto", "texto"], ["binario", "binario"]]), "TYPE")
          .appendField(new Blockly.FieldTextInput("nombreParámetro"), "NAME");
-      this.setOutput(true, "otherParam");
+      this.setOutput(true, "OTHER_PARAM");
       this.setColour("#F38C13");
    }
 };
@@ -113,8 +112,22 @@ Blockly.Blocks['function_without_params'] = {
          .appendField("Nombre: ")
          .appendField(new Blockly.FieldTextInput("nombreFunción"), "NAME");
       this.appendStatementInput("BODY_FUNCTION").setCheck(["BODY_FUNCTION", "Variables"]);
-      this.setPreviousStatement(true, null);
-      this.setNextStatement(true, null);
+      this.setPreviousStatement(true, ["FUNCTIONS", "VARIABLE"]);
+      this.setNextStatement(true, "FUNCTIONS");
       this.setColour("#3A9C2D");
+   }
+};
+
+
+// ********** Asignación **********
+
+Blockly.Blocks['assignment'] = {
+   init: function () {
+      this.appendValueInput("INPUT").setCheck("expression")
+         .appendField(new Blockly.FieldTextInput("nombreVariable"), "NAME")
+         .appendField(" = ");
+      this.setPreviousStatement(true, "FUNCTIONS");
+      this.setNextStatement(true, "FUNCTIONS");
+      this.setColour("#F38C13");
    }
 };
