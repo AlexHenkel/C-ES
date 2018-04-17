@@ -75,3 +75,46 @@ Blockly.Blocks['one_more_array'] = {
       this.setTooltip('Aquí se declara otra variable');
    }
 };
+
+
+// ********** Declaración de funciones **********
+
+Blockly.Blocks['function_with_params'] = {
+   init: function () {
+      this.appendValueInput("PARAMETERS").setCheck('otherParam')
+         .appendField("Regresa: ")
+         .appendField(new Blockly.FieldDropdown([["nada", "nada"], ["numero", "numero"], ["decimal", "decimal"], ["texto", "texto"], ["binario", "binario"]]), "TYPE")
+         .appendField("Nombre: ")
+         .appendField(new Blockly.FieldTextInput("nombreFunción"), "NAME")
+         .appendField("Parámetros:");
+      this.appendStatementInput("BODY_FUNCTION").setCheck("BODY_FUNCTION");
+      this.setPreviousStatement(true, null);
+      this.setNextStatement(true, null);
+      this.setColour("#3A9C2D");
+   }
+};
+
+Blockly.Blocks['function_param'] = {
+   init: function () {
+      this.appendValueInput("PARAMETERS").setCheck("otherParam")
+         .appendField(new Blockly.FieldDropdown([["numero", "numero"], ["decimal", "decimal"], ["texto", "texto"], ["binario", "binario"]]), "TYPE")
+         .appendField(new Blockly.FieldTextInput("nombreParámetro"), "NAME");
+      this.setOutput(true, "otherParam");
+      this.setColour("#F38C13");
+   }
+};
+
+
+Blockly.Blocks['function_without_params'] = {
+   init: function () {
+      this.appendDummyInput()
+         .appendField("Regresa: ")
+         .appendField(new Blockly.FieldDropdown([["nada", "nada"], ["numero", "numero"], ["decimal", "decimal"], ["texto", "texto"], ["binario", "binario"]]), "TYPE")
+         .appendField("Nombre: ")
+         .appendField(new Blockly.FieldTextInput("nombreFunción"), "NAME");
+      this.appendStatementInput("BODY_FUNCTION").setCheck("BODY_FUNCTION");
+      this.setPreviousStatement(true, null);
+      this.setNextStatement(true, null);
+      this.setColour("#3A9C2D");
+   }
+};

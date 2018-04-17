@@ -83,3 +83,66 @@ Blockly.JavaScript['one_more_array'] = function (block) {
    }
    return code;
 };
+
+
+// ********** Declaración de funciones **********
+
+Blockly.JavaScript['function_with_params'] = function (block) {
+   var name = block.getFieldValue('NAME');
+   var type = block.getFieldValue('TYPE');
+   var inputs = Blockly.JavaScript.statementToCode(block, 'PARAMETERS').trim();
+   var body = Blockly.JavaScript.statementToCode(block, 'BODY_FUNCTION');
+   var code = '';
+   console.log('function_with_params', inputs, name, type);
+
+   if (inputs === "") {
+      console.log('empty');
+      if (type === "nada") {
+         code = "funcion " + name + "() {\n" + body + "\n}";
+      } else {
+         code = type + " funcion " + name + "() {\n" + body + "\n}";
+      }
+   } else {
+      console.log('no empty');
+      if (type === "nada") {
+         code = "funcion " + name + "(" + inputs + ") {\n" + body + "\n}";
+      } else {
+         code = type + " funcion " + name + "(" + inputs + ") {\n" + body + "\n}";
+      }
+   }
+   return code;
+};
+
+Blockly.JavaScript['function_param'] = function (block) {
+   var name = block.getFieldValue('NAME');
+   var type = block.getFieldValue('TYPE');
+   var inputs = Blockly.JavaScript.statementToCode(block, "PARAMETERS").trim();
+   var code = '';
+   console.log('function_param', inputs, name, type);
+
+   if (inputs !== "") {
+      console.log('inputssss');
+      code = type + ' ' + name + ', ' + inputs;
+   } else {
+      console.log('NO inputssss');
+      code = type + ' ' + name;
+   }
+
+   return code;
+};
+
+Blockly.JavaScript['function_without_params'] = function (block) {
+   var name = block.getFieldValue('NAME');
+   var type = block.getFieldValue('TYPE');
+   var body = Blockly.JavaScript.statementToCode(block, 'BODY_FUNCTION');
+   var code = '';
+   console.log('function_without_params', name, type);
+
+   if (type === "nada") {
+      code = "funcion " + name + "() {\n" + body + "\n}";
+   } else {
+      code = type + " funcion " + name + "() {\n" + body + "\n}";
+   }
+
+   return code;
+};
