@@ -37,6 +37,7 @@ operators_stack = []
 types_stack = []
 jumps_stack = []
 quads_list = []
+jumps_else_if = []
 
 
 ##############################
@@ -335,10 +336,17 @@ def p_condition(p):
     'condition : cond_if cond_else_if_opt cond_else_opt'
     end = jumps_stack.pop()
     fill_quad_result(end, quad_count)
+    while jumps_else_if[-1] != "(":
+        to_change = jumps_else_if.pop()
+        fill_quad_result(to_change, quad_count)
+    # Remove fake end to stack
+    jumps_else_if.pop()
 
 
 def p_cond_if(p):
     'cond_if : IF HAPPENS "(" expression ")" verify_save_cond DO block'
+    # Append a fake end in order to allow nested operations
+    jumps_else_if.append('(')
 
 
 def p_verify_save_cond(p):
@@ -358,7 +366,13 @@ def p_cond_else_if_opt(p):
 
 
 def p_cond_else_if(p):
-    'cond_else_if : OR IF HAPPENS save_pointer "(" expression ")" cond_else_if_verify_bool DO block'
+    'cond_else_if : OR IF HAPPENS cond_else_if_save_goto save_pointer "(" expression ")" cond_else_if_verify_bool DO block'
+
+
+def p_cond_else_if_save_goto(p):
+    'cond_else_if_save_goto : empty'
+    save_quad('GOTO', -1, -1, -1)
+    jumps_else_if.append(quad_count - 1)
 
 
 def p_save_pointer(p):

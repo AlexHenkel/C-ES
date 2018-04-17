@@ -49,17 +49,22 @@ def executeVM(quadruples, global_variables_dict, function_dict, constant_dict, c
     # Start executing quadruples
     while instructionPointer < quadruplesLen:
         curr_quad = quadruples[instructionPointer]
-        print instructionPointer, curr_quad
+        # print instructionPointer, curr_quad
         curr_operation = curr_quad[0]
         curr_left_op = curr_quad[1]
         curr_right_op = curr_quad[2]
         curr_result = curr_quad[3]
 
-       # GOTO OPERATION
+        # GOTO OPERATION
         if curr_operation == 'GOTO':
-            # print instructionPointer
-            # instructionPointer = curr_result - 1
-            pass
+            instructionPointer = curr_result - 1
+
+        # GOTOF OPERATION
+        elif curr_operation == 'GOTOF':
+            [value, _, _, _] = execution_memory.get_address_context(
+                curr_right_op)
+            if value == 'falso':
+                instructionPointer = curr_result - 1
 
         # SUM OPERATION
         elif curr_operation == '+':
@@ -180,8 +185,10 @@ def executeVM(quadruples, global_variables_dict, function_dict, constant_dict, c
         elif curr_operation == 'aleatorio':
             [value_left, value_right, result_context, result_calc_index] = binaryRegularOperation(
                 execution_memory, curr_left_op, curr_right_op, curr_result, curr_operation)
+            if (value_left > value_right):
+                [value_right, value_left] = [value_left, value_right]
             execution_memory.set_value_from_context_address(
-                result_context, result_calc_index, randint(value_right, value_left))
+                result_context, result_calc_index, randint(value_left, value_right))
 
         # PRINT COMMAND
         elif curr_operation == 'imprimir':
