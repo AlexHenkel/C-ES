@@ -87,7 +87,7 @@ Blockly.Blocks['function_with_params'] = {
          .appendField("Nombre: ")
          .appendField(new Blockly.FieldTextInput("nombreFunción"), "NAME")
          .appendField("Parámetros:");
-      this.appendStatementInput("BODY_FUNCTION").setCheck("BODY_FUNCTION");
+      this.appendStatementInput("BODY_FUNCTION").setCheck(["BODY_FUNCTION", "Variables"]);
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
       this.setColour("#3A9C2D");
@@ -112,7 +112,7 @@ Blockly.Blocks['function_without_params'] = {
          .appendField(new Blockly.FieldDropdown([["nada", "nada"], ["numero", "numero"], ["decimal", "decimal"], ["texto", "texto"], ["binario", "binario"]]), "TYPE")
          .appendField("Nombre: ")
          .appendField(new Blockly.FieldTextInput("nombreFunción"), "NAME");
-      this.appendStatementInput("BODY_FUNCTION").setCheck("BODY_FUNCTION");
+      this.appendStatementInput("BODY_FUNCTION").setCheck(["BODY_FUNCTION", "Variables"]);
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
       this.setColour("#3A9C2D");
