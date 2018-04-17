@@ -163,7 +163,7 @@ def add_id(p, id_position):
     types_stack.append(curr_var['type'])
 
 
-def verify_semantics(is_unary=False, with_length=False):
+def verify_semantics(is_unary=False, with_length=False, with_name=False):
     global curr_func_temp_vars
     operation = operators_stack.pop()
     var_2 = variables_stack.pop()
@@ -185,6 +185,15 @@ def verify_semantics(is_unary=False, with_length=False):
     if type_2 >= types['lista de numero'] and with_length:
         curr_arr = get_variable_by_address(var_2)
         var_2 = [var_2, curr_arr["length"]]
+
+    # Change variable address to array with address and name if necessary
+    if with_name and type_1 > types['void']:
+        curr_var = get_variable_by_address(var_1)
+        var_1 = [var_1, curr_var["name"]]
+
+    if with_name and type_2 > types['void']:
+        curr_var = get_variable_by_address(var_2)
+        var_2 = [var_2, curr_var["name"]]
 
     # Set result address in case operation create new result
     if result_type > types['void']:
@@ -454,7 +463,7 @@ def p_function_call(p):
 # Read
 def p_read(p):
     'read : READ add_read_op "(" add_id ")"'
-    verify_semantics(True)
+    verify_semantics(True, False, True)
 
 
 def p_add_read_op(p):
@@ -803,6 +812,7 @@ else:
     if s:
         print("Compiling code...")
         result = parser.parse(s)
+        print("Compiling success!")
         executeVM(quads_list, global_variables_dict, function_dict,
                   constant_dict, curr_func_temp_vars)
 
