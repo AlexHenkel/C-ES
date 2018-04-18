@@ -55,26 +55,35 @@ def add_variable(p, id_position):
         else:
             var_type = types[current_var_type]
             if var_type < 5:
+                address = get_memory_address('glob', var_type)
                 global_variables_dict[p[id_position]] = {
-                    'name': p[id_position], 'type': var_type, 'address': get_memory_address('glob', var_type)}
+                    'name': p[id_position], 'type': var_type, 'address': address}
+                return [address]
             else:
+                address = get_memory_address(
+                    'glob', var_type, current_arr_length)
                 global_variables_dict[p[id_position]] = {
                     'name': p[id_position], 'type': var_type, 'length': current_arr_length,
-                    'address': get_memory_address('glob', var_type, current_arr_length)}
+                    'address': address}
+                return [address, current_arr_length]
     else:
         if p[id_position] in local_variables_dict:
             raise VariableLocalDuplicada(
                 p[id_position], p.lineno(id_position))
-            pass
         else:
             var_type = types[current_var_type]
             if var_type < 5:
+                address = get_memory_address('loc', var_type)
                 local_variables_dict[p[id_position]] = {
-                    'name': p[id_position], 'type': var_type, 'address': get_memory_address('loc', var_type)}
+                    'name': p[id_position], 'type': var_type, 'address': address}
+                return [address]
             else:
+                address = get_memory_address(
+                    'loc', var_type, current_arr_length)
                 local_variables_dict[p[id_position]] = {
                     'name': p[id_position], 'type': var_type, 'length': current_arr_length,
-                    'address': get_memory_address('loc', var_type, current_arr_length)}
+                    'address': address}
+                return [address, current_arr_length]
 
 
 def get_variable(p, id_position):
@@ -476,11 +485,8 @@ def p_function_params(p):
 
 def p_function_params_save_id(p):
     'function_params_save_id : ID'
-    add_variable(p, 1)
-    curr_type = types[current_var_type]
-    if types[current_var_type] >= types['lista de numero']:
-        curr_type = [curr_type, current_arr_length]
-    curr_param_list.append(curr_type)
+    curr_info = [types[current_var_type]] + add_variable(p, 1)
+    curr_param_list.append(curr_info)
 
 
 def p_function_param_type(p):
@@ -631,22 +637,25 @@ def p_check_func_param(p):
     curr_func = function_dict[curr_func_name]
     curr_type = types_stack.pop()
     curr_param = variables_stack.pop()
-    curr_param_type = curr_func['parameters'][curr_function_call_param]
 
     # Verify if it's trying to overflow parameters list
     if len(curr_func['parameters']) == curr_function_call_param:
         raise NumParametrosIncorrectos(curr_func_name)
 
+    curr_param_info = curr_func['parameters'][curr_function_call_param]
     # Verify if parameter is an array or atomic type
-    if isinstance(curr_param_type, list):
+    if len(curr_param_info) == 3:
         # Verify types and length of array
-        if curr_type != curr_param_type[0] or get_variable_by_address(curr_param)['length'] != curr_param_type[1]:
+        if curr_type != curr_param_info[0] or get_variable_by_address(curr_param)['length'] != curr_param_info[2]:
             raise TiposErroneos('Parametro (arreglo)')
+        curr_param = [curr_param, curr_param_info[2]]
     else:
-        if curr_type != curr_param_type:
+        if curr_type != curr_param_info[0]:
             raise TiposErroneos('Parametro')
 
-    save_quad('PARAM', -1, curr_param, curr_function_call_param)
+    # Save QUAD in format (op, curr_address, target_address, param_number)
+    save_quad('PARAM', curr_param,
+              curr_param_info[1], curr_function_call_param)
     curr_function_call_param = curr_function_call_param + 1
 
 

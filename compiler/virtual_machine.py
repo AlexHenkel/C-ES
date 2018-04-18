@@ -294,5 +294,29 @@ def executeVM(quadruples, global_variables_dict, function_dict, constant_dict, c
             execution_memory.set_value_from_context_address(
                 result_context, result_calc_index, value)
 
+        # ERA OPERATION
+        elif curr_operation == 'ERA':
+            curr_func = function_dict[curr_left_op]
+            execution_memory.initFunction(
+                curr_func['local_count'], curr_func['temp_count'])
+
+        # PARAM OPERATION
+        elif curr_operation == 'PARAM':
+            if isinstance(curr_left_op, list):
+                for i in range(0, curr_left_op[1]):
+                    [value, _, _, _] = execution_memory.get_address_context(
+                        curr_left_op[0] + i)
+                    [_, _, value_context, value_calc_index] = execution_memory.get_address_context(
+                        curr_right_op + i)
+                    execution_memory.set_value_from_context_address(
+                        value_context, value_calc_index, value)
+            else:
+                [value, _, _, _] = execution_memory.get_address_context(
+                    curr_left_op)
+                [_, _, value_context, value_calc_index] = execution_memory.get_address_context(
+                    curr_right_op)
+                execution_memory.set_value_from_context_address(
+                    value_context, value_calc_index, value)
+
         # Advance instructor pointer
         instructionPointer += 1
