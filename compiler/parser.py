@@ -23,6 +23,7 @@ curr_func_return_type = None
 curr_func_local_vars = copy.deepcopy(curr_func_local_vars_original)
 curr_func_temp_vars = copy.deepcopy(curr_func_temp_vars_original)
 curr_function_call_param = 0
+return_address = None
 
 # Define dictionaries
 global_variables_dict = {}
@@ -122,18 +123,22 @@ def update_last_function():
     global curr_func_temp_vars
     global current_var_type
     global curr_func_return_type
+    global return_address
     name = curr_func_name
     # Update functions directory
     function_dict[name]['parameters'] = curr_param_list
     function_dict[name]['local_count'] = curr_func_local_vars
     function_dict[name]['temp_count'] = curr_func_temp_vars
     function_dict[name]['start_p'] = jumps_stack.pop()
+    if return_address:
+        function_dict[name]['return_address'] = return_address
     # Clear state
     curr_param_list = []
     curr_func_name = None
     curr_func_local_vars = copy.deepcopy(curr_func_local_vars_original)
     curr_func_temp_vars = copy.deepcopy(curr_func_temp_vars_original)
     reset_local_addresses()
+    return_address = None
     current_var_type = None
     curr_func_return_type = None
     local_variables_dict.clear()
@@ -199,7 +204,10 @@ def verify_semantics(is_unary=False, with_length=False, with_name=False, no_save
 
     # Set result address in case operation create new result
     if result_type > types['void']:
-        result_address = get_memory_address('temp', result_type)
+        address_context = 'temp'
+        if current_scope == 'functions':
+            address_context = 'ltemp'
+        result_address = get_memory_address(address_context, result_type)
         variables_stack.append(result_address)
         types_stack.append(result_type)
         curr_func_temp_vars[short_types[result_type]] += 1
@@ -463,11 +471,15 @@ def p_function_return(p):
 
 def p_save_return(p):
     'save_return : empty'
+    global return_address
+    global curr_func_temp_vars
     curr_type = types_stack.pop()
     curr_var = variables_stack.pop()
     if curr_type != curr_func_return_type:
         raise TiposErroneos('Retorno de funcion')
-    save_quad('RETURN', -1, curr_var, -1)
+    return_address = get_memory_address('temp', curr_type)
+    curr_func_temp_vars[short_types[result_type]] += 1
+    save_quad('RETURN', -1, curr_var, return_address)
 
 
 # Function call
@@ -511,32 +523,6 @@ def p_print_params_rec(p):
                        | "," print_params'''
 
 
-# Parameters
-def p_expr_params(p):
-    '''expr_params : empty
-                   | expression check_func_param expr_params_rec'''
-
-
-def p_check_func_param(p):
-    'check_func_param : empty'
-    if current_scope == 'local_function':
-        global curr_function_call_param
-        curr_func = function_dict[curr_func_name]
-        curr_type = types_stack.pop()
-        curr_param = variables_stack.pop()
-        if len(curr_func['parameters']) == curr_function_call_param:
-            raise NumParametrosIncorrectos(curr_func_name)
-        if curr_type != curr_func['parameters'][curr_function_call_param]:
-            raise TiposErroneos('Parametro')
-        save_quad('PARAM', -1, curr_param, curr_function_call_param)
-        curr_function_call_param = curr_function_call_param + 1
-
-
-def p_expr_params_rec(p):
-    '''expr_params_rec : empty
-                       | "," expr_params'''
-
-
 # Local function call
 def p_local_function(p):
     'local_function : ID local_funcion_generate_eva "(" expr_params ")"'
@@ -556,9 +542,10 @@ def p_local_function(p):
     # Verify semantics and get result
     curr_func = get_function(p, 1)
     func_type = curr_func['type']
-    # TODO: Get function result from memory
-    if (curr_func['type'] > types['void']):
-        curr_func_temp_vars[short_types[func_type]] += 1
+    # Push return address and type to the stack, as they might be used by other operation
+    if curr_func['type'] > types['void']:
+        types_stack.append(curr_func['type'])
+        variables_stack.append(curr_func['return_address'])
 
 
 def p_local_funcion_generate_eva(p):
@@ -567,7 +554,32 @@ def p_local_funcion_generate_eva(p):
     global curr_func_name
     current_scope = 'local_function'
     curr_func_name = p[-1]
-    save_quad('EVA', p[-1], -1, -1)
+    save_quad('ERA', p[-1], -1, -1)
+
+
+# Parameters
+def p_expr_params(p):
+    '''expr_params : empty
+                   | expression check_func_param expr_params_rec'''
+
+
+def p_check_func_param(p):
+    'check_func_param : empty'
+    global curr_function_call_param
+    curr_func = function_dict[curr_func_name]
+    curr_type = types_stack.pop()
+    curr_param = variables_stack.pop()
+    if len(curr_func['parameters']) == curr_function_call_param:
+        raise NumParametrosIncorrectos(curr_func_name)
+    if curr_type != curr_func['parameters'][curr_function_call_param]:
+        raise TiposErroneos('Parametro')
+    save_quad('PARAM', -1, curr_param, curr_function_call_param)
+    curr_function_call_param = curr_function_call_param + 1
+
+
+def p_expr_params_rec(p):
+    '''expr_params_rec : empty
+                       | "," expr_params'''
 
 
 # List functions
