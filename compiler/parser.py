@@ -11,6 +11,7 @@ from virtual_machine import executeVM
 
 curr_func_local_vars_original = {'num': 0, 'dec': 0, 'tex': 0, 'bin': 0}
 curr_func_temp_vars_original = {'num': 0, 'dec': 0, 'tex': 0, 'bin': 0}
+return_address_original = {'address': None, 'length': 1}
 
 # Define global helpers
 current_scope = 'global'
@@ -23,7 +24,7 @@ curr_func_return_type = None
 curr_func_local_vars = copy.deepcopy(curr_func_local_vars_original)
 curr_func_temp_vars = copy.deepcopy(curr_func_temp_vars_original)
 curr_function_call_param = 0
-return_address = None
+return_address = copy.deepcopy(return_address_original)
 
 # Define dictionaries
 global_variables_dict = {}
@@ -130,15 +131,14 @@ def update_last_function():
     function_dict[name]['local_count'] = curr_func_local_vars
     function_dict[name]['temp_count'] = curr_func_temp_vars
     function_dict[name]['start_p'] = jumps_stack.pop()
-    if return_address:
-        function_dict[name]['return_address'] = return_address
+    function_dict[name]['return_address'] = return_address
     # Clear state
     curr_param_list = []
     curr_func_name = None
     curr_func_local_vars = copy.deepcopy(curr_func_local_vars_original)
     curr_func_temp_vars = copy.deepcopy(curr_func_temp_vars_original)
+    return_address = copy.deepcopy(return_address_original)
     reset_local_addresses()
-    return_address = None
     current_var_type = None
     curr_func_return_type = None
     local_variables_dict.clear()
@@ -235,7 +235,7 @@ def fill_quad_result(index, result):
 
 
 def p_main(p):
-    'main : PROGRAM variables_opt save_main_quad main_func fill_main_quad block'
+    'main : PROGRAM variables_opt save_main_quad main_func_opt fill_main_quad block'
 
 
 def p_save_main_quad(p):
@@ -261,9 +261,14 @@ def p_variables_opt(p):
     current_scope = 'functions'
 
 
-def p_main_func(p):
-    '''main_func : empty
-                 | function main_func'''
+def p_main_func_opt(p):
+    '''main_func_opt : empty
+                 | FUNCTIONS main_func_rec'''
+
+
+def p_main_func_rec(p):
+    '''main_func_rec : empty
+                     | function main_func_rec'''
 
 # Block
 
@@ -278,8 +283,6 @@ def p_block_stm_opt(p):
 
 
 # Statement
-# TODO: Check when function call returns a value, but it won't be reassinged
-# and need to be removed from variables_stack
 def p_statement(p):
     '''statement : assignation
                  | condition
@@ -443,15 +446,56 @@ def p_function_variables_opt(p):
 
 def p_function_type(p):
     '''function_type : empty
-                     | type'''
+                     | function_return_type'''
+
+
+def p_function_return_type(p):
+    '''function_return_type : base_type
+                            | ARRAY FROM base_type FROM CONST_I'''
+    global return_address
+    global current_var_type
+    global current_arr_length
+    global curr_func_local_vars
+    curr_length = 1
+
+    if len(p) > 2:
+        current_var_type = "{} {} {}".format(p[1], p[2], current_var_type)
+        current_arr_length = p[5]
+        curr_length = current_arr_length
+
+    return_address['address'] = get_memory_address(
+        'loc', types[current_var_type], curr_length)
+    return_address['length'] = curr_length
+    curr_func_local_vars[short_types[types[current_var_type]]] += curr_length
 
 
 def p_function_params(p):
     '''function_params : empty
-                       | type ID function_params_rec'''
+                       | function_param_type function_params_save_id function_params_rec'''
+
+
+def p_function_params_save_id(p):
+    'function_params_save_id : ID'
+    add_variable(p, 1)
+    curr_type = types[current_var_type]
+    if types[current_var_type] >= types['lista de numero']:
+        curr_type = [curr_type, current_arr_length]
+    curr_param_list.append(curr_type)
+
+
+def p_function_param_type(p):
+    '''function_param_type : base_type
+                           | ARRAY FROM base_type FROM CONST_I'''
+    global current_var_type
+    global current_arr_length
+    global curr_func_local_vars
     if len(p) > 2:
-        add_variable(p, 2)
-        curr_param_list.append(types[current_var_type])
+        current_var_type = "{} {} {}".format(p[1], p[2], current_var_type)
+        current_arr_length = p[5]
+        curr_func_local_vars[short_types[types[current_var_type]]
+                             ] += current_arr_length
+    else:
+        curr_func_local_vars[short_types[types[current_var_type]]] += 1
 
 
 def p_function_params_rec(p):
@@ -471,15 +515,18 @@ def p_function_return(p):
 
 def p_save_return(p):
     'save_return : empty'
-    global return_address
     global curr_func_temp_vars
     curr_type = types_stack.pop()
     curr_var = variables_stack.pop()
     if curr_type != curr_func_return_type:
         raise TiposErroneos('Retorno de funcion')
-    return_address = get_memory_address('temp', curr_type)
-    curr_func_temp_vars[short_types[result_type]] += 1
-    save_quad('RETURN', -1, curr_var, return_address)
+    # Verify type of return and if is an array, it's length
+    if curr_type >= types['lista de numero']:
+        curr_var_len = get_variable_by_address(curr_var)['length']
+        if curr_var_len != return_address['length']:
+            raise TiposErroneos('Retorno de funcion (longitud)')
+    save_quad('RETURN', -1, curr_var,
+              [return_address['address'], return_address['length']])
 
 
 # Function call
@@ -533,19 +580,34 @@ def p_local_function(p):
     curr_func = function_dict[curr_func_name]
     if len(curr_func['parameters']) != curr_function_call_param:
         raise NumParametrosIncorrectos(curr_func_name)
+    result_address = -1
+    is_array = curr_func['type'] >= types['lista de numero']
+    # Verify if function returns value
+    if curr_func['type'] > types['void']:
+        # Set correct scope
+        address_context = 'temp'
+        if current_scope == 'functions':
+            address_context = 'ltemp'
+        # Verify if it's array so we get enough memory
+        curr_len = 1
+        if is_array:
+            curr_len = curr_func['return_address']['length']
+        # Request a temporary variable to store data
+        result_address = get_memory_address(
+            address_context, curr_func['type'], curr_len)
+        # Push variable to stack to be accessible to other functions
+        variables_stack.append(result_address)
+        types_stack.append(curr_func['type'])
+        curr_func_temp_vars[short_types[curr_func['type']]] += 1
+        # If return variable is an array, add it's length
+        if is_array:
+            result_address = [result_address, curr_len]
+
     # Generate quad
-    save_quad('GOSUB', curr_func_name, -1, -1)
+    save_quad('GOSUB', curr_func_name, result_address, -1)
     # Reset state
     curr_function_call_param = 0
-    current_scope = 'main'
     curr_func_name = None
-    # Verify semantics and get result
-    curr_func = get_function(p, 1)
-    func_type = curr_func['type']
-    # Push return address and type to the stack, as they might be used by other operation
-    if curr_func['type'] > types['void']:
-        types_stack.append(curr_func['type'])
-        variables_stack.append(curr_func['return_address'])
 
 
 def p_local_funcion_generate_eva(p):
@@ -569,10 +631,21 @@ def p_check_func_param(p):
     curr_func = function_dict[curr_func_name]
     curr_type = types_stack.pop()
     curr_param = variables_stack.pop()
+    curr_param_type = curr_func['parameters'][curr_function_call_param]
+
+    # Verify if it's trying to overflow parameters list
     if len(curr_func['parameters']) == curr_function_call_param:
         raise NumParametrosIncorrectos(curr_func_name)
-    if curr_type != curr_func['parameters'][curr_function_call_param]:
-        raise TiposErroneos('Parametro')
+
+    # Verify if parameter is an array or atomic type
+    if isinstance(curr_param_type, list):
+        # Verify types and length of array
+        if curr_type != curr_param_type[0] or get_variable_by_address(curr_param)['length'] != curr_param_type[1]:
+            raise TiposErroneos('Parametro (arreglo)')
+    else:
+        if curr_type != curr_param_type:
+            raise TiposErroneos('Parametro')
+
     save_quad('PARAM', -1, curr_param, curr_function_call_param)
     curr_function_call_param = curr_function_call_param + 1
 
@@ -741,14 +814,6 @@ def p_add_bool_const(p):
     add_const('binario', p[1])
 
 # General rules
-
-
-def p_type(p):
-    '''type : base_type
-            | ARRAY FROM base_type'''
-    global current_var_type
-    if len(p) > 2:
-        current_var_type = "{} {} {}".format(p[1], p[2], current_var_type)
 
 
 def p_id_or_number(p):

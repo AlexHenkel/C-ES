@@ -17,6 +17,7 @@ reserved = {
     'binario': 'BOOLEAN',
     'decimal': 'FLOAT',
     'funcion': 'FUNCTION',
+    'funciones': 'FUNCTIONS',
     'agregar': 'PUSH',
     'realiza': 'DO',
     'accesar': 'ACCESS',
