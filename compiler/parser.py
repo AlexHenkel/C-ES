@@ -5,7 +5,7 @@ import ply.yacc as yacc
 from random import randint
 from semantic_cube import types, short_types, get_semantic_result
 from lex import tokens
-from memory import get_memory_address
+from memory import get_memory_address, reset_local_addresses
 from errors import *
 from virtual_machine import executeVM
 
@@ -133,6 +133,7 @@ def update_last_function():
     curr_func_name = None
     curr_func_local_vars = copy.deepcopy(curr_func_local_vars_original)
     curr_func_temp_vars = copy.deepcopy(curr_func_temp_vars_original)
+    reset_local_addresses()
     current_var_type = None
     curr_func_return_type = None
     local_variables_dict.clear()

@@ -33,6 +33,17 @@ def get_memory_address(scope, curr_type, length=1):
     return to_return_address
 
 
+def reset_local_addresses():
+    memory_addresses['loc_num'] = 10000
+    memory_addresses['loc_dec'] = 12500
+    memory_addresses['loc_tex'] = 15000
+    memory_addresses['loc_bin'] = 17500
+    memory_addresses['temp_num'] = 20000
+    memory_addresses['temp_dec'] = 22500
+    memory_addresses['temp_tex'] = 25000
+    memory_addresses['temp_bin'] = 27500
+
+
 class Memory:
     def __getitem__(self, name):
         return getattr(self, name)
