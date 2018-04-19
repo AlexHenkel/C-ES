@@ -23,7 +23,8 @@ curr_func_name = None
 curr_func_return_type = None
 curr_func_local_vars = copy.deepcopy(curr_func_local_vars_original)
 curr_func_temp_vars = copy.deepcopy(curr_func_temp_vars_original)
-curr_function_call_param = 0
+curr_function_call_name = []
+curr_function_call_param = []
 return_address = copy.deepcopy(return_address_original)
 
 # Define dictionaries
@@ -578,10 +579,10 @@ def p_local_function(p):
     global curr_func_temp_vars
     global curr_function_call_param
     global current_scope
-    global curr_func_name
+    global curr_function_call_name
     curr_func = get_function(p, 1)
-    if len(curr_func['parameters']) != curr_function_call_param:
-        raise NumParametrosIncorrectos(curr_func_name)
+    if len(curr_func['parameters']) != curr_function_call_param[-1]:
+        raise NumParametrosIncorrectos(curr_function_call_name[-1])
     result_address = -1
     is_array = curr_func['type'] >= types['lista de numero']
     # Verify if function returns value
@@ -604,18 +605,19 @@ def p_local_function(p):
             result_address = [result_address, curr_len]
 
     # Generate quad
-    save_quad('GOSUB', curr_func_name, result_address, -1)
+    save_quad('GOSUB', curr_function_call_name[-1], result_address, -1)
     # Reset state
-    curr_function_call_param = 0
-    curr_func_name = None
+    curr_function_call_param.pop()
+    curr_function_call_name.pop()
 
 
 def p_local_funcion_generate_eva(p):
     'local_funcion_generate_eva : empty'
     global current_scope
-    global curr_func_name
+    global curr_function_call_name
     current_scope = 'local_function'
-    curr_func_name = p[-1]
+    curr_function_call_param.append(0)
+    curr_function_call_name.append(p[-1])
     save_quad('ERA', p[-1], -1, -1)
 
 
@@ -628,15 +630,15 @@ def p_expr_params(p):
 def p_check_func_param(p):
     'check_func_param : empty'
     global curr_function_call_param
-    curr_func = function_dict[curr_func_name]
+    curr_func = function_dict[curr_function_call_name[-1]]
     curr_type = types_stack.pop()
     curr_param = variables_stack.pop()
 
     # Verify if it's trying to overflow parameters list
-    if len(curr_func['parameters']) == curr_function_call_param:
-        raise NumParametrosIncorrectos(curr_func_name)
+    if len(curr_func['parameters']) == curr_function_call_param[-1]:
+        raise NumParametrosIncorrectos(curr_function_call_name[-1])
 
-    curr_param_info = curr_func['parameters'][curr_function_call_param]
+    curr_param_info = curr_func['parameters'][curr_function_call_param[-1]]
     # Verify if parameter is an array or atomic type
     if len(curr_param_info) == 3:
         # Verify types and length of array
@@ -649,8 +651,8 @@ def p_check_func_param(p):
 
     # Save QUAD in format (op, curr_address, target_address, param_number)
     save_quad('PARAM', curr_param,
-              curr_param_info[1], curr_function_call_param)
-    curr_function_call_param = curr_function_call_param + 1
+              curr_param_info[1], curr_function_call_param[-1])
+    curr_function_call_param[-1] = curr_function_call_param[-1] + 1
 
 
 def p_expr_params_rec(p):
