@@ -1,18 +1,19 @@
 // Comentario inicial
 programa 
 
-variables:
-numero numero1;
-binario bin1;
-texto tex1;
-lista de numero de 10 miListaDeNumeros, miListaDeNumeros1;
-lista de texto de 3 miListaDeStrings;
+funciones
+
+numero funcion fibo(numero n) {
+    variables: numero n1, n2;
+    si sucede (n == 0 o n == 1) realiza {
+        devolver n
+    } no sucede {
+        n1 = fibo(n - 1)
+        n2 = fibo(n - 2)
+        devolver n1 + n2
+    }
+}
 
 {
-    agregar a (miListaDeNumeros, 5, 0)
-    //imprimir(miListaDeNumeros)
-    numero1 = quitar de (miListaDeNumeros, 0)
-    //imprimir(miListaDeNumeros, numero1)
-    numero1 = aleatorio(de 1, a 10)
-    imprimir(numero1, aleatorio(de 1, a 10))
+    imprimir("fibo: ", fibo(7))
 }

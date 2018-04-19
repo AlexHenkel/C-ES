@@ -128,7 +128,14 @@ def add_function(p, id_position):
         curr_func_name = name
 
 
-def update_last_function():
+def update_last_function_first():
+    # Update functions directory
+    function_dict[curr_func_name]['parameters'] = curr_param_list
+    function_dict[curr_func_name]['start_p'] = jumps_stack.pop()
+    function_dict[curr_func_name]['return_address'] = return_address
+
+
+def update_last_function_second():
     global curr_func_name
     global curr_param_list
     global curr_func_local_vars
@@ -136,13 +143,9 @@ def update_last_function():
     global current_var_type
     global curr_func_return_type
     global return_address
-    name = curr_func_name
     # Update functions directory
-    function_dict[name]['parameters'] = curr_param_list
-    function_dict[name]['local_count'] = curr_func_local_vars
-    function_dict[name]['temp_count'] = curr_func_temp_vars
-    function_dict[name]['start_p'] = jumps_stack.pop()
-    function_dict[name]['return_address'] = return_address
+    function_dict[curr_func_name]['local_count'] = curr_func_local_vars
+    function_dict[curr_func_name]['temp_count'] = curr_func_temp_vars
     # Clear state
     curr_param_list = []
     curr_func_name = None
@@ -295,7 +298,8 @@ def p_statement(p):
     '''statement : assignation
                  | condition
                  | iteration
-                 | function_call'''
+                 | function_call
+                 | function_return'''
 
 # Variables
 
@@ -438,8 +442,13 @@ def p_iteration(p):
 
 # Function
 def p_function(p):
-    'function : function_declaration "(" function_params ")" save_pointer "{" function_variables_opt function_stm function_return "}"'
-    update_last_function()
+    'function : function_declaration "(" function_params ")" save_pointer function_update_first "{" function_variables_opt function_stm "}"'
+    update_last_function_second()
+
+
+def p_function_update_first(p):
+    'function_update_first : empty'
+    update_last_function_first()
 
 
 def p_function_declaration(p):
@@ -512,8 +521,7 @@ def p_function_stm(p):
 
 
 def p_function_return(p):
-    '''function_return : empty
-                       | RETURN expression save_return'''
+    '''function_return : RETURN expression save_return'''
 
 
 def p_save_return(p):
