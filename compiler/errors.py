@@ -14,6 +14,15 @@ class TiposErroneos(Exception):
         return "Para la operacion {}".format(self.operation)
 
 
+class FueraDeLimite(Exception):
+    def __init__(self, index, size):
+        self.index = index
+        self.size = size
+
+    def __str__(self):
+        return "El indice {} esta fuera del limite del arreglo de tamano {}".format(self.index, self.size)
+
+
 class NumParametrosIncorrectos(Exception):
     def __init__(self, function):
         self.function = function

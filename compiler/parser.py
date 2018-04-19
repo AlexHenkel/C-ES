@@ -5,12 +5,13 @@ import ply.yacc as yacc
 from random import randint
 from semantic_cube import types, short_types, get_semantic_result
 from lex import tokens
-from memory import get_memory_address
+from memory import get_memory_address, reset_local_addresses
 from errors import *
 from virtual_machine import executeVM
 
 curr_func_local_vars_original = {'num': 0, 'dec': 0, 'tex': 0, 'bin': 0}
 curr_func_temp_vars_original = {'num': 0, 'dec': 0, 'tex': 0, 'bin': 0}
+return_address_original = {'address': None, 'length': 1}
 
 # Define global helpers
 current_scope = 'global'
@@ -22,7 +23,9 @@ curr_func_name = None
 curr_func_return_type = None
 curr_func_local_vars = copy.deepcopy(curr_func_local_vars_original)
 curr_func_temp_vars = copy.deepcopy(curr_func_temp_vars_original)
-curr_function_call_param = 0
+curr_function_call_name = []
+curr_function_call_param = []
+return_address = copy.deepcopy(return_address_original)
 
 # Define dictionaries
 global_variables_dict = {}
@@ -37,6 +40,7 @@ operators_stack = []
 types_stack = []
 jumps_stack = []
 quads_list = []
+jumps_else_if = []
 
 
 ##############################
@@ -52,26 +56,35 @@ def add_variable(p, id_position):
         else:
             var_type = types[current_var_type]
             if var_type < 5:
+                address = get_memory_address('glob', var_type)
                 global_variables_dict[p[id_position]] = {
-                    'name': p[id_position], 'type': var_type, 'address': get_memory_address('glob', var_type)}
+                    'name': p[id_position], 'type': var_type, 'address': address}
+                return [address]
             else:
+                address = get_memory_address(
+                    'glob', var_type, current_arr_length)
                 global_variables_dict[p[id_position]] = {
                     'name': p[id_position], 'type': var_type, 'length': current_arr_length,
-                    'address': get_memory_address('glob', var_type, current_arr_length)}
+                    'address': address}
+                return [address, current_arr_length]
     else:
         if p[id_position] in local_variables_dict:
             raise VariableLocalDuplicada(
                 p[id_position], p.lineno(id_position))
-            pass
         else:
             var_type = types[current_var_type]
             if var_type < 5:
+                address = get_memory_address('loc', var_type)
                 local_variables_dict[p[id_position]] = {
-                    'name': p[id_position], 'type': var_type, 'address': get_memory_address('loc', var_type)}
+                    'name': p[id_position], 'type': var_type, 'address': address}
+                return [address]
             else:
+                address = get_memory_address(
+                    'loc', var_type, current_arr_length)
                 local_variables_dict[p[id_position]] = {
                     'name': p[id_position], 'type': var_type, 'length': current_arr_length,
-                    'address': get_memory_address('loc', var_type, current_arr_length)}
+                    'address': address}
+                return [address, current_arr_length]
 
 
 def get_variable(p, id_position):
@@ -79,7 +92,6 @@ def get_variable(p, id_position):
         if not p[id_position] in global_variables_dict:
             raise VariableGlobalNoDeclarada(
                 p[id_position], p.lineno(id_position))
-            pass
         else:
             return global_variables_dict[p[id_position]]
     else:
@@ -90,7 +102,16 @@ def get_variable(p, id_position):
         else:
             raise VariableLocallNoDeclarada(
                 p[id_position], p.lineno(id_position))
-            pass
+
+
+def get_variable_by_address(address):
+    for var in local_variables_dict:
+        if local_variables_dict[var]["address"] == address:
+            return local_variables_dict[var]
+    for var in global_variables_dict:
+        if global_variables_dict[var]["address"] == address:
+            return global_variables_dict[var]
+    return {'length': current_arr_length}
 
 
 def add_function(p, id_position):
@@ -107,24 +128,31 @@ def add_function(p, id_position):
         curr_func_name = name
 
 
-def update_last_function():
+def update_last_function_first():
+    # Update functions directory
+    function_dict[curr_func_name]['parameters'] = curr_param_list
+    function_dict[curr_func_name]['start_p'] = jumps_stack.pop()
+    function_dict[curr_func_name]['return_address'] = return_address
+
+
+def update_last_function_second():
     global curr_func_name
     global curr_param_list
     global curr_func_local_vars
     global curr_func_temp_vars
     global current_var_type
     global curr_func_return_type
-    name = curr_func_name
+    global return_address
     # Update functions directory
-    function_dict[name]['parameters'] = curr_param_list
-    function_dict[name]['local_count'] = curr_func_local_vars
-    function_dict[name]['temp_count'] = curr_func_temp_vars
-    function_dict[name]['start_p'] = jumps_stack.pop()
+    function_dict[curr_func_name]['local_count'] = curr_func_local_vars
+    function_dict[curr_func_name]['temp_count'] = curr_func_temp_vars
     # Clear state
     curr_param_list = []
     curr_func_name = None
     curr_func_local_vars = copy.deepcopy(curr_func_local_vars_original)
     curr_func_temp_vars = copy.deepcopy(curr_func_temp_vars_original)
+    return_address = copy.deepcopy(return_address_original)
+    reset_local_addresses()
     current_var_type = None
     curr_func_return_type = None
     local_variables_dict.clear()
@@ -156,7 +184,7 @@ def add_id(p, id_position):
     types_stack.append(curr_var['type'])
 
 
-def verify_semantics(is_unary=False):
+def verify_semantics(is_unary=False, with_length=False, with_name=False, no_save=False):
     global curr_func_temp_vars
     operation = operators_stack.pop()
     var_2 = variables_stack.pop()
@@ -169,12 +197,36 @@ def verify_semantics(is_unary=False):
         type_1 = types_stack.pop()
     result_type = get_semantic_result(type_1, type_2, operation)
     result_address = -1
+
+    # To set array length, change variable to an array containing address and length
+    if type_1 >= types['lista de numero'] and with_length:
+        curr_arr = get_variable_by_address(var_1)
+        var_1 = [var_1, curr_arr["length"]]
+
+    if type_2 >= types['lista de numero'] and with_length:
+        curr_arr = get_variable_by_address(var_2)
+        var_2 = [var_2, curr_arr["length"]]
+
+    # Change variable address to array with address and name if necessary
+    if with_name and type_1 > types['void']:
+        curr_var = get_variable_by_address(var_1)
+        var_1 = [var_1, curr_var["name"]]
+
+    if with_name and type_2 > types['void']:
+        curr_var = get_variable_by_address(var_2)
+        var_2 = [var_2, curr_var["name"]]
+
+    # Set result address in case operation create new result
     if result_type > types['void']:
         result_address = get_memory_address('temp', result_type)
         variables_stack.append(result_address)
         types_stack.append(result_type)
         curr_func_temp_vars[short_types[result_type]] += 1
-    save_quad(operation, var_1, var_2, result_address)
+
+    if not no_save:
+        save_quad(operation, var_1, var_2, result_address)
+
+    return [operation, var_1, var_2, result_address]
 
 
 def save_quad(op, var_1, var_2, result):
@@ -194,7 +246,7 @@ def fill_quad_result(index, result):
 
 
 def p_main(p):
-    'main : PROGRAM variables_opt save_main_quad main_func fill_main_quad block'
+    'main : PROGRAM variables_opt save_main_quad main_func_opt fill_main_quad block'
 
 
 def p_save_main_quad(p):
@@ -220,9 +272,14 @@ def p_variables_opt(p):
     current_scope = 'functions'
 
 
-def p_main_func(p):
-    '''main_func : empty
-                 | function main_func'''
+def p_main_func_opt(p):
+    '''main_func_opt : empty
+                 | FUNCTIONS main_func_rec'''
+
+
+def p_main_func_rec(p):
+    '''main_func_rec : empty
+                     | function main_func_rec'''
 
 # Block
 
@@ -237,13 +294,12 @@ def p_block_stm_opt(p):
 
 
 # Statement
-# TODO: Check when function call returns a value, but it won't be reassinged
-# and need to be removed from variables_stack
 def p_statement(p):
     '''statement : assignation
                  | condition
                  | iteration
-                 | function_call'''
+                 | function_call
+                 | function_return'''
 
 # Variables
 
@@ -304,10 +360,17 @@ def p_condition(p):
     'condition : cond_if cond_else_if_opt cond_else_opt'
     end = jumps_stack.pop()
     fill_quad_result(end, quad_count)
+    while jumps_else_if[-1] != "(":
+        to_change = jumps_else_if.pop()
+        fill_quad_result(to_change, quad_count)
+    # Remove fake end to stack
+    jumps_else_if.pop()
 
 
 def p_cond_if(p):
     'cond_if : IF HAPPENS "(" expression ")" verify_save_cond DO block'
+    # Append a fake end in order to allow nested operations
+    jumps_else_if.append('(')
 
 
 def p_verify_save_cond(p):
@@ -327,7 +390,13 @@ def p_cond_else_if_opt(p):
 
 
 def p_cond_else_if(p):
-    'cond_else_if : OR IF HAPPENS save_pointer "(" expression ")" cond_else_if_verify_bool DO block'
+    'cond_else_if : OR IF HAPPENS cond_else_if_save_goto save_pointer "(" expression ")" cond_else_if_verify_bool DO block'
+
+
+def p_cond_else_if_save_goto(p):
+    'cond_else_if_save_goto : empty'
+    save_quad('GOTO', -1, -1, -1)
+    jumps_else_if.append(quad_count - 1)
 
 
 def p_save_pointer(p):
@@ -373,8 +442,13 @@ def p_iteration(p):
 
 # Function
 def p_function(p):
-    'function : function_declaration "(" function_params ")" save_pointer "{" function_variables_opt function_stm function_return "}"'
-    update_last_function()
+    'function : function_declaration "(" function_params ")" save_pointer function_update_first "{" function_variables_opt function_stm "}"'
+    update_last_function_second()
+
+
+def p_function_update_first(p):
+    'function_update_first : empty'
+    update_last_function_first()
 
 
 def p_function_declaration(p):
@@ -389,15 +463,51 @@ def p_function_variables_opt(p):
 
 def p_function_type(p):
     '''function_type : empty
-                     | type'''
+                     | function_return_type'''
+
+
+def p_function_return_type(p):
+    '''function_return_type : base_type
+                            | ARRAY FROM base_type FROM CONST_I'''
+    global return_address
+    global current_var_type
+    global current_arr_length
+    global curr_func_local_vars
+    curr_length = 1
+
+    if len(p) > 2:
+        current_var_type = "{} {} {}".format(p[1], p[2], current_var_type)
+        current_arr_length = p[5]
+        curr_length = current_arr_length
+
+    return_address['length'] = curr_length
+    curr_func_local_vars[short_types[types[current_var_type]]] += curr_length
 
 
 def p_function_params(p):
     '''function_params : empty
-                       | type ID function_params_rec'''
+                       | function_param_type function_params_save_id function_params_rec'''
+
+
+def p_function_params_save_id(p):
+    'function_params_save_id : ID'
+    curr_info = [types[current_var_type]] + add_variable(p, 1)
+    curr_param_list.append(curr_info)
+
+
+def p_function_param_type(p):
+    '''function_param_type : base_type
+                           | ARRAY FROM base_type FROM CONST_I'''
+    global current_var_type
+    global current_arr_length
+    global curr_func_local_vars
     if len(p) > 2:
-        add_variable(p, 2)
-        curr_param_list.append(types[current_var_type])
+        current_var_type = "{} {} {}".format(p[1], p[2], current_var_type)
+        current_arr_length = p[5]
+        curr_func_local_vars[short_types[types[current_var_type]]
+                             ] += current_arr_length
+    else:
+        curr_func_local_vars[short_types[types[current_var_type]]] += 1
 
 
 def p_function_params_rec(p):
@@ -411,17 +521,23 @@ def p_function_stm(p):
 
 
 def p_function_return(p):
-    '''function_return : empty
-                       | RETURN expression save_return'''
+    '''function_return : RETURN expression save_return'''
 
 
 def p_save_return(p):
     'save_return : empty'
+    global curr_func_temp_vars
     curr_type = types_stack.pop()
     curr_var = variables_stack.pop()
     if curr_type != curr_func_return_type:
         raise TiposErroneos('Retorno de funcion')
+    # Verify type of return and if is an array, it's length
+    if curr_type >= types['lista de numero']:
+        curr_var_len = get_variable_by_address(curr_var)['length']
+        if curr_var_len != return_address['length']:
+            raise TiposErroneos('Retorno de funcion (longitud)')
     save_quad('RETURN', -1, curr_var, -1)
+    save_quad('ENDFUNC', -1, -1, -1)
 
 
 # Function call
@@ -436,7 +552,7 @@ def p_function_call(p):
 # Read
 def p_read(p):
     'read : READ add_read_op "(" add_id ")"'
-    verify_semantics(True)
+    verify_semantics(True, False, True)
 
 
 def p_add_read_op(p):
@@ -446,13 +562,71 @@ def p_add_read_op(p):
 
 # Print
 def p_print(p):
-    'print : PRINT add_print_op "(" expr_params ")"'
-    verify_semantics(True)
+    'print : PRINT "(" print_params ")"'
 
 
-def p_add_print_op(p):
-    'add_print_op : empty'
+def p_print_params(p):
+    '''print_params : empty
+                    | expression save_print_param print_params_rec'''
+
+
+def p_save_print_param(p):
+    'save_print_param : empty'
     operators_stack.append('imprimir')
+    verify_semantics(True, True)
+
+
+def p_print_params_rec(p):
+    '''print_params_rec : empty
+                       | "," print_params'''
+
+
+# Local function call
+def p_local_function(p):
+    'local_function : ID local_funcion_generate_eva "(" expr_params ")"'
+    global curr_func_temp_vars
+    global curr_function_call_param
+    global current_scope
+    global curr_function_call_name
+    curr_func = get_function(p, 1)
+    if len(curr_func['parameters']) != curr_function_call_param[-1]:
+        raise NumParametrosIncorrectos(curr_function_call_name[-1])
+    result_address = -1
+    is_array = curr_func['type'] >= types['lista de numero']
+    # Verify if function returns value
+    if curr_func['type'] > types['void']:
+        # Verify if it's array so we get enough memory
+        curr_len = 1
+        if is_array:
+            curr_len = curr_func['return_address']['length']
+            # Set this variable to know length of array when accesing result of this funciton
+            current_arr_length = curr_len
+        # Request a temporary variable to store data
+        result_address = get_memory_address(
+            "temp", curr_func['type'], curr_len)
+        # Push variable to stack to be accessible to other functions
+        variables_stack.append(result_address)
+        types_stack.append(curr_func['type'])
+        curr_func_temp_vars[short_types[curr_func['type']]] += curr_len
+        # If return variable is an array, add it's length
+        if is_array:
+            result_address = [result_address, curr_len]
+
+    # Generate quad
+    save_quad('GOSUB', curr_function_call_name[-1], result_address, -1)
+    # Reset state
+    curr_function_call_param.pop()
+    curr_function_call_name.pop()
+
+
+def p_local_funcion_generate_eva(p):
+    'local_funcion_generate_eva : empty'
+    global current_scope
+    global curr_function_call_name
+    current_scope = 'local_function'
+    curr_function_call_param.append(0)
+    curr_function_call_name.append(p[-1])
+    save_quad('ERA', p[-1], -1, -1)
 
 
 # Parameters
@@ -463,17 +637,30 @@ def p_expr_params(p):
 
 def p_check_func_param(p):
     'check_func_param : empty'
-    if current_scope == 'local_function':
-        global curr_function_call_param
-        curr_func = function_dict[curr_func_name]
-        curr_type = types_stack.pop()
-        curr_param = variables_stack.pop()
-        if len(curr_func['parameters']) == curr_function_call_param:
-            raise NumParametrosIncorrectos(curr_func_name)
-        if curr_type != curr_func['parameters'][curr_function_call_param]:
+    global curr_function_call_param
+    curr_func = function_dict[curr_function_call_name[-1]]
+    curr_type = types_stack.pop()
+    curr_param = variables_stack.pop()
+
+    # Verify if it's trying to overflow parameters list
+    if len(curr_func['parameters']) == curr_function_call_param[-1]:
+        raise NumParametrosIncorrectos(curr_function_call_name[-1])
+
+    curr_param_info = curr_func['parameters'][curr_function_call_param[-1]]
+    # Verify if parameter is an array or atomic type
+    if len(curr_param_info) == 3:
+        # Verify types and length of array
+        if curr_type != curr_param_info[0] or get_variable_by_address(curr_param)['length'] != curr_param_info[2]:
+            raise TiposErroneos('Parametro (arreglo)')
+        curr_param = [curr_param, curr_param_info[2]]
+    else:
+        if curr_type != curr_param_info[0]:
             raise TiposErroneos('Parametro')
-        save_quad('PARAM', -1, curr_param, curr_function_call_param)
-        curr_function_call_param = curr_function_call_param + 1
+
+    # Save QUAD in format (op, curr_address, target_address, param_number)
+    save_quad('PARAM', curr_param,
+              curr_param_info[1], curr_function_call_param[-1])
+    curr_function_call_param[-1] = curr_function_call_param[-1] + 1
 
 
 def p_expr_params_rec(p):
@@ -481,43 +668,15 @@ def p_expr_params_rec(p):
                        | "," expr_params'''
 
 
-# Local function call
-def p_local_function(p):
-    'local_function : ID local_funcion_generate_eva "(" expr_params ")"'
-    global curr_func_temp_vars
-    global curr_function_call_param
-    global current_scope
-    global curr_func_name
-    curr_func = function_dict[curr_func_name]
-    if len(curr_func['parameters']) != curr_function_call_param:
-        raise NumParametrosIncorrectos(curr_func_name)
-    # Generate quad
-    save_quad('GOSUB', curr_func_name, -1, -1)
-    # Reset state
-    curr_function_call_param = 0
-    current_scope = 'main'
-    curr_func_name = None
-    # Verify semantics and get result
-    curr_func = get_function(p, 1)
-    func_type = curr_func['type']
-    # TODO: Get function result from memory
-    if (curr_func['type'] > types['void']):
-        curr_func_temp_vars[short_types[func_type]] += 1
-
-
-def p_local_funcion_generate_eva(p):
-    'local_funcion_generate_eva : empty'
-    global current_scope
-    global curr_func_name
-    current_scope = 'local_function'
-    curr_func_name = p[-1]
-    save_quad('EVA', p[-1], -1, -1)
-
-
 # List functions
 def p_list_push(p):
-    'list_push : PUSH TO add_list_push_sign add_id "(" expression ")"'
-    verify_semantics()
+    'list_push : PUSH TO add_list_push_sign "(" add_id "," expression "," id_or_number ")"'
+    # Get index data, to allow semantic verification
+    index_var = variables_stack.pop()
+    index_type = types_stack.pop()
+    # Verify insert type match array type
+    [operation, var_1, var_2, _] = verify_semantics(False, True, False, True)
+    save_quad(operation, var_1, [var_2, index_var], -1)
 
 
 def p_add_list_push_sign(p):
@@ -526,8 +685,8 @@ def p_add_list_push_sign(p):
 
 
 def p_list_pop(p):
-    'list_pop : POP LAST add_list_pop_sign FROM add_id "(" ")"'
-    verify_semantics(True)
+    'list_pop : POP FROM add_list_pop_sign "(" add_id "," id_or_number ")"'
+    verify_semantics(False, True)
 
 
 def p_add_list_pop_sign(p):
@@ -537,7 +696,7 @@ def p_add_list_pop_sign(p):
 
 def p_list_access(p):
     'list_access : ACCESS add_list_access_sign "(" add_id "," id_or_number ")"'
-    verify_semantics()
+    verify_semantics(False, True)
 
 
 def p_add_list_access_sign(p):
@@ -670,14 +829,6 @@ def p_add_bool_const(p):
 # General rules
 
 
-def p_type(p):
-    '''type : base_type
-            | ARRAY FROM base_type'''
-    global current_var_type
-    if len(p) > 2:
-        current_var_type = "{} {} {}".format(p[1], p[2], current_var_type)
-
-
 def p_id_or_number(p):
     '''id_or_number : add_id
                     | add_int_const'''
@@ -773,7 +924,11 @@ else:
 
     # Parse text if found
     if s:
+        print("Compiling code...")
         result = parser.parse(s)
+        print("Compiling success!")
+        executeVM(quads_list, global_variables_dict, function_dict,
+                  constant_dict, curr_func_temp_vars)
 
     # Program finished
     print("Program finished")
