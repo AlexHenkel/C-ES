@@ -110,6 +110,7 @@ def get_variable_by_address(address):
     for var in global_variables_dict:
         if global_variables_dict[var]["address"] == address:
             return global_variables_dict[var]
+    return {'length': current_arr_length}
 
 
 def add_function(p, id_position):
@@ -213,10 +214,7 @@ def verify_semantics(is_unary=False, with_length=False, with_name=False, no_save
 
     # Set result address in case operation create new result
     if result_type > types['void']:
-        address_context = 'temp'
-        if current_scope == 'functions':
-            address_context = 'ltemp'
-        result_address = get_memory_address(address_context, result_type)
+        result_address = get_memory_address('temp', result_type)
         variables_stack.append(result_address)
         types_stack.append(result_type)
         curr_func_temp_vars[short_types[result_type]] += 1
@@ -472,8 +470,6 @@ def p_function_return_type(p):
         current_arr_length = p[5]
         curr_length = current_arr_length
 
-    return_address['address'] = get_memory_address(
-        'loc', types[current_var_type], curr_length)
     return_address['length'] = curr_length
     curr_func_local_vars[short_types[types[current_var_type]]] += curr_length
 
@@ -531,8 +527,8 @@ def p_save_return(p):
         curr_var_len = get_variable_by_address(curr_var)['length']
         if curr_var_len != return_address['length']:
             raise TiposErroneos('Retorno de funcion (longitud)')
-    save_quad('RETURN', -1, curr_var,
-              [return_address['address'], return_address['length']])
+    save_quad('RETURN', -1, curr_var, -1)
+    save_quad('ENDFUNC', -1, -1, -1)
 
 
 # Function call
@@ -583,28 +579,26 @@ def p_local_function(p):
     global curr_function_call_param
     global current_scope
     global curr_func_name
-    curr_func = function_dict[curr_func_name]
+    curr_func = get_function(p, 1)
     if len(curr_func['parameters']) != curr_function_call_param:
         raise NumParametrosIncorrectos(curr_func_name)
     result_address = -1
     is_array = curr_func['type'] >= types['lista de numero']
     # Verify if function returns value
     if curr_func['type'] > types['void']:
-        # Set correct scope
-        address_context = 'temp'
-        if current_scope == 'functions':
-            address_context = 'ltemp'
         # Verify if it's array so we get enough memory
         curr_len = 1
         if is_array:
             curr_len = curr_func['return_address']['length']
+            # Set this variable to know length of array when accesing result of this funciton
+            current_arr_length = curr_len
         # Request a temporary variable to store data
         result_address = get_memory_address(
-            address_context, curr_func['type'], curr_len)
+            "temp", curr_func['type'], curr_len)
         # Push variable to stack to be accessible to other functions
         variables_stack.append(result_address)
         types_stack.append(curr_func['type'])
-        curr_func_temp_vars[short_types[curr_func['type']]] += 1
+        curr_func_temp_vars[short_types[curr_func['type']]] += curr_len
         # If return variable is an array, add it's length
         if is_array:
             result_address = [result_address, curr_len]

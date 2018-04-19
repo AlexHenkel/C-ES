@@ -302,6 +302,7 @@ def executeVM(quadruples, global_variables_dict, function_dict, constant_dict, c
 
         # PARAM OPERATION
         elif curr_operation == 'PARAM':
+            # Verify if param is an array, to copy all values into memory
             if isinstance(curr_left_op, list):
                 for i in range(0, curr_left_op[1]):
                     [value, _, _, _] = execution_memory.get_address_context(
@@ -309,14 +310,53 @@ def executeVM(quadruples, global_variables_dict, function_dict, constant_dict, c
                     [_, _, value_context, value_calc_index] = execution_memory.get_address_context(
                         curr_right_op + i)
                     execution_memory.set_value_from_context_address(
-                        value_context, value_calc_index, value)
+                        "temp_{}".format(value_context), value_calc_index, value)
+            # Get current value of parameter and copy it to it's assigned address by function
             else:
                 [value, _, _, _] = execution_memory.get_address_context(
                     curr_left_op)
                 [_, _, value_context, value_calc_index] = execution_memory.get_address_context(
                     curr_right_op)
                 execution_memory.set_value_from_context_address(
-                    value_context, value_calc_index, value)
+                    "temp_{}".format(value_context), value_calc_index, value)
+
+        # GOSUB OPERATION
+        elif curr_operation == 'GOSUB':
+            curr_func_name = curr_left_op
+            curr_return_address = curr_right_op
+            execution_memory.save_memory()
+            execution_memory.push_return_address(curr_return_address)
+            execution_memory.push_instruction_pointer(instructionPointer)
+            instructionPointer = function_dict[curr_func_name]['start_p'] - 1
+
+        elif curr_operation == 'RETURN':
+            execution_memory.set_base_return_address(curr_right_op)
+
+        # ENDFUNC OPERATION
+        elif curr_operation == 'ENDFUNC':
+            target_return_address = execution_memory.pop_return_address()
+            instructionPointer = execution_memory.pop_instruction_pointer()
+            result = None
+            if target_return_address != -1:
+                is_array = isinstance(target_return_address, list)
+                return_len = 1
+                if is_array:
+                    return_len = target_return_address[1]
+                    target_return_address = target_return_address[0]
+                result = execution_memory.get_return_values(
+                    is_array, return_len)
+
+            execution_memory.recovery_memory()
+            if target_return_address != -1:
+                [_, _, result_context, result_calc_index] = execution_memory.get_address_context(
+                    target_return_address)
+                if isinstance(result, list):
+                    for i in range(0, len(result)):
+                        execution_memory.set_value_from_context_address(
+                            result_context, result_calc_index + i, result[i])
+                else:
+                    execution_memory.set_value_from_context_address(
+                        result_context, result_calc_index, result)
 
         # Advance instructor pointer
         instructionPointer += 1
