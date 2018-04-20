@@ -911,7 +911,7 @@ if options.tests:
             try:
                 result = parser.parse(s)
             except Exception as error:
-                print('Error: ' + str(error))
+                print(error.__class__.__name__ + ': ' + str(error))
 
         # Program finished
         print("***** " + name + " finished *****\n")
@@ -923,15 +923,18 @@ else:
     s = f.read()
 
     # Parse text if found
-    if s:
-        print("Compiling code...")
-        result = parser.parse(s)
-        print("Compiling success!")
-        executeVM(quads_list, global_variables_dict, function_dict,
-                  constant_dict, curr_func_temp_vars)
+    if s: 
+       try:
+          print("Compiling code...")
+          result = parser.parse(s)
+          print("Compiling success!")
+          executeVM(quads_list, global_variables_dict, function_dict,
+                     constant_dict, curr_func_temp_vars)
+          print("Program finished")
+       except Exception as error:
+          print(error.__class__.__name__ + ': ' + str(error))
 
     # Program finished
-    print("Program finished")
     # print("*")
 
 

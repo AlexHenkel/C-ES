@@ -1,0 +1,25 @@
+// Test fibonacci iterative
+programa 
+
+funciones
+
+numero funcion fibo(numero n) {
+   variables:
+   numero i, n1, n2, next;
+   
+   i = 1
+   n1 = 0
+   n2 = 1
+    
+   mientras sucede (i <= n) realiza {
+      next = n1 + n2
+      n1 = n2
+      n2 = next
+   }
+
+   devolver next
+}
+
+{
+   imprimir("fibo: ", fibo(7))
+}
