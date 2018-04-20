@@ -1,0 +1,42 @@
+// Test factorial recursive
+programa 
+
+funciones
+
+numero funcion factorial(numero n) {
+   variables:
+   numero temporal;
+
+   si sucede (n <= 1) realiza {
+      devolver 1
+   } no sucede {
+      temporal = factorial(n - 1)
+      devolver n * temporal
+   }
+}
+
+{
+   imprimir("0!: ", factorial(0), "")
+   imprimir("1!: ", factorial(1), "")
+   imprimir("2!: ", factorial(2), "")
+   imprimir("3!: ", factorial(3), "")
+   imprimir("4!: ", factorial(4), "")
+   imprimir("5!: ", factorial(5), "")
+   imprimir("6!: ", factorial(6), "")
+   imprimir("7!: ", factorial(7), "")
+   imprimir("8!: ", factorial(8), "")
+   imprimir("9!: ", factorial(9), "")
+   imprimir("10!: ", factorial(10), "")
+}
+
+// 0! = 1
+// 1! = 1
+// 2! = 2
+// 3! = 6
+// 4! = 24
+// 5! = 120
+// 6! = 720
+// 7! = 5040
+// 8! = 40320
+// 9! = 362880
+// 10! = 3628800

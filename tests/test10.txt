@@ -15,5 +15,21 @@ numero funcion fibo(numero n) {
 }
 
 {
-    imprimir("fibo: ", fibo(7))
+    imprimir(fibo(0))
+    imprimir(fibo(1))
+    imprimir(fibo(2))
+    imprimir(fibo(3))
+    imprimir(fibo(4))
+    imprimir(fibo(5))
+    imprimir(fibo(10))
+    imprimir(fibo(20))
 }
+
+// Fibo(0) = 0
+// Fibo(1) = 1
+// Fibo(2) = 1
+// Fibo(3) = 2
+// Fibo(4) = 3
+// Fibo(5) = 5
+// Fibo(10) = 55
+// Fibo(20) = 6765
