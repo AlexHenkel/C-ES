@@ -49,6 +49,7 @@ jumps_else_if = []
 
 
 def add_variable(p, id_position):
+    global curr_func_local_vars
     if current_scope == 'global':
         if p[id_position] in global_variables_dict:
             raise VariableGlobalDuplicada(
@@ -77,6 +78,8 @@ def add_variable(p, id_position):
                 address = get_memory_address('loc', var_type)
                 local_variables_dict[p[id_position]] = {
                     'name': p[id_position], 'type': var_type, 'address': address}
+                if current_scope == 'functions':
+                    curr_func_local_vars[short_types[var_type]] += 1
                 return [address]
             else:
                 address = get_memory_address(
@@ -84,6 +87,9 @@ def add_variable(p, id_position):
                 local_variables_dict[p[id_position]] = {
                     'name': p[id_position], 'type': var_type, 'length': current_arr_length,
                     'address': address}
+                if current_scope == 'functions':
+                    curr_func_local_vars[short_types[var_type]
+                                         ] += current_arr_length
                 return [address, current_arr_length]
 
 
@@ -322,16 +328,9 @@ def p_var_opts(p):
                 | ARRAY FROM base_type FROM CONST_I'''
     global current_var_type
     global current_arr_length
-    global curr_func_local_vars
     if len(p) > 2:
         current_var_type = "{} {} {}".format(p[1], p[2], current_var_type)
         current_arr_length = p[5]
-        if current_scope == 'functions':
-            curr_func_local_vars[short_types[types[current_var_type]]
-                                 ] += current_arr_length
-    else:
-        if current_scope == 'functions':
-            curr_func_local_vars[short_types[types[current_var_type]]] += 1
 
 
 def p_var_id(p):
@@ -472,7 +471,6 @@ def p_function_return_type(p):
     global return_address
     global current_var_type
     global current_arr_length
-    global curr_func_local_vars
     curr_length = 1
 
     if len(p) > 2:
@@ -481,7 +479,6 @@ def p_function_return_type(p):
         curr_length = current_arr_length
 
     return_address['length'] = curr_length
-    curr_func_local_vars[short_types[types[current_var_type]]] += curr_length
 
 
 def p_function_params(p):
@@ -500,14 +497,9 @@ def p_function_param_type(p):
                            | ARRAY FROM base_type FROM CONST_I'''
     global current_var_type
     global current_arr_length
-    global curr_func_local_vars
     if len(p) > 2:
         current_var_type = "{} {} {}".format(p[1], p[2], current_var_type)
         current_arr_length = p[5]
-        curr_func_local_vars[short_types[types[current_var_type]]
-                             ] += current_arr_length
-    else:
-        curr_func_local_vars[short_types[types[current_var_type]]] += 1
 
 
 def p_function_params_rec(p):
