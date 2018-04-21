@@ -10,6 +10,10 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 @app.route('/')
 def ui(): 
     return render_template('index.html')
+   
+@app.route('/manual')
+def manual(): 
+    return render_template('manual.html')
 
 @app.route('/execute', methods=['POST'])
 @cross_origin()
