@@ -15,6 +15,10 @@ def ui():
 def manual(): 
     return render_template('manual.html')
 
+@app.route('/inicio')
+def inicio(): 
+    return render_template('inicio.html')
+
 @app.route('/execute', methods=['POST'])
 @cross_origin()
 def executeCode():
