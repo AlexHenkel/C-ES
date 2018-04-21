@@ -38,7 +38,7 @@ a, a:hover, a:focus {
    margin: 40px 0;
 }
 
-.resource {
+.resource, .reserved-word {
    color: rgb(18, 161, 197);  
 }
 

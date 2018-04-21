@@ -21,8 +21,7 @@
          <ul class="list-unstyled components">
             <li><a href="/manual">Bienvenido a C-ES</a></li>
             <li class="active"><a href="/inicio">Inicio de programa</a></li>
-            <li><a href="#Comentarios">Comentarios</a></li>
-            <li><a href="#Variables">Variables</a></li>
+            <li><a href="/variables">Variables</a></li>
             <li><a href="#Funciones">Funciones</a></li>
             <li><a href="#Operadores">Operadores</a></li>
             <li><a href="#Control-de-flujo">Control de flujo</a></li>
@@ -53,62 +52,64 @@
          <p class="text-left"><a href="/manual" class="resource">< Bienvenido a C-ES</a></p>
 
          <h2 id="Inicio-de-programa">Inicio de programa</h2>
-         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-            irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-            non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-            irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-            non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+         <p>La tradición sugiere que el primer programa en un nuevo lenguaje de programación debe de imprimir las palabras "¡Hola, mundo!" en la pantalla.
+            Con C-ES esto se puede hacer de la siguiente forma:</p>
+         
+         <br />
+
+         <pre>
+            <code>
+            <span class="reserved-word">programa</span>
+
+            {
+               <span class="reserved-word">imprimir</span>("¡Hola, mundo!")
+            }
+            </code>
+         </pre>
+
+         <p>Ahora vamos a entender cada pieza del programa anterior.</p>
          
          <div class="line"></div>
          
-         <h2 id="Comentarios">Comentarios</h2>
-         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-            irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-            non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-         
-         <div class="line"></div>
-         
-         <h2 id="Variables">Variables</h2>
-         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-            irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-            non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+         <h4>Programa</h4>
+         <p>Todo programa escrito con C-ES empieza con la palabra reservada <code><span class="reserved-word">programa</span></code>.</p>
          
          <div class="line"></div>
 
-         <h2 id="Funciones">Funciones</h2>
-         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-            irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-            non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-         
+         <h4>Bloque principal</h4>
+         <p>Otra elemento que también debe de estar presente es el "bloque principal", que consiste de los caracteres <code><span class="reserved-word">{</span></code>
+            y <code><span class="reserved-word">}</span></code>.</p>
+
+         <br />
+         <p>Es válido tener el bloque principal vacío, pero debe de estar presente.</p>
+
          <div class="line"></div>
 
-         <h2 id="Operadores">Operadores</h2>
-         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-            irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-            non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-         
-         <div class="line"></div>
+         <h4>Comentarios</h4>
+         <p>A veces es necesario dejar anotaciones en el código, ya sea para explicar funcionalidad de tu programa o proporcionar información extra.
+            Para ello, puedes usar comentarios a lo largo de tu programa. Simplemente tienes que empezar tu comentario con<code><span class="reserved-word">//</span></code>.</p>
 
-         <h2 id="Control-de-flujo">Control de flujo</h2>
-         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-            irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-            non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-         
-         <div class="line"></div>
+         <br />
 
-         <h2 id="Bloque-principal">Bloque principal</h2>
-         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-            irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-            non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+         <p>Por ejemplo:</p>
+
+         <pre>
+            <code>
+            // Esto es un comentario.
+            <span class="reserved-word">programa</span>
+
+            {
+               // Esto también.
+               <span class="reserved-word">imprimir</span>("¡Hola, mundo!")
+            }
+            </code>
+         </pre>
+         
+         <p>Debido a que los comentarios son ignorados al procesar tu código, puedes ponerlos en cualquier lugar.</p>
+         
+         <br />
+         
+         <p class="text-right"><a href="/variables" class="resource">Variables ></a></p>
       <div>
    </div>
    

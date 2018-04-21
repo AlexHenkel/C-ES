@@ -19,6 +19,10 @@ def manual():
 def inicio(): 
     return render_template('inicio.html')
 
+@app.route('/variables')
+def variables(): 
+    return render_template('variables.html')
+
 @app.route('/execute', methods=['POST'])
 @cross_origin()
 def executeCode():
