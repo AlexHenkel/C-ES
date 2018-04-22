@@ -42,6 +42,10 @@ a, a:hover, a:focus {
    color: rgb(18, 161, 197);  
 }
 
+.comment {
+   color: rgb(23, 169, 43);
+}
+
 /********** Sidebar **********/
 .wrapper {
    display: flex;
