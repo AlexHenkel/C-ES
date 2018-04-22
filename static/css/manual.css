@@ -39,7 +39,7 @@ a, a:hover, a:focus {
 }
 
 .resource, .reserved-word {
-   color: rgb(18, 161, 197) !important;  
+   color: rgb(18, 161, 197);  
 }
 
 /********** Sidebar **********/
