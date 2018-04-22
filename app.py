@@ -23,6 +23,26 @@ def inicio():
 def variables(): 
     return render_template('variables.html')
 
+@app.route('/funciones')
+def funciones(): 
+    return render_template('funciones.html')
+
+@app.route('/operadores')
+def operadores(): 
+    return render_template('operadores.html')
+
+@app.route('/control-de-flujo')
+def control_de_flujo(): 
+    return render_template('control_de_flujo.html')
+
+@app.route('/bloque-principal')
+def bloque_principal(): 
+    return render_template('bloque_principal.html')
+
+@app.route('/ejemplos')
+def ejemplos(): 
+    return render_template('ejemplos.html')
+
 @app.route('/execute', methods=['POST'])
 @cross_origin()
 def executeCode():
