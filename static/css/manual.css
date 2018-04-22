@@ -46,6 +46,14 @@ a, a:hover, a:focus {
    color: rgb(23, 169, 43);
 }
 
+.reserved-word-2 {
+   color: rgb(233, 159, 0);
+}
+
+.reserved-word-3 {
+   color: rgb(211, 9, 133);
+}
+
 /********** Sidebar **********/
 .wrapper {
    display: flex;
