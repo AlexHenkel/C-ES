@@ -12,13 +12,13 @@
 </head>
 
 <body>
-   <div class="wrapper">
-      <nav id="sidebar">
+   <div id="wrapper">
+      <div id="sidebar-wrapper">
          <div class="sidebar-header">
-            <h3>Menú</h3>               
+            <h3>Menú</h3>
          </div>
 
-         <ul class="list-unstyled components">
+         <ul class="list-unstyled components sidebar-nav">
             <li><a href="/manual">Bienvenido a C-ES</a></li>
             <li class="active"><a href="/inicio">Inicio de programa</a></li>
             <li><a href="/variables">Variables</a></li>
@@ -32,9 +32,9 @@
          <ul class="list-unstyled CTAs">
             <li><a href="/" class="try" target="_blank">Probar el lenguaje</a></li>
          </ul>
-      </nav>
+      </div>
 
-      <div id="content">
+      <div id="page-content-wrapper">
          <nav class="navbar navbar-default">
             <div class="container-fluid">
                <div class="navbar-header">
@@ -49,89 +49,94 @@
                </div>
             </div>
          </nav>
+         <div class="container-fluid">
+            <div class="row">
+               <div class="col-12">
+                  <p class="text-left"><a href="/manual" class="resource">< Bienvenido a C-ES</a></p>
+
+                  <h2 id="Inicio-de-programa">Inicio de programa</h2>
+                  <p>La tradición sugiere que el primer programa en un nuevo lenguaje de programación debe de imprimir las palabras "¡Hola, mundo!" en la pantalla.
+                     Con C-ES esto se puede hacer de la siguiente forma:</p>
+                  
+      <pre>
+      <code>
+   <span class="reserved-word">programa</span>
+
+   {
+      <span class="reserved-word">imprimir</span>("¡Hola, mundo!")
+   }
+      </code>
+      </pre>
+
+                  <p>Ahora vamos a entender cada pieza del programa anterior.</p>
+                  
+                  <div class="line"></div>
+
+                  <h4>Programa</h4>
+                  <p>Todo programa escrito con C-ES empieza con la palabra reservada
+                     <code><span class="reserved-word">programa</span></code>.</p>
          
-         <p class="text-left"><a href="/manual" class="resource">< Bienvenido a C-ES</a></p>
-
-         <h2 id="Inicio-de-programa">Inicio de programa</h2>
-         <p>La tradición sugiere que el primer programa en un nuevo lenguaje de programación debe de imprimir las palabras "¡Hola, mundo!" en la pantalla.
-            Con C-ES esto se puede hacer de la siguiente forma:</p>
+                  <div class="line"></div>
          
-         <pre>
-         <code>
-      <span class="reserved-word">programa</span>
+                  <h4>Bloque principal</h4>
+                  <p>Otra elemento que también debe de estar presente es el "bloque principal", que consiste de los caracteres
+                     <code><span class="reserved-word">{</span></code> y
+                     <code><span class="reserved-word">}</span></code>.</p>
+                  <br />
+                  
+                  <p>Es válido tener el bloque principal vacío, pero debe de estar presente. Entonces, cualquier programa debe de tener mínimo lo siguiente:</p>
 
-      {
-         <span class="reserved-word">imprimir</span>("¡Hola, mundo!")
-      }
-         </code>
-         </pre>
+      <pre>
+      <code>
+   <span class="reserved-word">programa</span>
 
-         <p>Ahora vamos a entender cada pieza del programa anterior.</p>
+   {
+   }
+      </code>
+      </pre>
          
-         <div class="line"></div>
+                  <div class="line"></div>
 
-         <h4>Programa</h4>
-         <p>Todo programa escrito con C-ES empieza con la palabra reservada
-            <code><span class="reserved-word">programa</span></code>.</p>
+                  <h4>Comentarios</h4>
+                  <p>A veces es necesario dejar anotaciones en el código, ya sea para explicar funcionalidad de tu programa o proporcionar información extra.
+                     Para ello, puedes usar comentarios. Simplemente tienes que empezar tu comentario con los caracteres <code><span class="reserved-word">//</span></code>.</p>
+                  <br />
+
+                  <p>Por ejemplo:</p>
+
+      <pre>
+      <code>
+   <span class="comment">// Esto es un comentario.</span>
+   <span class="reserved-word">programa</span>
+
+   {
+      <span class="comment">// Esto también.</span>
+      <span class="reserved-word">imprimir</span>("¡Hola, mundo!")
+   }
+      </code>
+      </pre>
          
-         <div class="line"></div>
-         
-         <h4>Bloque principal</h4>
-         <p>Otra elemento que también debe de estar presente es el "bloque principal", que consiste de los caracteres
-            <code><span class="reserved-word">{</span></code> y
-            <code><span class="reserved-word">}</span></code>.</p>
-         
-         <br />
-         <p>Es válido tener el bloque principal vacío, pero debe de estar presente. Entonces, cualquier programa debe de tener mínimo lo siguiente:</p>
+                  <p>Debido a que los comentarios son ignorados al procesar tu código, puedes ponerlos en cualquier lugar.</p>
+                  <br />
+                  
+                  <p class="text-right"><a href="/variables" class="resource">Variables ></a></p>
+               </div>
+            </div>
 
-         <pre>
-         <code>
-      <span class="reserved-word">programa</span>
-
-      {
-      }
-         </code>
-         </pre>
-         
-         <div class="line"></div>
-
-         <h4>Comentarios</h4>
-         <p>A veces es necesario dejar anotaciones en el código, ya sea para explicar funcionalidad de tu programa o proporcionar información extra.
-            Para ello, puedes usar comentarios. Simplemente tienes que empezar tu comentario con los caracteres <code><span class="reserved-word">//</span></code>.</p>
-
-         <br />
-
-         <p>Por ejemplo:</p>
-
-         <pre>
-         <code>
-      <span class="comment">// Esto es un comentario.</span>
-      <span class="reserved-word">programa</span>
-
-      {
-         <span class="comment">// Esto también.</span>
-         <span class="reserved-word">imprimir</span>("¡Hola, mundo!")
-      }
-         </code>
-         </pre>
-         
-         <p>Debido a que los comentarios son ignorados al procesar tu código, puedes ponerlos en cualquier lugar.</p>
-         
-         <br />
-         
-         <p class="text-right"><a href="/variables" class="resource">Variables ></a></p>
+         </div>
       </div>
+   </div>
 
-      <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-      <script>
-         $(document).ready(function () {
-            $('#sidebarCollapse').on('click', function () {
-               $('#sidebar').toggleClass('active');
-               $(this).toggleClass('active');
-            });
+   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+   <script>
+      $(document).ready(function () {
+         $('#sidebarCollapse').on('click', function () {
+            $(this).toggleClass('active');
+            $("#wrapper").toggleClass("toggled");
          });
-      </script>
+      });
+   </script>
 </body>
-
 </html>

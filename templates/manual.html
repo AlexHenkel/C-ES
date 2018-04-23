@@ -12,13 +12,13 @@
 </head>
 
 <body>
-   <div class="wrapper">
-      <nav id="sidebar">
+   <div id="wrapper">
+      <div id="sidebar-wrapper">
          <div class="sidebar-header">
-            <h3>Menú</h3>               
+            <h3>Menú</h3>
          </div>
 
-         <ul class="list-unstyled components">
+         <ul class="list-unstyled components sidebar-nav">
             <li class="active"><a href="/manual">Bienvenido a C-ES</a></li>
             <li><a href="/inicio">Inicio de programa</a></li>
             <li><a href="/variables">Variables</a></li>
@@ -32,9 +32,9 @@
          <ul class="list-unstyled CTAs">
             <li><a href="/" class="try" target="_blank">Probar el lenguaje</a></li>
          </ul>
-      </nav>
+      </div>
 
-      <div id="content">
+      <div id="page-content-wrapper">
          <nav class="navbar navbar-default">
             <div class="container-fluid">
                <div class="navbar-header">
@@ -49,31 +49,42 @@
                </div>
             </div>
          </nav>
+         <div class="container-fluid">
+            <div class="row">
+               <div class="col-12">
+                  <h2>Bienvenido a C-ES</h2>
+                  <p>Algunas escuelas primarias en México no cuentan con recursos tecnológicos suficientes que permitan a los niños adentrarse al mundo de la programación.
+                  Además, la mayoría de los recursos educativos y documentación, ya sea en libros o en línea, están escritos en el idioma inglés y asumen cierto
+                  nivel de conocimientos no básicos en herramientas de computación.</p>
+                  <br />
 
-         <h2>Bienvenido a C-ES</h2>
-         <p>Algunas escuelas primarias en México no cuentan con recursos tecnológicos suficientes que permitan a los niños adentrarse al mundo de la programación.
-         Además, la mayoría de los recursos educativos y documentación, ya sea en libros o en línea, están escritos en el idioma inglés y asumen cierto
-         nivel de conocimientos no básicos en herramientas de computación.</p>
-         <br />
-         <p>Debido a esto, buscamos reducir la complejidad que implica para un niño el adentrarse en el mundo de la programación y aumentar
-         los recursos de aprendizaje disponibles en idioma español.</p>
-         <br />
-         <p>C-ES es un lenguaje amigable a nuevos usuarios cuyo léxico está en idioma español. Además, proporcionamos un <a href="/" target="_blank" class="resource"><strong>recurso interactivo</strong></a> que permite
-         escribir código C-ES arrastrando bloques definidos que representan las diferentes estructuras del lenguaje.</p>
-         <br />
-         <p>C-ES se ha desarrollado en el semestre Enero-Mayo 2018, y nuestras metas son ambicionas. ¡No podemos esperar a ver lo que crean con él!</p>
-         <br />
-         <p class="text-right"><a href="/inicio" class="resource">Inicio de programa ></a></p>
-      <div>
+                  <p>Debido a esto, buscamos reducir la complejidad que implica para un niño el adentrarse en el mundo de la programación y aumentar
+                  los recursos de aprendizaje disponibles en idioma español.</p>
+                  <br />
+
+                  <p>C-ES es un lenguaje amigable a nuevos usuarios cuyo léxico está en idioma español. Además, proporcionamos un <a href="/" target="_blank" class="resource"><strong>recurso interactivo</strong></a> que permite
+                  escribir código C-ES arrastrando bloques definidos que representan las diferentes estructuras del lenguaje.</p>
+                  <br />
+
+                  <p>C-ES se ha desarrollado en el semestre Enero-Mayo 2018, y nuestras metas son ambicionas. ¡No podemos esperar a ver lo que crean con él!</p>
+                  <br />
+
+                  <p class="text-right"><a href="/inicio" class="resource">Inicio de programa ></a></p>
+               </div>
+            </div>
+
+         </div>
+      </div>
    </div>
-   
+
    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
    <script>
       $(document).ready(function () {
          $('#sidebarCollapse').on('click', function () {
-            $('#sidebar').toggleClass('active');
             $(this).toggleClass('active');
+            $("#wrapper").toggleClass("toggled");
          });
       });
    </script>

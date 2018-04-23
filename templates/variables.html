@@ -12,13 +12,13 @@
 </head>
 
 <body>
-   <div class="wrapper">
-      <nav id="sidebar">
+   <div id="wrapper">
+      <div id="sidebar-wrapper">
          <div class="sidebar-header">
-            <h3>Menú</h3>               
+            <h3>Menú</h3>
          </div>
 
-         <ul class="list-unstyled components">
+         <ul class="list-unstyled components sidebar-nav">
             <li><a href="/manual">Bienvenido a C-ES</a></li>
             <li><a href="/inicio">Inicio de programa</a></li>
             <li class="active"><a href="/variables">Variables</a></li>
@@ -32,9 +32,9 @@
          <ul class="list-unstyled CTAs">
             <li><a href="/" class="try" target="_blank">Probar el lenguaje</a></li>
          </ul>
-      </nav>
+      </div>
 
-      <div id="content">
+      <div id="page-content-wrapper">
          <nav class="navbar navbar-default">
             <div class="container-fluid">
                <div class="navbar-header">
@@ -49,68 +49,83 @@
                </div>
             </div>
          </nav>
+         <div class="container-fluid">
+            <div class="row">
+               <div class="col-12">
+                  <p class="text-left"><a href="/inicio" class="resource">< Inicio de programa</a></p>
+                  
+                  <h2>Variables</h2>
+                  <p>Una variable asocia un nombre a un valor de cierto tipo.</p>
+                  <br />
          
-         <p class="text-left"><a href="/inicio" class="resource">< Inicio de programa</a></p>
+                  <p>Los tipos de datos disponibles son:
+                     <ol>
+                        <li><strong>numero</strong>: para guardar números enteros como <i>4</i></li>
+                        <li><strong>decimal</strong>: para guardar números decimales como <i>2.5</i></li>
+                        <li><strong>texto</strong>: para guardar palabras como <i>"Hola"</i></li>
+                        <li><strong>binario</strong>: para guardar ya sea <i>verdadero</i> o <i>false</i></li>
+                     </ol>
+                  </p>
+               </div>
+            </div>
+
+            <div class="row">
+               <div class="col-md-12">
+                  <p>Para declarar variables debes de hacerlo después
+                     de la palabra <i>programa</i>, especificando primero el tipo, el nombre de las variables y terminando con un punto y coma:
+                  </p>
          
-         <h2>Variables</h2>
-         <p>Una variable asocia un nombre a un valor de cierto tipo.</p>
+      <pre>
+      <code>
+   <span class="reserved-word">programa</span>
 
-         <br />
+   <span class="reserved-word-2">variables:</span>
+   <span class="reserved-word-3">numero</span> miPrimerVariableDeNumero;
+   <span class="reserved-word-3">texto</span> miPrimerVariableDeTexto;
 
-         <p>Los tipos de datos disponibles son:
-            <ol>
-               <li><strong>numero</strong>: para guardar números enteros como <i>4</i></li>
-               <li><strong>decimal</strong>: para guardar números decimales como <i>2.5</i></li>
-               <li><strong>texto</strong>: para guardar palabras como <i>"Hola"</i></li>
-               <li><strong>binario</strong>: para guardar ya sea <i>verdadero</i> o <i>false</i></li>
-            </ol>
-         </p>
-
-         <br />
+   {
+   }
+      </code>
+      </pre>
+                  
+                  <p>Puedes declarar múltiples variables de un mismo tipo en una sola línea, separadas por comas:</p>
          
-         <p>Para declarar variables debes de hacerlo después
-            de la palabra <i>programa</i>, especificando primero el tipo, el nombre de las variables y terminando con un punto y coma:
-         </p>
+      <pre>
+      <code>
+   <span class="reserved-word-3">texto</span> miPrimerVariableDeTexto, otraVariableDeTexto;
+      </code>
+      </pre>
+               </div>
+            </div>
 
-         <pre>
-         <code>
-      <span class="reserved-word">programa</span>
+            <div class="row">
+               <div class="col-md-12">
+                  <p>Una vez declaradas las variables, puedes asignarles un valor dentro del bloque principal:</p>
 
-      <span class="reserved-word-2">variables:</span>
-      <span class="reserved-word-3">numero</span> miPrimerVariableDeNumero;
-      <span class="reserved-word-3">texto</span> miPrimerVariableDeTexto;
+      <pre>
+      <code>
+   {
+      miPrimerVariableDeNumero = 5
+      miPrimerVariableDeTexto = "Hola"
+   }
+      </code>
+      </pre>
+                  
+                  <p class="text-right"><a href="/funciones" class="resource">Funciones ></a></p>
+               </div>
+            </div>
+         </div>
+      </div>
+    </div>
 
-      {
-      }
-         </code>
-         </pre>
-
-         <p>Puedes declarar múltiples variables de un mismo tipo en una sola línea, separadas por comas:</p>
-
-         
-
-         <p>Una vez declaradas las variables, puedes asignarles un valor dentro del bloque principal:</p>
-
-         <pre>
-         <code>
-      {
-         miPrimerVariableDeNumero = 5
-         miPrimerVariableDeTexto = "Hola"
-      }
-         </code>
-         </pre>
-         
-         <p class="text-right"><a href="/funciones" class="resource">Funciones ></a></p>
-      <div>
-   </div>
-   
    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
    <script>
       $(document).ready(function () {
          $('#sidebarCollapse').on('click', function () {
-            $('#sidebar').toggleClass('active');
             $(this).toggleClass('active');
+            $("#wrapper").toggleClass("toggled");
          });
       });
    </script>
