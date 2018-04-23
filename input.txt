@@ -1,14 +1,17 @@
-programa
-   
+ programa
+
 variables:
 numero resultado;
 
-funciones
-numero funcion sumaDosNumeros (numero numero1, numero numero2) {      
-   devolver numero1 + numero2
-}
-
 {
-   resultado = sumaDosNumeros(4, 8)
-   imprimir (resultado)
+   resultado = 7
+
+   si sucede (resultado > 7) realiza {
+      imprimir ("aprobado")
+   } o si sucede (resultado == 7) realiza {
+      imprimir ("aprobado por poco")
+   } no sucede {
+      imprimir ("reprobado")
+   }
 }
+   
