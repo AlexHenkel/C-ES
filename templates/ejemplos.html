@@ -12,29 +12,28 @@
 </head>
 
 <body>
-   <div class="wrapper">
-      <nav id="sidebar">
+   <div id="wrapper">
+      <div id="sidebar-wrapper">
          <div class="sidebar-header">
-            <h3>Menú</h3>               
+            <h3>Menú</h3>
          </div>
 
-         <ul class="list-unstyled components">
+         <ul class="list-unstyled components sidebar-nav">
             <li><a href="/manual">Bienvenido a C-ES</a></li>
             <li><a href="/inicio">Inicio de programa</a></li>
             <li><a href="/variables">Variables</a></li>
-            <li><a href="/funciones">Funciones</a></li>
             <li><a href="/operadores">Operadores</a></li>
+            <li><a href="/funciones">Funciones</a></li>
             <li><a href="/control-de-flujo">Control de flujo</a></li>
-            <li><a href="/bloque-principal">Bloque principal</a></li>
             <li class="active"><a href="/ejemplos">Ejemplos de programas</a></li>
          </ul>
 
          <ul class="list-unstyled CTAs">
             <li><a href="/" class="try" target="_blank">Probar el lenguaje</a></li>
          </ul>
-      </nav>
+      </div>
 
-      <div id="content">
+      <div id="page-content-wrapper">
          <nav class="navbar navbar-default">
             <div class="container-fluid">
                <div class="navbar-header">
@@ -49,32 +48,229 @@
                </div>
             </div>
          </nav>
-         
-         <p class="text-left"><a href="/bloque-principal" class="resource">< Bloque principal</a></p>
-         
-         <h2>Ejemplos de programas</h2>
-         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-            irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-            non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-         
-         <div class="line"></div>
+         <div class="container-fluid">
+            <div class="row">
+               <div class="col-12">
+                  <p class="text-left"><a href="/control-de-flujo" class="resource">< Control de flujo</a></p>
 
-         <h2>Bloque principal</h2>
-         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-            irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-            non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-      <div>
+                  <h2>Ejemplos de programas</h2>
+                  <p>En esta lección se presenta una colección de programas comunes en programación, con el objetivo de que te familiarices más
+                     con el lenguaje y sirvan como referencia para construir los tuyos.
+                  </p>
+                  
+                  <div class="line"></div>
+                  
+                  <h4>Factorial de un número (versión iterativa)</h4>
+                  <br />
+
+      <pre>
+      <code>
+   <span class="reserved-word">programa</span>
+
+   <span class="reserved-word-2">variables:</span>
+   <span class="reserved-word-3">numero</span> resultado;
+
+   {
+      resultado = 8
+
+      <span class="reserved-word">si sucede</span> (resultado > 7) <span class="reserved-word">realiza</span> {
+         imprimir ("aprobado")
+      } <span class="reserved-word">no sucede</span> {
+         imprimir ("reprobado")
+      }
+   }
+      </code>
+      </pre>
+                  <br />
+                  <div class="output">
+                     <samp>aprobado</samp>
+                  </div>
+
+                  <div class="line"></div>
+                  
+                  <h4>Factorial de un número (versión recursiva)</h4>
+                  <br />
+
+      <pre>
+      <code>
+   <span class="reserved-word">programa</span>
+
+   <span class="reserved-word-2">variables:</span>
+   <span class="reserved-word-3">numero</span> resultado;
+
+   {
+      resultado = 8
+
+      <span class="reserved-word">si sucede</span> (resultado > 7) <span class="reserved-word">realiza</span> {
+         imprimir ("aprobado")
+      } <span class="reserved-word">no sucede</span> {
+         imprimir ("reprobado")
+      }
+   }
+      </code>
+      </pre>
+                  <br />
+                  <div class="output">
+                     <samp>aprobado</samp>
+                  </div>
+
+                  <div class="line"></div>
+                  
+                  <h4>Fibonacci de un número (versión iterativa)</h4>
+                  <br />
+
+      <pre>
+      <code>
+   <span class="reserved-word">programa</span>
+
+   <span class="reserved-word-2">variables:</span>
+   <span class="reserved-word-3">numero</span> resultado;
+
+   {
+      resultado = 8
+
+      <span class="reserved-word">si sucede</span> (resultado > 7) <span class="reserved-word">realiza</span> {
+         imprimir ("aprobado")
+      } <span class="reserved-word">no sucede</span> {
+         imprimir ("reprobado")
+      }
+   }
+      </code>
+      </pre>
+                  <br />
+                  <div class="output">
+                     <samp>aprobado</samp>
+                  </div>
+
+                  <div class="line"></div>
+                  
+                  <h4>Fibonacci de un número (versión recursiva)</h4>
+                  <br />
+
+      <pre>
+      <code>
+   <span class="reserved-word">programa</span>
+
+   <span class="reserved-word-2">variables:</span>
+   <span class="reserved-word-3">numero</span> resultado;
+
+   {
+      resultado = 8
+
+      <span class="reserved-word">si sucede</span> (resultado > 7) <span class="reserved-word">realiza</span> {
+         imprimir ("aprobado")
+      } <span class="reserved-word">no sucede</span> {
+         imprimir ("reprobado")
+      }
+   }
+      </code>
+      </pre>
+                  <br />
+                  <div class="output">
+                     <samp>aprobado</samp>
+                  </div>
+
+                  <div class="line"></div>
+                  
+                  <h4>Ordenar una lista</h4>
+                  <br />
+
+      <pre>
+      <code>
+   <span class="reserved-word">programa</span>
+
+   <span class="reserved-word-2">variables:</span>
+   <span class="reserved-word-3">numero</span> resultado;
+
+   {
+      resultado = 8
+
+      <span class="reserved-word">si sucede</span> (resultado > 7) <span class="reserved-word">realiza</span> {
+         imprimir ("aprobado")
+      } <span class="reserved-word">no sucede</span> {
+         imprimir ("reprobado")
+      }
+   }
+      </code>
+      </pre>
+                  <br />
+                  <div class="output">
+                     <samp>aprobado</samp>
+                  </div>
+
+                  <div class="line"></div>
+                  
+                  <h4>Buscar un elemento en una lista</h4>
+                  <br />
+
+      <pre>
+      <code>
+   <span class="reserved-word">programa</span>
+
+   <span class="reserved-word-2">variables:</span>
+   <span class="reserved-word-3">numero</span> resultado;
+
+   {
+      resultado = 8
+
+      <span class="reserved-word">si sucede</span> (resultado > 7) <span class="reserved-word">realiza</span> {
+         imprimir ("aprobado")
+      } <span class="reserved-word">no sucede</span> {
+         imprimir ("reprobado")
+      }
+   }
+      </code>
+      </pre>
+                  <br />
+                  <div class="output">
+                     <samp>aprobado</samp>
+                  </div>
+
+                  <div class="line"></div>
+
+                  <h4>Multiplicación de dos listas</h4>
+                  <br />
+
+      <pre>
+      <code>
+   <span class="reserved-word">programa</span>
+
+   <span class="reserved-word-2">variables:</span>
+   <span class="reserved-word-3">numero</span> resultado;
+
+   {
+      resultado = 8
+
+      <span class="reserved-word">si sucede</span> (resultado > 7) <span class="reserved-word">realiza</span> {
+         imprimir ("aprobado")
+      } <span class="reserved-word">no sucede</span> {
+         imprimir ("reprobado")
+      }
+   }
+      </code>
+      </pre>
+                  <br />
+                  <div class="output">
+                     <samp>aprobado</samp>
+                  </div>
+
+                  <br />
+
+               </div>
+            </div>
+
+         </div>
+      </div>
    </div>
-   
+
    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
    <script>
       $(document).ready(function () {
          $('#sidebarCollapse').on('click', function () {
-            $('#sidebar').toggleClass('active');
             $(this).toggleClass('active');
+            $("#wrapper").toggleClass("toggled");
          });
       });
    </script>
