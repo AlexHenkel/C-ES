@@ -21,6 +21,13 @@ pre {
    border-radius: 1.5rem;
 }
 
+.output {
+   background-color: #000;
+   border-radius: 1.5rem;
+   color: #59f924;
+   padding: 1rem;
+}
+
 /********** Wrapper **********/
 
 #wrapper {

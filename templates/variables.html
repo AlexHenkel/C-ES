@@ -114,8 +114,22 @@
       </pre>
                   <br />
                   <p>Ahora que las variables ya tienen un valor, puedes hacer referencia a ellas para usarlas en operaciones o expresiones, 
-                     de las cuales hablaremos más adelante.</p>
-
+                     de las cuales hablaremos más adelante. Para usarlas, simplemente tienes que poner el nombre de la variable, por ejemplo,
+                     para mostrar el valor de <i>miPrimerVariableDeNumero</i> en la pantalla lo haríamos de la siguiente forma:</p>
+      
+      <pre>
+      <code>
+   {
+      <span class="reserved-word">imprimir</span>(miPrimerVariableDeNumero)
+   }
+      </code>
+      </pre>
+                  <p>El código anterior mostraría en pantalla:</p>
+                  
+                  <div class="output">
+                     <samp>5</samp>
+                  </div>
+                  
                   <div class="line"></div>
                   
                   <h4>Listas</h4>
@@ -145,17 +159,37 @@
       <pre>
       <code>
    {
-      <span class="reserved-word">agregar a</span> (miListaDeNumeros, 0, 5)
-      <span class="reserved-word">agregar a</span> (miListaDeNumeros, 1, 10)
-      <span class="reserved-word">agregar a</span> (miListaDeNumeros, 2, 15)
-      <span class="reserved-word">agregar a</span> (miListaDeNumeros, 3, 20)
-      <span class="reserved-word">agregar a</span> (miListaDeNumeros, 4, 25)
+      <span class="reserved-word">agregar a</span> (miListaDeNumeros, 5, 0)
+      <span class="reserved-word">agregar a</span> (miListaDeNumeros, 10, 1)
+      <span class="reserved-word">agregar a</span> (miListaDeNumeros, 15, 2)
+      <span class="reserved-word">agregar a</span> (miListaDeNumeros, 20, 3)
+      <span class="reserved-word">agregar a</span> (miListaDeNumeros, 25, 4)
    }
       </code>
       </pre>      
                   <p>Después de ejecutar el código anterior, el primer elemento de la variable <i>miListaDeNumeros</i> tendría el valor de <i>5</i>,
                      el segundo elemento tendría el valor de <i>10</i>, el tercer elemento tendría el valor de <i>15</i>,
                      el cuarto elemento tendría el valor de <i>20</i>, y el último elemento tendría el valor de <i>25</i>.</p>
+                  <br />
+
+                  <p>De la misma forma que puedes usar el valor de las variables, puedes usar el valor de un elemento de la lista. Para ello,
+                     tienes que hacer uso de la función <span class="reserved-word">acceder</span> e indicar la posición del elemento que quieres,
+                     de la siguiente forma:</p>
+
+      <pre>
+      <code>
+   {
+      <span class="reserved-word">imprimir</span>(<span class="reserved-word">acceder</span> (miListaDeNumeros, 1))
+   }
+      </code>
+      </pre>
+                  <p>El código anterior mostraría en pantalla:</p>
+                  
+                  <div class="output">
+                     <samp>10</samp>
+                  </div>
+
+                  <br />
 
                   <p class="text-right"><a href="/funciones" class="resource">Funciones ></a></p>
                   
