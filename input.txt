@@ -1,34 +1,11 @@
-// Test fibonacci recursive
-programa 
+programa
+
 variables:
-numero test;
-lista de numero de 2 milista;
-
-funciones
-
-numero funcion fibo(numero n) {
-    variables: numero n1, n2;
-    si sucede (n == 0 o n == 1) realiza {
-        devolver n
-    } no sucede {
-        n1 = fibo(n - 1)
-        n2 = fibo(n - 2)
-        devolver n1 + n2
-    }
-}
+texto hola, mundo;
 
 {
-   test = 5
-   agregar a (milista, 0, 5)
-   imprimir(test)
-   imprimir(accesar (milista, 0))
+   hola = "¡Hola"
+   mundo = ", mundo!"
+   imprimir (hola + mundo)
 }
-
-// Fibo(0) = 0
-// Fibo(1) = 1
-// Fibo(2) = 1
-// Fibo(3) = 2
-// Fibo(4) = 3
-// Fibo(5) = 5
-// Fibo(10) = 55
-// Fibo(20) = 6765
+   

@@ -12,13 +12,13 @@
 </head>
 
 <body>
-   <div class="wrapper">
-      <nav id="sidebar">
+   <div id="wrapper">
+      <div id="sidebar-wrapper">
          <div class="sidebar-header">
-            <h3>Menú</h3>               
+            <h3>Menú</h3>
          </div>
 
-         <ul class="list-unstyled components">
+         <ul class="list-unstyled components sidebar-nav">
             <li><a href="/manual">Bienvenido a C-ES</a></li>
             <li><a href="/inicio">Inicio de programa</a></li>
             <li><a href="/variables">Variables</a></li>
@@ -32,9 +32,9 @@
          <ul class="list-unstyled CTAs">
             <li><a href="/" class="try" target="_blank">Probar el lenguaje</a></li>
          </ul>
-      </nav>
+      </div>
 
-      <div id="content">
+      <div id="page-content-wrapper">
          <nav class="navbar navbar-default">
             <div class="container-fluid">
                <div class="navbar-header">
@@ -49,34 +49,103 @@
                </div>
             </div>
          </nav>
-         
-         <p class="text-left"><a href="/funciones" class="resource">< Funciones</a></p>
-         
-         <h2>Operadores</h2>
-         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-            irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-            non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-         
-         <div class="line"></div>
+         <div class="container-fluid">
+            <div class="row">
+               <div class="col-12">
+                  <p class="text-left"><a href="/funciones" class="resource">< Funciones</a></p>
 
-         <h2>Control de flujo</h2>
-         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-            irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-            non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-         
-         <p class="text-right"><a href="/control-de-flujo" class="resource">Control de flujo ></a></p>
-      <div>
+                  <h2>Operadores</h2>
+                  <p>Muchas veces necesitamos realizar cálculos matemáticas en nuestros programas. Debido a ello, se proporcionan las siguientes operaciones
+                     matemáticas que puedes realizar sólo entre números de tipo <span class="reserved-word-3">numero</span> y <span class="reserved-word-3">decimal:</span></p>
+                     
+                  <ol>
+                     <li><strong>+</strong>: para sumar dos números</li>
+                     <li><strong>-</strong>: para restar un número de otro</li>
+                     <li><strong>*</strong>: para multiplicar dos números</li>
+                     <li><strong>/</strong>: para dividir un número de otro</li>
+                  </ol>
+                  <br />
+
+                  <p>Ilustremos cómo funcionan los operadores con el siguiente programa:</p>
+
+      <pre>
+      <code>
+   <span class="reserved-word">programa</span>
+
+   <span class="reserved-word-2">variables:</span>
+   <span class="reserved-word-3">numero</span> numero1, numero2;
+   <span class="reserved-word-3">decimal</span> decimal1;
+
+   {
+      numero1 = 4
+      numero2 = 2
+      decimal1 = 2.5
+
+      <span class="reserved-word">imprimir</span> (numero1 + numero2)
+      <span class="reserved-word">imprimir</span> (numero1 - numero2)
+      <span class="reserved-word">imprimir</span> (numero1 * numero2)
+      <span class="reserved-word">imprimir</span> (numero1 / numero2)
+
+      <span class="reserved-word">imprimir</span> (numero1 + decimal1)
+      <span class="reserved-word">imprimir</span> (decimal1 - numero2)
+   }
+      </code>
+      </pre>
+                  <p>El código anterior mostraría en pantalla:</p>
+                  
+                  <div class="output">
+                     <samp>6</samp><br />
+                     <samp>2</samp><br />
+                     <samp>8</samp><br />
+                     <samp>2</samp><br />
+                     <samp>6.5</samp><br />
+                     <samp>0.5</samp><br />
+                  </div>
+
+                  <div class="line"></div>
+                  
+                  <h4>Operador + con <span class="reserved-word-3">texto</span></h4>
+                  <p>El operador de suma puede ser utilizado con operandos de tipo <span class="reserved-word-3">texto</span>. En este caso,
+                     el resultado es la concatenación de los operandos:</p>
+
+      <pre>
+      <code>
+   <span class="reserved-word">programa</span>
+
+   <span class="reserved-word-2">variables:</span>
+   <span class="reserved-word-3">texto</span> hola, mundo;
+
+   {
+      hola = "¡Hola"
+      mundo = ", mundo!"
+      <span class="reserved-word">imprimir</span> (hola + mundo)
+   }
+      </code>
+      </pre>
+
+                  <p>El código anterior mostraría en pantalla:</p>
+                  
+                  <div class="output">
+                     <samp>¡Hola, mundo!</samp>
+                  </div>
+                  <br />
+
+                  <p class="text-right"><a href="/control-de-flujo" class="resource">Control de flujo ></a></p>
+               </div>
+            </div>
+
+         </div>
+      </div>
    </div>
-   
+
    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
    <script>
       $(document).ready(function () {
          $('#sidebarCollapse').on('click', function () {
-            $('#sidebar').toggleClass('active');
             $(this).toggleClass('active');
+            $("#wrapper").toggleClass("toggled");
          });
       });
    </script>
