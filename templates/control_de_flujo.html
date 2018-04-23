@@ -122,6 +122,35 @@
                   <div class="line"></div>
 
                   <h4>Enunciado <span class="reserved-word">mientras sucede</span></h4>
+                  <p>Podemos ejecutar un pedazo de código hasta que cierta condición se cumpla de la siguiente forma:</p>
+
+      <pre>
+      <code>
+   <span class="reserved-word">programa</span>
+
+   <span class="reserved-word-2">variables:</span>
+   <span class="reserved-word-3">numero</span> repeticionActual, repeticionesMaximas;
+
+   {
+      repeticionActual = 1
+      repeticionesMaximas = 5
+
+      <span class="reserved-word">mientras sucede</span> (repeticionActual <= repeticionesMaximas) <span class="reserved-word">realiza</span> {
+         imprimir (repeticionActual)
+         repeticionActual = repeticionActual + 1
+      }
+   }
+      </code>
+      </pre>
+                  <br />
+                  <div class="output">
+                     <samp>1</samp><br />
+                     <samp>2</samp><br />
+                     <samp>3</samp><br />
+                     <samp>4</samp><br />
+                     <samp>5</samp><br />
+                  </div>
+                  <br />
                   
 
                   <p class="text-right"><a href="/bloque-principal" class="resource">Bloque principal ></a></p>

@@ -1,17 +1,15 @@
- programa
+programa
 
 variables:
-numero resultado;
+numero repeticionActual, repeticionesMaximas;
 
 {
-   resultado = 7
+   repeticionActual = 1
+   repeticionesMaximas = 5
 
-   si sucede (resultado > 7) realiza {
-      imprimir ("aprobado")
-   } o si sucede (resultado == 7) realiza {
-      imprimir ("aprobado por poco")
-   } no sucede {
-      imprimir ("reprobado")
+   mientras sucede (repeticionActual <= repeticionesMaximas) realiza {
+      imprimir (repeticionActual)
+      repeticionActual = repeticionActual + 1
    }
 }
    
