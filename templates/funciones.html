@@ -8,7 +8,7 @@
    <title>Inicio de programa | C-ES</title>
    
    <link rel="stylesheet" href="./../static/css/bootstrap.min.css">
-   <link rel="stylesheet" href="./../static/css/manual2.css">
+   <link rel="stylesheet" href="./../static/css/manual.css">
 
 </head>
 
@@ -51,15 +51,96 @@
                </div>
             </nav>
             <div class="container-fluid">
-                <h1>Simple Sidebar</h1>
-                <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
-                <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
-
                <div class="row">
                   <div class="col-12">
-                     <div>
-                        <pre><code><span class="reserved-word-3">texto</span> miPrimerVariableDeTexto, otraVariableDeTexto;</code></pre>
+                     <p class="text-left"><a href="/variables" class="resource">< Variables</a></p>
+                     
+                     <h2>Funciones</h2>
+                     <p>Mientras desarrollamos programas más complejos nos encontramos con la necesidad de ejecutar el mismo código varias ocaciones.
+                        En lugar de repetir las mismas líneas de código en todo el programa, podemos encapsularlas en una función, e invocar esa función
+                        mediante su nombre las veces que necesitemos ejecutar el código que contiene.</p>
+                     <br />
+
+                     <p>C-ES proporciona al programador la habilidad de desarrollar sus propias funciones, pero también se incluyen funciones ya
+                        implementadas cuyo funcionalidad resulta de mucha utilidad. En esta lección explicaremos ambos tipos de funciones.</p>
+                     <br />
+
+                     <div class="line"></div>
+
+                     <h4>Funciones propias</h4>
+                     
+
+                     <p>Por cada función tienes que especificar la palabra <span class="reserved-word-3">funcion</span>, seguido por el nombre de la función,
+                        un conjunto de paréntesis y un conjunto de llaves. Dentro del conjunto de llaves puedes declarar variables y usar otras funciones:
+                     </p>
+
+      <pre>
+      <code>
+   <span class="reserved-word-3">funcion</span> imprimeUnNumero () {
+      <span class="reserved-word-3">numero</span> a;
+      a = 5
+      
+      <span class="reserved-word">imprimir</span> (a)
+   }
+      </code>
+      </pre>
+
+                     <br />
+                     <p>Para poder ejecutar el código de tu función, tienes que "llamarla", y lo haces poniendo el nombre de la función a ejecutar
+                        seguido por paréntesis:
+                     </p>
+
+      <pre>
+      <code>
+      imprimeUnNumero()
+      </code>
+      </pre>
+         
+                     <p>Para declarar tus propias funciones debes de hacerlo después de la palabra <span class="reserved-word">programa</span>, 
+                        y en caso de haber declarado variables después de la declaración de variables. Un programa completo usando la función anterior sería:</p>
+                     <br />
+
+      <pre>
+      <code>
+   <span class="reserved-word">programa</span>
+
+   <span class="reserved-word-2">funciones:</span>
+   <span class="reserved-word-3">funcion</span> imprimeUnNumero () {
+      <span class="reserved-word-3">numero</span> a;
+      a = 100
+      
+      <span class="reserved-word">imprimir</span> (a)
+   }
+
+   {
+      imprimeUnNumero()
+   }
+      </code>
+      </pre>
+
+                     <p>El código anterior mostraría en pantalla:</p>
+                     
+                     <div class="output">
+                        <samp>100</samp>
                      </div>
+
+                     <div class="line"></div>
+                     
+                     <h4>Funciones del lenguaje</h4>
+                     <p>Como se mencionó, se proporcionan funciones que son de utilidad y usadas de manera recurrente en programación.</p>
+
+                     <p>Las funciones disponibles son:
+                     <ol>
+                        <li><span class="reserved-word"><strong>leer</strong></span> (<i>nombreVariable</i>): guarda en la variable el valor leído del teclado</li>
+                        <li><span class="reserved-word"><strong>imprimir</strong></span> (<i>nombreVariableOValor</i>): muestra en pantalla el valor de la variable especificada</li>
+                        <li><span class="reserved-word"><strong>agregar a </strong></span> (<i>lista</i>, <i>valor</i>, <i>posición</i>): guarda un valor en el elemento especificado de la lista</li>
+                        <li><span class="reserved-word"><strong>acceder </strong></span> (<i>lista</i>, <i>posición</i>): obtiene el valor del elemento especificado de la lista</li>
+                        <li><span class="reserved-word"><strong>quitar ultimo de </strong></span> <i>lista</i> (): quital el valor actual que contenía el último elemento de la lista</li>
+                        <li><span class="reserved-word"><strong>numero aleatorio </strong></span> (de <i>variableONumeroIndicandoLimiteInferior</i>, <i>variableONumeroIndicandoLimiteSuperior</i>): regresa un numero aleatorio cuyo valor está entre entre los límites establecidos</li>
+                     </ol>
+                  </p>
+
+                     <p class="text-right"><a href="/operadores" class="resource">Operadores ></a></p>
                   </div>
                </div>
             </div>
