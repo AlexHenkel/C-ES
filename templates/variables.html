@@ -112,6 +112,9 @@
    }
       </code>
       </pre>
+                  <br />
+                  <p>Ahora que las variables ya tienen un valor, puedes hacer referencia a ellas para usarlas en operaciones o expresiones, 
+                     de las cuales hablaremos más adelante.</p>
 
                   <div class="line"></div>
                   
@@ -129,8 +132,30 @@
       </code>
       </pre>
 
-                  <br />
                   <p>Puedes declarar múltiples listas de la misma forma que declaras múltiples variables.</p>
+                  <br />
+
+                  <p>Una vez que has declarado una lista, puedes asignarle valores indicando el elemento al que le quieres asignar un valor.
+                     Sin embargo, en el contexto de las listas, el primer elemento tiene la posición 0, el segundo la posición 1, y así consecutivamente.</p>
+                  <br />
+
+                  <p>Por último, tienes que hacer uso de la función <span class="reserved-word">agregar a</span> (en la siguiente lección hablaremos más sobre 
+                     funciones) de la siguiente forma:</p>
+
+      <pre>
+      <code>
+   {
+      <span class="reserved-word">agregar a</span> (miListaDeNumeros, 0, 5)
+      <span class="reserved-word">agregar a</span> (miListaDeNumeros, 1, 10)
+      <span class="reserved-word">agregar a</span> (miListaDeNumeros, 2, 15)
+      <span class="reserved-word">agregar a</span> (miListaDeNumeros, 3, 20)
+      <span class="reserved-word">agregar a</span> (miListaDeNumeros, 4, 25)
+   }
+      </code>
+      </pre>      
+                  <p>Después de ejecutar el código anterior, el primer elemento de la variable <i>miListaDeNumeros</i> tendría el valor de <i>5</i>,
+                     el segundo elemento tendría el valor de <i>10</i>, el tercer elemento tendría el valor de <i>15</i>,
+                     el cuarto elemento tendría el valor de <i>20</i>, y el último elemento tendría el valor de <i>25</i>.</p>
 
                   <p class="text-right"><a href="/funciones" class="resource">Funciones ></a></p>
                   
