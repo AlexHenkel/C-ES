@@ -1,11 +1,14 @@
 programa
-
+   
 variables:
-texto hola, mundo;
+numero resultado;
+
+funciones
+numero funcion sumaDosNumeros (numero numero1, numero numero2) {      
+   devolver numero1 + numero2
+}
 
 {
-   hola = "¡Hola"
-   mundo = ", mundo!"
-   imprimir (hola + mundo)
+   resultado = sumaDosNumeros(4, 8)
+   imprimir (resultado)
 }
-   

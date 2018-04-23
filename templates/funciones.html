@@ -68,8 +68,6 @@
                      <div class="line"></div>
 
                      <h4>Funciones propias</h4>
-                     
-
                      <p>Por cada función tienes que especificar la palabra <span class="reserved-word-3">funcion</span>, seguido por el nombre de la función,
                         un conjunto de paréntesis y un conjunto de llaves. Dentro del conjunto de llaves puedes declarar variables y usar otras funciones:
                      </p>
@@ -123,6 +121,63 @@
                      <div class="output">
                         <samp>100</samp>
                      </div>
+
+                     <div class="line"></div>
+                     
+                     <h4>Funciones propias con argumentos y valores de retorno</h4>
+                     <p>Las funciones también pueden recibir datos (argumentos), y usar esos datos para realizar la tarea que tienen que hacer.
+                        Por cada argumento tienes que definir el tipo, y el nombre del argumento. Para pasarle datos a una función, cuando llames la función
+                        simplemente tienes que pasar entre paréntesis los valores que deseas con el tipo especificado en la función:</p>
+
+      <pre>
+      <code>
+   <span class="reserved-word">programa</span>
+
+   <span class="reserved-word-2">funciones:</span>
+   <span class="reserved-word-3">funcion</span> sumaDosNumeros (<span class="reserved-word-3">numero</span> numero1, <span class="reserved-word-3">numero</span> numero2) {      
+      <span class="reserved-word">imprimir</span> (numero1 + numero2)
+   }
+
+   {
+      sumaDosNumeros(4, 8)
+   }
+      </code>
+      </pre>
+                     <br />
+                     <div class="output">
+                        <samp>12</samp>
+                     </div>
+
+                     <br />
+                     <br />
+                     <p>Además, una función puede regresar un dato, resultado de realizar su tarea. Para ello, tienes que indicar el tipo de dato 
+                        que la función regresará. Y dentro de la función, usar la palabra <span class="reserved-word-3">devolver</span> seguido del dato que quieres
+                        regresar, cuyo tipo coincide con el especificado. El resultado regresado lo puedes guardar para utilizarlo después:</p>
+
+      <pre>
+      <code>
+   <span class="reserved-word">programa</span>
+   
+   <span class="reserved-word-2">variables:</span>
+   <span class="reserved-word-3">numero</span> resultado;
+
+   <span class="reserved-word-2">funciones:</span>
+   <span class="reserved-word-3">numero</span> <span class="reserved-word-3">funcion</span> sumaDosNumeros (<span class="reserved-word-3">numero</span> numero1, <span class="reserved-word-3">numero</span> numero2) {      
+      <span class="reserved-word-3">devolver</span> numero1 + numero2
+   }
+
+   {
+      resultado = sumaDosNumeros(4, 8)
+      <span class="reserved-word">imprimir</span> (resultado)
+   }
+      </code>
+      </pre>
+                     <br />
+                     <div class="output">
+                        <samp>12</samp>
+                     </div>
+
+
 
                      <div class="line"></div>
                      
