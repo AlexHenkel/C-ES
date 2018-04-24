@@ -41,6 +41,7 @@ types_stack = []
 jumps_stack = []
 quads_list = []
 jumps_else_if = []
+print_stack = []
 
 
 ##############################
@@ -555,6 +556,10 @@ def p_add_read_op(p):
 # Print
 def p_print(p):
     'print : PRINT "(" print_params ")"'
+    global print_stack
+    print_params = copy.deepcopy(print_stack)
+    print_stack = []
+    save_quad('imprimir', -1, print_params, -1)
 
 
 def p_print_params(p):
@@ -565,7 +570,8 @@ def p_print_params(p):
 def p_save_print_param(p):
     'save_print_param : empty'
     operators_stack.append('imprimir')
-    verify_semantics(True, True)
+    [_, _, var1, _] = verify_semantics(True, True, False, True)
+    print_stack.append(var1)
 
 
 def p_print_params_rec(p):
@@ -915,16 +921,16 @@ else:
     s = f.read()
 
     # Parse text if found
-    if s: 
-       try:
-          print("Compiling code...")
-          result = parser.parse(s)
-          print("Compiling success!")
-          executeVM(quads_list, global_variables_dict, function_dict,
-                     constant_dict, curr_func_temp_vars)
-          print("Program finished")
-       except Exception as error:
-          print(error.__class__.__name__ + ': ' + str(error))
+    if s:
+        try:
+            print("Compiling code...")
+            result = parser.parse(s)
+            print("Compiling success!")
+            executeVM(quads_list, global_variables_dict, function_dict,
+                      constant_dict, curr_func_temp_vars)
+            print("Program finished")
+        except Exception as error:
+            print(error.__class__.__name__ + ': ' + str(error))
 
     # Program finished
     # print("*")
