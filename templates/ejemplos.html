@@ -417,23 +417,44 @@
       <code>
    <span class="reserved-word">programa</span>
 
-   <span class="reserved-word-2">variables:</span>
-   <span class="reserved-word-3">numero</span> resultado;
+   <span class="reserved-word-2">variables:</span> 
+   <span class="reserved-word-3">lista</span> de <span class="reserved-word-3">numero</span> de 3 miListaDeNumeros1, miListaDeNumeros2;
+
+   <span class="reserved-word-2">funciones:</span>
+   <span class="reserved-word-3">lista</span> de <span class="reserved-word-3">numero</span> de 3 <span class="reserved-word-3">funcion</span> multiplicaDosListas(<span class="reserved-word-3">numero</span> tamanio) {
+      <span class="reserved-word-2">variables:</span>
+      <span class="reserved-word-3">numero</span> i;
+      <span class="reserved-word-3">lista</span> de <span class="reserved-word-3">numero</span> de 3 miListaDeResultados;
+      i = 0
+
+      <span class="reserved-word">mientras sucede</span> (i < tamanio) <span class="reserved-word">realiza</span> {
+         <span class="reserved-word">agregar a</span> (miListaDeResultados, <span class="reserved-word">acceder</span> (miListaDeNumeros1, i) * <span class="reserved-word">acceder</span> (miListaDeNumeros2, i), i)
+         i = i + 1
+      }
+
+      <span class="reserved-word-3">devolver</span> miListaDeResultados
+   }
 
    {
-      resultado = 8
-
-      <span class="reserved-word">si sucede</span> (resultado > 7) <span class="reserved-word">realiza</span> {
-         imprimir ("aprobado")
-      } <span class="reserved-word">no sucede</span> {
-         imprimir ("reprobado")
-      }
+      <span class="reserved-word">agregar a</span> (miListaDeNumeros1, 1, 0)
+      <span class="reserved-word">agregar a</span> (miListaDeNumeros1, 2, 1)
+      <span class="reserved-word">agregar a</span> (miListaDeNumeros1, 3, 2)
+      <span class="reserved-word">agregar a</span> (miListaDeNumeros2, 10, 0)
+      <span class="reserved-word">agregar a</span> (miListaDeNumeros2, 20, 1)
+      <span class="reserved-word">agregar a</span> (miListaDeNumeros2, 30, 2)
+   
+      <span class="reserved-word">imprimir</span> ("miListaDeNumeros1 = ", miListaDeNumeros1)
+      <span class="reserved-word">imprimir</span> ("miListaDeNumeros2 = ", miListaDeNumeros2)
+      <span class="reserved-word">imprimir</span> ("miListaDeResultados = ", multiplicaDosListas(3))
+      
    }
       </code>
       </pre>
                   <br />
                   <div class="output">
-                     <samp>aprobado</samp>
+                     <samp>miListaDeNumeros1 = [1, 2, 3]</samp><br />
+                     <samp>miListaDeNumeros2 = [10, 20, 30]</samp><br />
+                     <samp>miListaDeResultados = [10, 40, 90]</samp>
                   </div>
 
                   <br />

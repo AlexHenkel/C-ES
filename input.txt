@@ -1,47 +1,33 @@
 programa
 
-variables:
-numero miNumeroABuscar;
-lista de numero de 5 miListaDeNumeros;
+variables: 
+lista de numero de 3 miListaDeNumeros1, miListaDeNumeros2;
 
 funciones:
-binario funcion buscaEnListaElNumero(numero numeroABuscar, numero tamanio) {
+lista de numero de 3 funcion multiplicaDosListas(numero tamanio) {
    variables:
    numero i;
+   lista de numero de 3 miListaDeResultados;
    i = 0
 
-   mientras sucede (i < tamanio - 1) realiza {
-      si sucede ( acceder (miListaDeNumeros, i) == numeroABuscar) realiza {
-         devolver verdadero
-      }
-      
+   mientras sucede (i < tamanio) realiza {
+      agregar a (miListaDeResultados, acceder (miListaDeNumeros1, i) * acceder (miListaDeNumeros2, i), i)
       i = i + 1
    }
 
-   devolver falso
+   devolver miListaDeResultados
 }
 
 {
-   agregar a (miListaDeNumeros, 20, 0)
-   agregar a (miListaDeNumeros, 15, 1)
-   agregar a (miListaDeNumeros, 10, 2)
-   agregar a (miListaDeNumeros, 5, 3)
-   agregar a (miListaDeNumeros, 1, 4)
-   miNumeroABuscar = 100
+   agregar a (miListaDeNumeros1, 1, 0)
+   agregar a (miListaDeNumeros1, 2, 1)
+   agregar a (miListaDeNumeros1, 3, 2)
+   agregar a (miListaDeNumeros2, 10, 0)
+   agregar a (miListaDeNumeros2, 20, 1)
+   agregar a (miListaDeNumeros2, 30, 2)
 
-   imprimir ("miListaDeNumeros = ", miListaDeNumeros)
+   imprimir ("miListaDeNumeros1 = ", miListaDeNumeros1)
+   imprimir ("miListaDeNumeros2 = ", miListaDeNumeros2)
+   imprimir ("miListaDeResultados = ", multiplicaDosListas(3))
    
-   si sucede (buscaEnListaElNumero(miNumeroABuscar, 5)) realiza {
-      imprimir (miNumeroABuscar, " si está en ", miListaDeNumeros)
-   } no sucede {
-      imprimir (miNumeroABuscar, " no está en ", miListaDeNumeros)
-   }
-
-   miNumeroABuscar = 10
-
-   si sucede (buscaEnListaElNumero(miNumeroABuscar, 5)) realiza {
-      imprimir (miNumeroABuscar, " si está en ", miListaDeNumeros)
-   } no sucede {
-      imprimir (miNumeroABuscar, " no está en ", miListaDeNumeros)
-   }
 }
