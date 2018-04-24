@@ -1,7 +1,7 @@
 import copy
 from semantic_cube import short_types
 
-memory_addresses = {
+memory_addresses_original = {
     'glob_num': 1000,
     'glob_dec': 2500,
     'glob_tex': 5000,
@@ -19,6 +19,8 @@ memory_addresses = {
     'const_tex': 35000,
     'const_bin': 37500,
 }
+
+memory_addresses = copy.deepcopy(memory_addresses_original)
 
 initial_addresses = [1000, 2500, 5000, 7500, 10000, 12500, 15000, 17500, 20000,
                      22500, 25000, 27500, 30000, 32500, 35000, 37500]
@@ -94,10 +96,16 @@ class Memory:
 
         for const in constant_dict:
             curr_const = constant_dict[const]
-            curr_type = short_types[curr_const['type']]
-            curr_value = curr_const['value']
+            self["const_{}".format(
+                short_types[curr_const['type']])].append(None)
 
-            self["const_{}".format(curr_type)].append(curr_value)
+        for const in constant_dict:
+            curr_const = constant_dict[const]
+            curr_value = curr_const['value']
+            complete_context = "const_{}".format(
+                short_types[curr_const['type']])
+            self[complete_context][const -
+                                   memory_addresses_original[complete_context]] = curr_value
 
         for temp in curr_func_temp_vars:
             self["temp_{}".format(temp)] += [None] * curr_func_temp_vars[temp]
