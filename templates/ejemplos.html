@@ -186,23 +186,54 @@
       <code>
    <span class="reserved-word">programa</span>
 
-   <span class="reserved-word-2">variables:</span>
-   <span class="reserved-word-3">numero</span> resultado;
+   <span class="reserved-word-2">funciones:</span>
+   <span class="reserved-word-3">numero</span> <span class="reserved-word-3">funcion</span> fibo(<span class="reserved-word-3">numero</span> n) {
+      <span class="reserved-word-2">variables:</span>
+      <span class="reserved-word-3">numero</span> fibo, fiboAnterior, contador, temporal;
+
+      fibo = 1
+      fiboAnterior = 1
+
+      <span class="reserved-word">si sucede</span> (n <= 1) <span class="reserved-word">realiza</span> {
+         <span class="reserved-word-3">devolver</span> n
+      }
+
+      contador = 2
+      
+      <span class="reserved-word">mientras sucede</span> (contador < n) <span class="reserved-word">realiza</span> {
+         temporal = fibo
+         fibo = fibo + fiboAnterior
+         fiboAnterior = temporal
+         contador = contador + 1
+      }
+
+      <span class="reserved-word-3">devolver</span> fibo
+   }
 
    {
-      resultado = 8
-
-      <span class="reserved-word">si sucede</span> (resultado > 7) <span class="reserved-word">realiza</span> {
-         imprimir ("aprobado")
-      } <span class="reserved-word">no sucede</span> {
-         imprimir ("reprobado")
-      }
+      <span class="reserved-word">imprimir</span> ("Fibo(4): ", fibo(4), "")
+      <span class="reserved-word">imprimir</span> ("Fibo(10): ", fibo(10), "")
+      <span class="reserved-word">imprimir</span> ("Fibo(20): ", fibo(20), "")
    }
+
+   <span class="comment">// Fibo(0) = 0</span>
+   <span class="comment">// Fibo(1) = 1</span>
+   <span class="comment">// Fibo(2) = 1</span>
+   <span class="comment">// Fibo(3) = 2</span>
+   <span class="comment">// Fibo(4) = 3</span>
+   <span class="comment">// Fibo(5) = 5</span>
+   <span class="comment">// Fibo(10) = 55</span>
+   <span class="comment">// Fibo(20) = 6765</span>
       </code>
       </pre>
                   <br />
                   <div class="output">
-                     <samp>aprobado</samp>
+                     <samp>Fibo(4):</samp><br />
+                     <samp>3</samp><br /><br />
+                     <samp>Fibo(10):</samp><br />
+                     <samp>55</samp><br /><br />
+                     <samp>Fibo(20):</samp><br />
+                     <samp>6765</samp><br /><br />
                   </div>
 
                   <div class="line"></div>
@@ -217,23 +248,44 @@
       <code>
    <span class="reserved-word">programa</span>
 
-   <span class="reserved-word-2">variables:</span>
-   <span class="reserved-word-3">numero</span> resultado;
+   <span class="reserved-word-2">funciones:</span>
+   <span class="reserved-word-3">numero</span> <span class="reserved-word-3">funcion</span> fibo(<span class="reserved-word-3">numero</span> n) {
+      <span class="reserved-word-2">variables:</span>
+      <span class="reserved-word-3">numero</span> n1, n2;
 
-   {
-      resultado = 8
-
-      <span class="reserved-word">si sucede</span> (resultado > 7) <span class="reserved-word">realiza</span> {
-         imprimir ("aprobado")
+      <span class="reserved-word">si sucede</span> (n == 0 o n == 1) <span class="reserved-word">realiza</span> {
+         <span class="reserved-word-3">devolver</span> n
       } <span class="reserved-word">no sucede</span> {
-         imprimir ("reprobado")
+         n1 = fibo(n - 1)
+         n2 = fibo(n - 2)
+         <span class="reserved-word-3">devolver</span> n1 + n2
       }
    }
+
+   {
+      <span class="reserved-word">imprimir</span> ("Fibo(4): ", fibo(4), "")
+      <span class="reserved-word">imprimir</span> ("Fibo(10): ", fibo(10), "")
+      <span class="reserved-word">imprimir</span> ("Fibo(20): ", fibo(20), "")
+   }
+
+   <span class="comment">// Fibo(0) = 0</span>
+   <span class="comment">// Fibo(1) = 1</span>
+   <span class="comment">// Fibo(2) = 1</span>
+   <span class="comment">// Fibo(3) = 2</span>
+   <span class="comment">// Fibo(4) = 3</span>
+   <span class="comment">// Fibo(5) = 5</span>
+   <span class="comment">// Fibo(10) = 55</span>
+   <span class="comment">// Fibo(20) = 6765</span>
       </code>
       </pre>
                   <br />
                   <div class="output">
-                     <samp>aprobado</samp>
+                     <samp>Fibo(4):</samp><br />
+                     <samp>3</samp><br /><br />
+                     <samp>Fibo(10):</samp><br />
+                     <samp>55</samp><br /><br />
+                     <samp>Fibo(20):</samp><br />
+                     <samp>6765</samp><br /><br />
                   </div>
 
                   <div class="line"></div>

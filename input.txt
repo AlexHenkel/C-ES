@@ -1,37 +1,40 @@
-      
-   programa
+programa
 
-   funciones:
-   numero funcion factorial(numero n) {
-      variables:
-      numero resultado, contador;
-      resultado = 1
-      contador = 1
+funciones:
+numero funcion fibo(numero n) {
+   variables:
+   numero fibo, fiboAnterior, contador, temporal;
 
-      mientras sucede (contador <= n) realiza {
-         resultado = resultado * contador
-         contador = contador + 1
-      }
-      
-      devolver resultado
+   fibo = 1
+   fiboAnterior = 1
+
+   si sucede (n <= 1) realiza {
+      devolver n
    }
 
-   {
-      imprimir ("1!: ", factorial(1), "")
-      imprimir ("4!: ", factorial(4), "")
-      imprimir ("7!: ", factorial(7), "")
-      imprimir ("10!: ", factorial(10), "")
+   contador = 2
+   
+   mientras sucede (contador < n) realiza {
+      temporal = fibo
+      fibo = fibo + fiboAnterior
+      fiboAnterior = temporal
+      contador = contador + 1
    }
 
-   // 0! = 1
-   // 1! = 1
-   // 2! = 2
-   // 3! = 6
-   // 4! = 24
-   // 5! = 120
-   // 6! = 720
-   // 7! = 5040
-   // 8! = 40320
-   // 9! = 362880
-   // 10! = 3628800
-      
+   devolver fibo
+}
+
+{
+   imprimir ("Fibo(4): ", fibo(4), "")
+   imprimir ("Fibo(10): ", fibo(10), "")
+   imprimir ("Fibo(20): ", fibo(20), "")
+}
+
+// Fibo(0) = 0
+// Fibo(1) = 1
+// Fibo(2) = 1
+// Fibo(3) = 2
+// Fibo(4) = 3
+// Fibo(5) = 5
+// Fibo(10) = 55
+// Fibo(20) = 6765
