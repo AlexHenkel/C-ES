@@ -668,7 +668,7 @@ def p_expr_params_rec(p):
 
 # List functions
 def p_list_push(p):
-    'list_push : PUSH TO add_list_push_sign "(" add_id "," expression "," id_or_number ")"'
+    'list_push : PUSH TO add_list_push_sign "(" add_id "," expression "," expression ")"'
     # Get index data, to allow semantic verification
     index_var = variables_stack.pop()
     index_type = types_stack.pop()
@@ -683,7 +683,7 @@ def p_add_list_push_sign(p):
 
 
 def p_list_pop(p):
-    'list_pop : POP FROM add_list_pop_sign "(" add_id "," id_or_number ")"'
+    'list_pop : POP FROM add_list_pop_sign "(" add_id "," expression ")"'
     verify_semantics(False, True)
 
 
@@ -693,7 +693,7 @@ def p_add_list_pop_sign(p):
 
 
 def p_list_access(p):
-    'list_access : ACCESS add_list_access_sign "(" add_id "," id_or_number ")"'
+    'list_access : ACCESS add_list_access_sign "(" add_id "," expression ")"'
     verify_semantics(False, True)
 
 
@@ -704,7 +704,7 @@ def p_add_list_access_sign(p):
 
 # Random number
 def p_random(p):
-    'random : RANDOM add_random_sign "(" FROM id_or_number "," TO id_or_number ")"'
+    'random : RANDOM add_random_sign "(" FROM expression "," TO expression ")"'
     verify_semantics()
 
 
@@ -825,11 +825,6 @@ def p_add_bool_const(p):
     add_const('binario', p[1])
 
 # General rules
-
-
-def p_id_or_number(p):
-    '''id_or_number : add_id
-                    | add_int_const'''
 
 
 def p_base_type(p):
