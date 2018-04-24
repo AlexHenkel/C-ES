@@ -280,7 +280,7 @@ def p_variables_opt(p):
 
 def p_main_func_opt(p):
     '''main_func_opt : empty
-                 | FUNCTIONS main_func_rec'''
+                     | FUNCTIONS ":" main_func_rec'''
 
 
 def p_main_func_rec(p):
