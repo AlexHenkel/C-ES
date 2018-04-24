@@ -3,15 +3,25 @@ programa
 funciones:
 numero funcion fibo(numero n) {
    variables:
-   numero n1, n2;
+   numero fibo, fiboAnterior, contador, temporal;
 
-   si sucede (n == 0 o n == 1) realiza {
+   fibo = 1
+   fiboAnterior = 1
+
+   si sucede (n <= 1) realiza {
       devolver n
-   } no sucede {
-      n1 = fibo(n - 1)
-      n2 = fibo(n - 2)
-      devolver n1 + n2
    }
+
+   contador = 2
+   
+   mientras sucede (contador < n) realiza {
+      temporal = fibo
+      fibo = fibo + fiboAnterior
+      fiboAnterior = temporal
+      contador = contador + 1
+   }
+
+   devolver fibo
 }
 
 {

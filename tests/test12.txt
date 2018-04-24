@@ -1,8 +1,7 @@
 // Test factorial recursive
-programa 
+programa
 
-funciones
-
+funciones:
 numero funcion factorial(numero n) {
    variables:
    numero temporal;
@@ -16,10 +15,11 @@ numero funcion factorial(numero n) {
 }
 
 {
-   imprimir ("1!: ", factorial(1), "")
-   imprimir ("4!: ", factorial(4), "")
-   imprimir ("7!: ", factorial(7), "")
-   imprimir ("10!: ", factorial(10), "")
+   imprimir ("1! = ", factorial(1))
+   imprimir ("3! = ", factorial(3))
+   imprimir ("5! = ", factorial(5))
+   imprimir ("7! = ", factorial(7))
+   imprimir ("10! = ", factorial(10))
 }
 
 // 0! = 1

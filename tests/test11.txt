@@ -1,25 +1,42 @@
 // Test fibonacci iterative
-programa 
+programa
 
-funciones
-
+funciones:
 numero funcion fibo(numero n) {
    variables:
-   numero i, n1, n2, next;
-   
-   i = 1
-   n1 = 0
-   n2 = 1
-    
-   mientras sucede (i <= n) realiza {
-      next = n1 + n2
-      n1 = n2
-      n2 = next
+   numero fibo, fiboAnterior, contador, temporal;
+
+   fibo = 1
+   fiboAnterior = 1
+
+   si sucede (n <= 1) realiza {
+      devolver n
    }
 
-   devolver next
+   contador = 2
+   
+   mientras sucede (contador < n) realiza {
+      temporal = fibo
+      fibo = fibo + fiboAnterior
+      fiboAnterior = temporal
+      contador = contador + 1
+   }
+
+   devolver fibo
 }
 
 {
-   imprimir("fibo: ", fibo(7))
+   imprimir ("Fibo(1): ", fibo(1), "")
+   imprimir ("Fibo(4): ", fibo(4), "")
+   imprimir ("Fibo(10): ", fibo(10), "")
+   imprimir ("Fibo(20): ", fibo(20), "")
 }
+
+// Fibo(0) = 0
+// Fibo(1) = 1
+// Fibo(2) = 1
+// Fibo(3) = 2
+// Fibo(4) = 3
+// Fibo(5) = 5
+// Fibo(10) = 55
+// Fibo(20) = 6765
