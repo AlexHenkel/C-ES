@@ -35,6 +35,7 @@ h1 strong {
    background-color: #fff;
    border-width: 0.2rem;
    border: solid #ccc;
+   height: 60vh;
 }
 
 .code-wrapper form, .code-wrapper fieldset {
@@ -50,21 +51,32 @@ h1 strong {
    height: 10%;
 }
 
-.code-wrapper textarea {
-   color: #212529;
-   padding: 1.5rem;
-   resize: none;
-   min-width: 100%;
-   height: 85%;
-   font-size: 87.5%;
-   font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+pre {
    background-color: #efefef;
-   border-radius: 1rem;
-   border: 0;
+   border-radius: 1.5rem;
+   padding: 0 1.5rem;
+   height: 85%;
 }
 
 .made-by {
    color: #eee;
+}
+
+
+.comment {
+   color: rgb(23, 169, 43);
+}
+
+.reserved-word {
+   color: rgb(18, 161, 197);  
+}
+
+.reserved-word-2 {
+   color: rgb(233, 159, 0);
+}
+
+.reserved-word-3 {
+   color: rgb(211, 9, 133);
 }
 
 @media (max-width: 992px) { 
@@ -73,12 +85,8 @@ h1 strong {
    }
 
    .code-wrapper legend {
-      height: 15%;
+      height: 10%;
    }
-
-   .code-wrapper textarea {
-      height: 80%;
-   } 
 }
 
 @media (max-width: 768px) { 
@@ -94,6 +102,14 @@ h1 strong {
    .code-wrapper {
       height: 40vh;
       margin: 0 15px;
+   }
+
+   .code-wrapper legend {
+      height: 13%;
+   }
+
+   pre {
+      height: 80%;
    }
    
    .btn {
