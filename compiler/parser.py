@@ -902,7 +902,11 @@ if options.tests:
 
         if s:
             try:
+                print("Compiling code...")
                 result = parser.parse(s)
+                print("Compiling success!")
+                executeVM(quads_list, global_variables_dict, function_dict,
+                      constant_dict, curr_func_temp_vars)
             except Exception as error:
                 print(error.__class__.__name__ + ': ' + str(error))
 
