@@ -213,7 +213,7 @@ def executeVM(quadruples, global_variables_dict, function_dict, constant_dict, c
                     [value, _] = operationlessAction(
                         execution_memory, param, curr_operation)
                     params.append(value)
-            print ", ".join(map(str, params))
+            print "".join(map(str, params))
 
         # READ COMMAND
         elif curr_operation == 'leer':
