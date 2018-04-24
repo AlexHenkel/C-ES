@@ -295,22 +295,47 @@
    <span class="reserved-word">programa</span>
 
    <span class="reserved-word-2">variables:</span>
-   <span class="reserved-word-3">numero</span> resultado;
+   <span class="reserved-word-3">lista</span> de <span class="reserved-word-3">numero</span> de 5 miListaDeNumeros;
+
+   <span class="reserved-word-2">funciones:</span>
+   <span class="reserved-word-3">funcion</span> ordenaLista(<span class="reserved-word-3">numero</span> tamanio) {
+      <span class="reserved-word-2">variables:</span>
+      <span class="reserved-word-3">numero</span> i, j, temporal;
+      i = 0
+
+      <span class="reserved-word">mientras sucede</span> (i < tamanio - 1) <span class="reserved-word">realiza</span> {
+         j = 0
+         <span class="reserved-word">mientras sucede</span> (j < tamanio - 1) <span class="reserved-word">realiza</span> {
+            <span class="reserved-word">si sucede</span> ( <span class="reserved-word">acceder</span> (miListaDeNumeros, j) > <span class="reserved-word">acceder</span> (miListaDeNumeros, j + 1) ) <span class="reserved-word">realiza</span> {
+               temporal = <span class="reserved-word">acceder</span> (miListaDeNumeros, j)
+               <span class="reserved-word">agregar a</span> (miListaDeNumeros, <span class="reserved-word">acceder</span> (miListaDeNumeros, j + 1), j)
+               <span class="reserved-word">agregar a</span> (miListaDeNumeros, temporal, j + 1)
+            }
+            
+            j = j + 1
+         } 
+
+         i = i + 1
+      }
+   }
 
    {
-      resultado = 8
+      <span class="reserved-word">agregar a</span> (miListaDeNumeros, 20, 0)
+      <span class="reserved-word">agregar a</span> (miListaDeNumeros, 15, 1)
+      <span class="reserved-word">agregar a</span> (miListaDeNumeros, 10, 2)
+      <span class="reserved-word">agregar a</span> (miListaDeNumeros, 5, 3)
+      <span class="reserved-word">agregar a</span> (miListaDeNumeros, 1, 4)
 
-      <span class="reserved-word">si sucede</span> (resultado > 7) <span class="reserved-word">realiza</span> {
-         imprimir ("aprobado")
-      } <span class="reserved-word">no sucede</span> {
-         imprimir ("reprobado")
-      }
+      <span class="reserved-word">imprimir</span> ("miListaDeNumeros (desordenada) = ", miListaDeNumeros)
+      ordenaLista(5)
+      <span class="reserved-word">imprimir</span> ("miListaDeNumeros (ordenada) = ", miListaDeNumeros)
    }
       </code>
       </pre>
                   <br />
                   <div class="output">
-                     <samp>aprobado</samp>
+                     <samp>miListaDeNumeros (desordenada) = [20, 15, 10, 5, 1]</samp><br />
+                     <samp>miListaDeNumeros (ordenada) = [1, 5, 10, 15, 20]</samp>
                   </div>
 
                   <div class="line"></div>

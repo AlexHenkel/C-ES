@@ -1,32 +1,38 @@
 programa
 
+variables:
+lista de numero de 5 miListaDeNumeros;
+
 funciones:
-numero funcion fibo(numero n) {
+funcion ordenaLista(numero tamanio) {
    variables:
-   numero fibo, fiboAnterior, contador, temporal;
+   numero i, j, temporal;
+   i = 0
 
-   fibo = 1
-   fiboAnterior = 1
+   mientras sucede (i < tamanio - 1) realiza {
+      j = 0
+      mientras sucede (j < tamanio - 1) realiza {
+         si sucede ( acceder (miListaDeNumeros, j) > acceder (miListaDeNumeros, j + 1) ) realiza {
+            temporal = acceder (miListaDeNumeros, j)
+            agregar a (miListaDeNumeros, acceder (miListaDeNumeros, j + 1), j)
+            agregar a (miListaDeNumeros, temporal, j + 1)
+         }
+         
+         j = j + 1
+      } 
 
-   si sucede (n <= 1) realiza {
-      devolver n
+      i = i + 1
    }
-
-   contador = 2
-   
-   mientras sucede (contador < n) realiza {
-      temporal = fibo
-      fibo = fibo + fiboAnterior
-      fiboAnterior = temporal
-      contador = contador + 1
-   }
-
-   devolver fibo
 }
 
 {
-   imprimir ("Fibo(1): ", fibo(1), "")
-   imprimir ("Fibo(4): ", fibo(4), "")
-   imprimir ("Fibo(10): ", fibo(10), "")
-   imprimir ("Fibo(20): ", fibo(20), "")
+   agregar a (miListaDeNumeros, 20, 0)
+   agregar a (miListaDeNumeros, 15, 1)
+   agregar a (miListaDeNumeros, 10, 2)
+   agregar a (miListaDeNumeros, 5, 3)
+   agregar a (miListaDeNumeros, 1, 4)
+
+   imprimir ("miListaDeNumeros (desordenada) = ", miListaDeNumeros)
+   ordenaLista(5)
+   imprimir ("miListaDeNumeros (ordenada) = ", miListaDeNumeros)
 }
