@@ -1,40 +1,18 @@
 programa
 
-funciones:
-numero funcion fibo(numero n) {
-   variables:
-   numero fibo, fiboAnterior, contador, temporal;
-
-   fibo = 1
-   fiboAnterior = 1
-
-   si sucede (n <= 1) realiza {
-      devolver n
-   }
-
-   contador = 2
-   
-   mientras sucede (contador < n) realiza {
-      temporal = fibo
-      fibo = fibo + fiboAnterior
-      fiboAnterior = temporal
-      contador = contador + 1
-   }
-
-   devolver fibo
-}
+variables:
+lista de numero de 4 miListaDeNumeros;
 
 {
-   imprimir ("Fibo(4): ", fibo(4), "")
-   imprimir ("Fibo(10): ", fibo(10), "")
-   imprimir ("Fibo(20): ", fibo(20), "")
-}
+   agregar a (miListaDeNumeros, 20, 0)
+   agregar a (miListaDeNumeros, 15, 1)
+   agregar a (miListaDeNumeros, 10, 2)
+   agregar a (miListaDeNumeros, 5, 3)
 
-// Fibo(0) = 0
-// Fibo(1) = 1
-// Fibo(2) = 1
-// Fibo(3) = 2
-// Fibo(4) = 3
-// Fibo(5) = 5
-// Fibo(10) = 55
-// Fibo(20) = 6765
+   imprimir ("miListaDeNumeros (desordenados)")
+   imprimir (accesar (miListaDeNumeros, 0), accesar (miListaDeNumeros, 1), accesar (miListaDeNumeros, 2), accesar (miListaDeNumeros, 3))
+   //imprimir (accesar (miListaDeNumeros, 0), accesar (miListaDeNumeros, 1), accesar (miListaDeNumeros, 2), accesar (miListaDeNumeros, 3))
+   
+   imprimir ("miListaDeNumeros (ordenados)")
+   //imprimir (accesar (miListaDeNumeros, 0), accesar (miListaDeNumeros, 1), accesar (miListaDeNumeros, 2), accesar (miListaDeNumeros, 3))
+}
