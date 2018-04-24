@@ -1,18 +1,22 @@
 programa
 
-variables:
-lista de numero de 4 miListaDeNumeros;
+funciones:
+numero funcion factorial(numero n) {
+   variables:
+   numero temporal;
+
+   si sucede (n <= 1) realiza {
+      devolver 1
+   } no sucede {
+      temporal = factorial(n - 1)
+      devolver n * temporal
+   }
+}
 
 {
-   agregar a (miListaDeNumeros, 20, 0)
-   agregar a (miListaDeNumeros, 15, 1)
-   agregar a (miListaDeNumeros, 10, 2)
-   agregar a (miListaDeNumeros, 5, 3)
-
-   imprimir ("miListaDeNumeros (desordenados)")
-   imprimir (accesar (miListaDeNumeros, 0), accesar (miListaDeNumeros, 1), accesar (miListaDeNumeros, 2), accesar (miListaDeNumeros, 3))
-   //imprimir (accesar (miListaDeNumeros, 0), accesar (miListaDeNumeros, 1), accesar (miListaDeNumeros, 2), accesar (miListaDeNumeros, 3))
-   
-   imprimir ("miListaDeNumeros (ordenados)")
-   //imprimir (accesar (miListaDeNumeros, 0), accesar (miListaDeNumeros, 1), accesar (miListaDeNumeros, 2), accesar (miListaDeNumeros, 3))
+   imprimir ("1! = ", factorial(1))
+   imprimir ("3! = ", factorial(3))
+   imprimir ("5! = ", factorial(5))
+   imprimir ("7! = ", factorial(7))
+   imprimir ("10! = ", factorial(10))
 }
