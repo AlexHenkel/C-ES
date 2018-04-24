@@ -33,7 +33,6 @@ local_variables_dict = {}
 function_dict = {}
 constant_dict = {}
 
-
 # Define operations stacks helpers
 variables_stack = []
 operators_stack = []
@@ -887,12 +886,73 @@ cmd_parser.add_option("-t", "--tests", action="store_true",
 
 (options, args) = cmd_parser.parse_args()
 
+def reset():
+    print("reset")
+    # Define global helpers
+    global current_scope
+    global current_var_type
+    global current_arr_length
+    global quad_count
+    global curr_param_list
+    global curr_func_name
+    global curr_func_return_type
+    global curr_func_local_vars
+    global curr_funct_temp_vars
+    global curr_function_call_name
+    global curr_function_call_param
+    global return_address
+
+    # Define dictionaries
+    global global_variables_dict
+    global local_variables_dict
+    global function_dict
+    global constant_dict
+
+    # Define operations stacks helpers
+    global variables_stack
+    global operators_stack
+    global types_stack
+    global jumps_stack
+    global quads_list
+    global jumps_else_if
+    global print_stack
+
+    current_scope = 'global'
+    current_var_type = None
+    current_arr_length = None
+    quad_count = 0
+    curr_param_list = []
+    curr_func_name = None
+    curr_func_return_type = None
+    curr_func_local_vars = copy.deepcopy(curr_func_local_vars_original)
+    curr_func_temp_vars = copy.deepcopy(curr_func_temp_vars_original)
+    curr_function_call_name = []
+    curr_function_call_param = []
+    return_address = copy.deepcopy(return_address_original)
+
+    # Define dictionaries
+    global_variables_dict = {}
+    local_variables_dict = {}
+    function_dict = {}
+    constant_dict = {}
+
+    # Define operations stacks helpers
+    variables_stack = []
+    operators_stack = []
+    types_stack = []
+    jumps_stack = []
+    quads_list = []
+    jumps_else_if = []
+    print_stack = []
+
 if options.tests:
     test_files = glob.glob("./tests/test*.txt")
     print('\n********** EXECUTING TESTS **********\n')
     test_files.sort()
 
     for file_name in test_files:
+        #reset()
+        #parser = yacc.yacc()
         f = open(file_name, "r")
         name = file_name[8:-4]
         description = f.readline()
@@ -936,54 +996,7 @@ else:
 
 
 def runParserWithFile(filename):
-    # Define global helpers
-    global current_scope
-    global current_var_type
-    global current_arr_length
-    global quad_count
-    global curr_param_list
-    global curr_func_name
-    global curr_func_return_type
-    global curr_func_local_vars
-    global curr_funct_temp_vars
-    global curr_function_call_param
-
-    # Define dictionaries
-    global global_variables_dict
-    global local_variables_dict
-    global function_dict
-    global constant_dict
-
-    # Define operations stacks helpers
-    global variables_stack
-    global operators_stack
-    global types_stack
-    global jumps_stack
-    global quads_list
-
-    current_scope = 'global'
-    current_var_type = None
-    current_arr_length = None
-    quad_count = 0
-    curr_param_list = []
-    curr_func_name = None
-    curr_func_return_type = None
-    curr_func_local_vars = 0
-    curr_funct_temp_vars = 0
-    curr_function_call_param = 0
-
-    # Define dictionaries
-    global_variables_dict = {}
-    local_variables_dict = {}
-    function_dict = {}
-    constant_dict = {}
-
-    # Define operations stacks helpers
-    variables_stack = []
-    operators_stack = []
-    types_stack = []
-    jumps_stack = []
-    quads_list = []
+    reset()
 
     # Open and read input
     f = open(filename, "r")
