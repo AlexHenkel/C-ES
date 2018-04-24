@@ -21,7 +21,7 @@ Blockly.JavaScript['programa'] = function (block) {
 Blockly.JavaScript['init_variables'] = function (block) {
    console.log('init_variables');
    var variables = Blockly.JavaScript.statementToCode(block, 'VARIABLES');
-   var code = '\nvariables: \n';
+   var code = '\n<span class="reserved-word-2">variables:</span>\n';
    
    if (!block.nextConnection.targetConnection) {
       code = '';

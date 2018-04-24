@@ -56,11 +56,11 @@ Blockly.Blocks['declare_array'] = {
          .appendField(new Blockly.FieldDropdown([["numero", "numero"], ["decimal", "decimal"], ["texto", "texto"], ["binario", "binario"]]), "TYPE")
          .appendField("de ")
          .appendField(new Blockly.FieldNumber(1, 1), "SIZE")
-         .appendField(new Blockly.FieldTextInput("nombreArreglo"), "NAME");
+         .appendField(new Blockly.FieldTextInput("nombreLista"), "NAME");
       this.setPreviousStatement(true, "VARIABLE");
       this.setNextStatement(true, "VARIABLE");
       this.setColour("#F0B90C");
-      this.setTooltip('Declaración de un arreglo');
+      this.setTooltip('Declaración de una lista');
    }
 };
 
@@ -68,10 +68,10 @@ Blockly.Blocks['one_more_array'] = {
    init: function () {
       this.appendValueInput("INPUT").setCheck("OTHER_ARRAY")
          .appendField(", ")
-         .appendField(new Blockly.FieldTextInput("otroArreglo"), "NAME");
+         .appendField(new Blockly.FieldTextInput("otraLista"), "NAME");
       this.setOutput(true, "OTHER_ARRAY");
       this.setColour("#F0B90C");
-      this.setTooltip('Aquí se declara otra variable');
+      this.setTooltip('Declaración de otra lista');
    }
 };
 
