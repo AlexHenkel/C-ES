@@ -2,7 +2,7 @@
 programa
 
 funciones:
-numero funcion factorial(numero n) {
+numero funcion factorialIterative(numero n) {
    variables:
    numero resultado, contador;
    resultado = 1
@@ -17,11 +17,11 @@ numero funcion factorial(numero n) {
 }
 
 {
-   imprimir ("1! = ", factorial(1))
-   imprimir ("3! = ", factorial(3))
-   imprimir ("5! = ", factorial(5))
-   imprimir ("7! = ", factorial(7))
-   imprimir ("10! = ", factorial(10))
+   imprimir ("1! = ", factorialIterative(1))
+   imprimir ("3! = ", factorialIterative(3))
+   imprimir ("5! = ", factorialIterative(5))
+   imprimir ("7! = ", factorialIterative(7))
+   imprimir ("10! = ", factorialIterative(10))
 }
 
 // 0! = 1

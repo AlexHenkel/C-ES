@@ -2,7 +2,7 @@
 programa
 
 funciones:
-numero funcion fibo(numero n) {
+numero funcion fiboIterative(numero n) {
    variables:
    numero fibo, fiboAnterior, contador, temporal;
 
@@ -26,10 +26,10 @@ numero funcion fibo(numero n) {
 }
 
 {
-   imprimir ("Fibo(1): ", fibo(1), "")
-   imprimir ("Fibo(4): ", fibo(4), "")
-   imprimir ("Fibo(10): ", fibo(10), "")
-   imprimir ("Fibo(20): ", fibo(20), "")
+   imprimir ("Fibo(1): ", fiboIterative(1), "")
+   imprimir ("Fibo(4): ", fiboIterative(4), "")
+   imprimir ("Fibo(10): ", fiboIterative(10), "")
+   imprimir ("Fibo(20): ", fiboIterative(20), "")
 }
 
 // Fibo(0) = 0
