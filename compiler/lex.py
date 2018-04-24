@@ -20,7 +20,7 @@ reserved = {
     'funciones': 'FUNCTIONS',
     'agregar': 'PUSH',
     'realiza': 'DO',
-    'accesar': 'ACCESS',
+    'acceder': 'ACCESS',
     'imprimir': 'PRINT',
     'devolver': 'RETURN',
     'mientras': 'WHILE',
