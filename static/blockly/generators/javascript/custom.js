@@ -33,7 +33,7 @@ Blockly.JavaScript['init_variables'] = function (block) {
 };
 
 Blockly.JavaScript['declare_variable'] = function (block) {
-   var type = block.getFieldValue('TYPE');
+   var type = '<span class="reserved-word-3">' + block.getFieldValue('TYPE') + '</span>';
    var name = block.getFieldValue('NAME');
    var inputs = Blockly.JavaScript.statementToCode(block, 'INPUT').trim();
    var code = '';
@@ -63,7 +63,7 @@ Blockly.JavaScript['one_more_variable'] = function (block) {
 };
 
 Blockly.JavaScript['declare_array'] = function (block) {
-   var type = block.getFieldValue('TYPE');
+   var type = '<span class="reserved-word-3">' + block.getFieldValue('TYPE') + '</span>';
    var name = block.getFieldValue('NAME');
    var size = block.getFieldValue('SIZE');
    var inputs = Blockly.JavaScript.statementToCode(block, 'INPUT').trim();
@@ -71,9 +71,9 @@ Blockly.JavaScript['declare_array'] = function (block) {
    console.log('declare_array', inputs, name, type, size);
 
    if (inputs != "") {
-      code = 'lista de ' + type + ' de ' + size + ' ' + name + ', ' + inputs + ';\n';
+      code = '<span class="reserved-word-3">lista</span> de ' + type + ' de ' + size + ' ' + name + ', ' + inputs + ';\n';
    } else {
-      code = 'lista de ' + type + ' de ' + size + ' ' + name + ';\n';
+      code = '<span class="reserved-word-3">lista</span> de ' + type + ' de ' + size + ' ' + name + ';\n';
    }
 
    return code;
