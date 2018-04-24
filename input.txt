@@ -1,28 +1,24 @@
 programa
 
 variables:
+numero miNumeroABuscar;
 lista de numero de 5 miListaDeNumeros;
 
 funciones:
-funcion ordenaLista(numero tamanio) {
+binario funcion buscaEnListaElNumero(numero numeroABuscar, numero tamanio) {
    variables:
-   numero i, j, temporal;
+   numero i;
    i = 0
 
    mientras sucede (i < tamanio - 1) realiza {
-      j = 0
-      mientras sucede (j < tamanio - 1) realiza {
-         si sucede ( acceder (miListaDeNumeros, j) > acceder (miListaDeNumeros, j + 1) ) realiza {
-            temporal = acceder (miListaDeNumeros, j)
-            agregar a (miListaDeNumeros, acceder (miListaDeNumeros, j + 1), j)
-            agregar a (miListaDeNumeros, temporal, j + 1)
-         }
-         
-         j = j + 1
-      } 
-
+      si sucede ( acceder (miListaDeNumeros, i) == numeroABuscar) realiza {
+         devolver verdadero
+      }
+      
       i = i + 1
    }
+
+   devolver falso
 }
 
 {
@@ -31,8 +27,21 @@ funcion ordenaLista(numero tamanio) {
    agregar a (miListaDeNumeros, 10, 2)
    agregar a (miListaDeNumeros, 5, 3)
    agregar a (miListaDeNumeros, 1, 4)
+   miNumeroABuscar = 100
 
-   imprimir ("miListaDeNumeros (desordenada) = ", miListaDeNumeros)
-   ordenaLista(5)
-   imprimir ("miListaDeNumeros (ordenada) = ", miListaDeNumeros)
+   imprimir ("miListaDeNumeros = ", miListaDeNumeros)
+   
+   si sucede (buscaEnListaElNumero(miNumeroABuscar, 5)) realiza {
+      imprimir (miNumeroABuscar, " si está en ", miListaDeNumeros)
+   } no sucede {
+      imprimir (miNumeroABuscar, " no está en ", miListaDeNumeros)
+   }
+
+   miNumeroABuscar = 10
+
+   si sucede (buscaEnListaElNumero(miNumeroABuscar, 5)) realiza {
+      imprimir (miNumeroABuscar, " si está en ", miListaDeNumeros)
+   } no sucede {
+      imprimir (miNumeroABuscar, " no está en ", miListaDeNumeros)
+   }
 }

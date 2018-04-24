@@ -306,7 +306,7 @@
       <span class="reserved-word">mientras sucede</span> (i < tamanio - 1) <span class="reserved-word">realiza</span> {
          j = 0
          <span class="reserved-word">mientras sucede</span> (j < tamanio - 1) <span class="reserved-word">realiza</span> {
-            <span class="reserved-word">si sucede</span> ( <span class="reserved-word">acceder</span> (miListaDeNumeros, j) > <span class="reserved-word">acceder</span> (miListaDeNumeros, j + 1) ) <span class="reserved-word">realiza</span> {
+            <span class="reserved-word">si sucede</span> (<span class="reserved-word">acceder</span> (miListaDeNumeros, j) > <span class="reserved-word">acceder</span> (miListaDeNumeros, j + 1)) <span class="reserved-word">realiza</span> {
                temporal = <span class="reserved-word">acceder</span> (miListaDeNumeros, j)
                <span class="reserved-word">agregar a</span> (miListaDeNumeros, <span class="reserved-word">acceder</span> (miListaDeNumeros, j + 1), j)
                <span class="reserved-word">agregar a</span> (miListaDeNumeros, temporal, j + 1)
@@ -351,23 +351,59 @@
    <span class="reserved-word">programa</span>
 
    <span class="reserved-word-2">variables:</span>
-   <span class="reserved-word-3">numero</span> resultado;
+   <span class="reserved-word-3">numero</span> miNumeroABuscar;
+   <span class="reserved-word-3">lista</span> de <span class="reserved-word-3">numero</span> de 5 miListaDeNumeros;
+
+   <span class="reserved-word-2">funciones:</span>
+   <span class="reserved-word-3">binario</span> <span class="reserved-word-3">funcion</span> buscaEnListaElNumero(<span class="reserved-word-3">numero</span> numeroABuscar, <span class="reserved-word-3">numero</span> tamanio) {
+      <span class="reserved-word-2">variables:</span>
+      <span class="reserved-word-3">numero</span> i;
+      i = 0
+
+      <span class="reserved-word">mientras sucede</span> (i < tamanio - 1) <span class="reserved-word">realiza</span> {
+         <span class="reserved-word">si sucede</span> (<span class="reserved-word">acceder</span> (miListaDeNumeros, i) == numeroABuscar) <span class="reserved-word">realiza</span> {
+            <span class="reserved-word-3">devolver</span> verdadero
+         }
+         
+         i = i + 1
+      }
+
+      <span class="reserved-word-3">devolver</span> falso
+   }
 
    {
-      resultado = 8
+      <span class="reserved-word">agregar a</span> (miListaDeNumeros, 20, 0)
+      <span class="reserved-word">agregar a</span> (miListaDeNumeros, 15, 1)
+      <span class="reserved-word">agregar a</span> (miListaDeNumeros, 10, 2)
+      <span class="reserved-word">agregar a</span> (miListaDeNumeros, 5, 3)
+      <span class="reserved-word">agregar a</span> (miListaDeNumeros, 1, 4)
+      miNumeroABuscar = 100
 
-      <span class="reserved-word">si sucede</span> (resultado > 7) <span class="reserved-word">realiza</span> {
-         imprimir ("aprobado")
+      <span class="reserved-word">imprimir</span> ("miListaDeNumeros = ", miListaDeNumeros)
+      
+      <span class="reserved-word">si sucede</span> (buscaEnListaElNumero(miNumeroABuscar, 5)) <span class="reserved-word">realiza</span> {
+         <span class="reserved-word">imprimir</span> (miNumeroABuscar, " si está en ", miListaDeNumeros)
       } <span class="reserved-word">no sucede</span> {
-         imprimir ("reprobado")
+         <span class="reserved-word">imprimir</span> (miNumeroABuscar, " no está en ", miListaDeNumeros)
+      }
+
+      miNumeroABuscar = 10
+
+      <span class="reserved-word">si sucede</span> (buscaEnListaElNumero(miNumeroABuscar, 5)) <span class="reserved-word">realiza</span> {
+         <span class="reserved-word">imprimir</span> (miNumeroABuscar, " si está en ", miListaDeNumeros)
+      } <span class="reserved-word">no sucede</span> {
+         <span class="reserved-word">imprimir</span> (miNumeroABuscar, " no está en ", miListaDeNumeros)
       }
    }
       </code>
       </pre>
                   <br />
                   <div class="output">
-                     <samp>aprobado</samp>
+                     <samp>miListaDeNumeros = [20, 15, 10, 5, 1]</samp><br />
+                     <samp>100 no está en [20, 15, 10, 5, 1]</samp><br />
+                     <samp>10 si está en [20, 15, 10, 5, 1]</samp>
                   </div>
+                  <br />
 
                   <div class="line"></div>
 
