@@ -1,32 +1,26 @@
-// Test factorial iterative
-programa 
+// Test factorial iterative      
+programa
 
-funciones
-
+funciones:
 numero funcion factorial(numero n) {
    variables:
-   numero temporal;
+   numero resultado, contador;
+   resultado = 1
+   contador = 1
 
-   si sucede (n <= 1) realiza {
-      devolver 1
-   } no sucede {
-      temporal = factorial(n - 1)
-      devolver n * temporal
+   mientras sucede (contador <= n) realiza {
+      resultado = resultado * contador
+      contador = contador + 1
    }
+   
+   devolver resultado
 }
 
 {
-   imprimir("0!: ", factorial(0), "")
-   imprimir("1!: ", factorial(1), "")
-   imprimir("2!: ", factorial(2), "")
-   imprimir("3!: ", factorial(3), "")
-   imprimir("4!: ", factorial(4), "")
-   imprimir("5!: ", factorial(5), "")
-   imprimir("6!: ", factorial(6), "")
-   imprimir("7!: ", factorial(7), "")
-   imprimir("8!: ", factorial(8), "")
-   imprimir("9!: ", factorial(9), "")
-   imprimir("10!: ", factorial(10), "")
+   imprimir ("1!: ", factorial(1), "")
+   imprimir ("4!: ", factorial(4), "")
+   imprimir ("7!: ", factorial(7), "")
+   imprimir ("10!: ", factorial(10), "")
 }
 
 // 0! = 1

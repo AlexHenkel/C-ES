@@ -60,6 +60,9 @@
                   
                   <div class="line"></div>
                   
+                  <!--  -->
+                  <!-- Factorial de un número (versión iterativa) -->
+                  <!--  -->
                   <h4>Factorial de un número (versión iterativa)</h4>
                   <br />
 
@@ -67,27 +70,58 @@
       <code>
    <span class="reserved-word">programa</span>
 
-   <span class="reserved-word-2">variables:</span>
-   <span class="reserved-word-3">numero</span> resultado;
+   <span class="reserved-word-2">funciones:</span>
+   <span class="reserved-word-3">numero</span> <span class="reserved-word-3">funcion</span> factorial(<span class="reserved-word-3">numero</span> n) {
+      <span class="reserved-word-2">variables:</span>
+      <span class="reserved-word-3">numero</span> resultado, contador;
+      resultado = 1
+      contador = 1
+
+      <span class="reserved-word">mientras sucede</span> (contador <= n) <span class="reserved-word">realiza</span> {
+         resultado = resultado * contador
+         contador = contador + 1
+      }
+      
+      <span class="reserved-word-3">devolver</span> resultado
+   }
 
    {
-      resultado = 8
-
-      <span class="reserved-word">si sucede</span> (resultado > 7) <span class="reserved-word">realiza</span> {
-         imprimir ("aprobado")
-      } <span class="reserved-word">no sucede</span> {
-         imprimir ("reprobado")
-      }
+      <span class="reserved-word">imprimir</span> ("1!: ", factorial(1), "")
+      <span class="reserved-word">imprimir</span> ("4!: ", factorial(4), "")
+      <span class="reserved-word">imprimir</span> ("7!: ", factorial(7), "")
+      <span class="reserved-word">imprimir</span> ("10!: ", factorial(10), "")
    }
+
+   <span class="comment">// 0! = 1</span>
+   <span class="comment">// 1! = 1</span>
+   <span class="comment">// 2! = 2</span>
+   <span class="comment">// 3! = 6</span>
+   <span class="comment">// 4! = 24</span>
+   <span class="comment">// 5! = 120</span>
+   <span class="comment">// 6! = 720</span>
+   <span class="comment">// 7! = 5040</span>
+   <span class="comment">// 8! = 40320</span>
+   <span class="comment">// 9! = 362880</span>
+   <span class="comment">// 10! = 3628800</span>
       </code>
       </pre>
                   <br />
                   <div class="output">
-                     <samp>aprobado</samp>
+                     <samp>1!:</samp><br />
+                     <samp>1</samp><br /><br />
+                     <samp>4!:</samp><br />
+                     <samp>24</samp><br /><br />
+                     <samp>7!:</samp><br />
+                     <samp>5040</samp><br /><br />
+                     <samp>10!:</samp><br />
+                     <samp>3628800</samp><br /><br />
                   </div>
 
                   <div class="line"></div>
                   
+                  <!--  -->
+                  <!-- Factorial de un número (versión recursiva) -->
+                  <!--  -->
                   <h4>Factorial de un número (versión recursiva)</h4>
                   <br />
 
@@ -95,27 +129,56 @@
       <code>
    <span class="reserved-word">programa</span>
 
-   <span class="reserved-word-2">variables:</span>
-   <span class="reserved-word-3">numero</span> resultado;
+   <span class="reserved-word-2">funciones:</span>
+   <span class="reserved-word-3">numero</span> <span class="reserved-word-3">funcion</span> factorial(<span class="reserved-word-3">numero</span> n) {
+      <span class="reserved-word-2">variables:</span>
+      <span class="reserved-word-3">numero</span> temporal;
 
-   {
-      resultado = 8
-
-      <span class="reserved-word">si sucede</span> (resultado > 7) <span class="reserved-word">realiza</span> {
-         imprimir ("aprobado")
+      <span class="reserved-word">si sucede</span> (n <= 1) <span class="reserved-word">realiza</span> {
+         <span class="reserved-word-3">devolver</span> 1
       } <span class="reserved-word">no sucede</span> {
-         imprimir ("reprobado")
+         temporal = factorial(n - 1)
+         <span class="reserved-word-3">devolver</span> n * temporal
       }
    }
+
+   {
+      <span class="reserved-word">imprimir</span> ("1!: ", factorial(1), "")
+      <span class="reserved-word">imprimir</span> ("4!: ", factorial(4), "")
+      <span class="reserved-word">imprimir</span> ("7!: ", factorial(7), "")
+      <span class="reserved-word">imprimir</span> ("10!: ", factorial(10), "")
+   }
+
+   <span class="comment">// 0! = 1</span>
+   <span class="comment">// 1! = 1</span>
+   <span class="comment">// 2! = 2</span>
+   <span class="comment">// 3! = 6</span>
+   <span class="comment">// 4! = 24</span>
+   <span class="comment">// 5! = 120</span>
+   <span class="comment">// 6! = 720</span>
+   <span class="comment">// 7! = 5040</span>
+   <span class="comment">// 8! = 40320</span>
+   <span class="comment">// 9! = 362880</span>
+   <span class="comment">// 10! = 3628800</span>
       </code>
       </pre>
                   <br />
                   <div class="output">
-                     <samp>aprobado</samp>
+                     <samp>1!:</samp><br />
+                     <samp>1</samp><br /><br />
+                     <samp>4!:</samp><br />
+                     <samp>24</samp><br /><br />
+                     <samp>7!:</samp><br />
+                     <samp>5040</samp><br /><br />
+                     <samp>10!:</samp><br />
+                     <samp>3628800</samp><br /><br />
                   </div>
 
                   <div class="line"></div>
                   
+                  <!--  -->
+                  <!-- Fibonacci de un número (versión iterativa) -->
+                  <!--  -->
                   <h4>Fibonacci de un número (versión iterativa)</h4>
                   <br />
 
@@ -144,6 +207,9 @@
 
                   <div class="line"></div>
                   
+                  <!--  -->
+                  <!-- Fibonacci de un número (versión recursiva) -->
+                  <!--  -->
                   <h4>Fibonacci de un número (versión recursiva)</h4>
                   <br />
 
@@ -172,6 +238,9 @@
 
                   <div class="line"></div>
                   
+                  <!--  -->
+                  <!-- Ordenar una lista -->
+                  <!--  -->
                   <h4>Ordenar una lista</h4>
                   <br />
 
@@ -200,6 +269,9 @@
 
                   <div class="line"></div>
                   
+                  <!--  -->
+                  <!-- Buscar un elemento en una lista -->
+                  <!--  -->
                   <h4>Buscar un elemento en una lista</h4>
                   <br />
 
@@ -228,6 +300,9 @@
 
                   <div class="line"></div>
 
+                  <!--  -->
+                  <!-- Multiplicación de dos listas -->
+                  <!--  -->
                   <h4>Multiplicación de dos listas</h4>
                   <br />
 
@@ -258,7 +333,6 @@
 
                </div>
             </div>
-
          </div>
       </div>
    </div>

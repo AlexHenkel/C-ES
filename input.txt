@@ -1,15 +1,37 @@
-programa
+      
+   programa
 
-variables:
-numero repeticionActual, repeticionesMaximas;
+   funciones:
+   numero funcion factorial(numero n) {
+      variables:
+      numero resultado, contador;
+      resultado = 1
+      contador = 1
 
-{
-   repeticionActual = 1
-   repeticionesMaximas = 5
-
-   mientras sucede (repeticionActual <= repeticionesMaximas) realiza {
-      imprimir (repeticionActual)
-      repeticionActual = repeticionActual + 1
+      mientras sucede (contador <= n) realiza {
+         resultado = resultado * contador
+         contador = contador + 1
+      }
+      
+      devolver resultado
    }
-}
-   
+
+   {
+      imprimir ("1!: ", factorial(1), "")
+      imprimir ("4!: ", factorial(4), "")
+      imprimir ("7!: ", factorial(7), "")
+      imprimir ("10!: ", factorial(10), "")
+   }
+
+   // 0! = 1
+   // 1! = 1
+   // 2! = 2
+   // 3! = 6
+   // 4! = 24
+   // 5! = 120
+   // 6! = 720
+   // 7! = 5040
+   // 8! = 40320
+   // 9! = 362880
+   // 10! = 3628800
+      
