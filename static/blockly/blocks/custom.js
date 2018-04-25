@@ -112,7 +112,6 @@ Blockly.Blocks['function_param'] = {
    }
 };
 
-
 Blockly.Blocks['function_without_params'] = {
    init: function () {
       this.appendDummyInput()
@@ -229,6 +228,15 @@ Blockly.Blocks['assign_call_function_with_params'] = {
          .appendField(new Blockly.FieldTextInput("nombreFunción"), "NAME");
       this.setOutput(true, null);
       this.setColour("#3A9C2D");
+   }
+};
+
+Blockly.Blocks['function_call_param'] = {
+   init: function () {
+      this.appendValueInput("PARAMETERS").setCheck("OTHER_PARAM_FUNCTION_CALL")
+         .appendField(new Blockly.FieldTextInput("nombreParámetro"), "NAME");
+      this.setOutput(true, "OTHER_PARAM_FUNCTION_CALL");
+      this.setColour("#F38C13");
    }
 };
 

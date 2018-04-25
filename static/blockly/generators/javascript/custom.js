@@ -278,6 +278,23 @@ Blockly.JavaScript['assign_call_function_with_params'] = function (block) {
    return code;
 };
 
+Blockly.JavaScript['function_call_param'] = function (block) {
+   var name = block.getFieldValue('NAME');
+   var inputs = Blockly.JavaScript.statementToCode(block, "PARAMETERS").trim();
+   var code = '';
+   console.log('function_call_param', inputs, name);
+
+   if (inputs !== "") {
+      console.log('inputssss');
+      code = name + ', ' + inputs;
+   } else {
+      console.log('NO inputssss');
+      code = name;
+   }
+
+   return code;
+};
+
 
 // ********** Asignación **********
 
