@@ -390,3 +390,10 @@ Blockly.JavaScript['add_to_list'] = function (block) {
    var code = '<span class="reserved-word">agregar a</span>(' + list + ', ' + value + ', ' + position + ')';
    return code;
 };
+
+Blockly.JavaScript['access_to_list'] = function (block) {
+   var list = block.getFieldValue('LIST');
+   var position = block.getFieldValue('POSITION');
+   var code = '<span class="reserved-word">acceder</span>(' + list + ', ' + position + ')';
+   return code;
+};

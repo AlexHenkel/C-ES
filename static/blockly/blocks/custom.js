@@ -395,3 +395,16 @@ Blockly.Blocks['add_to_list'] = {
       this.setColour("#6BE8F5");
    }
 };
+
+Blockly.Blocks['access_to_list'] = {
+   init: function () {
+      this.appendDummyInput()
+         .appendField("acceder a la lista:")
+         .appendField(new Blockly.FieldTextInput("lista"), "LIST")
+         .appendField("en la posición:")
+         .appendField(new Blockly.FieldTextInput("posición"), "POSITION");
+      this.setPreviousStatement(true, null);
+      this.setNextStatement(true, null);
+      this.setColour("#6BE8F5");
+   }
+};
