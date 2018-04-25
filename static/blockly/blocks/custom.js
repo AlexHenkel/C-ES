@@ -83,7 +83,7 @@ Blockly.Blocks['init_functions'] = {
       this.appendDummyInput().appendField("Funciones:")
       this.setPreviousStatement(true, ["FUNCTIONS", "VARIABLE"]);
       this.setNextStatement(true, "FUNCTION");
-      this.setColour("#F35B05");
+      this.setColour("#660A3E");
       this.setTooltip('En este bloque se declaran las funciones');
    }
 }
@@ -98,7 +98,7 @@ Blockly.Blocks['function_with_params'] = {
       this.appendStatementInput("BODY_FUNCTION").setCheck(["BODY_FUNCTION", "LOCAL_VARIABLES", "STATEMENT"]);
       this.setPreviousStatement(true, "FUNCTION");
       this.setNextStatement(true, "FUNCTION");
-      this.setColour("#3A9C2D");
+      this.setColour("#891C56");
    }
 };
 
@@ -108,7 +108,7 @@ Blockly.Blocks['function_param'] = {
          .appendField(new Blockly.FieldDropdown([["numero", "numero"], ["decimal", "decimal"], ["texto", "texto"], ["binario", "binario"]]), "TYPE")
          .appendField(new Blockly.FieldTextInput("nombreParámetro"), "NAME");
       this.setOutput(true, "OTHER_PARAM");
-      this.setColour("#F38C13");
+      this.setColour("#891C56");
    }
 };
 
@@ -122,7 +122,7 @@ Blockly.Blocks['function_without_params'] = {
       this.appendStatementInput("BODY_FUNCTION").setCheck(["BODY_FUNCTION", "LOCAL_VARIABLES", "STATEMENT"]);
       this.setPreviousStatement(true, "FUNCTION");
       this.setNextStatement(true, "FUNCTION");
-      this.setColour("#3A9C2D");
+      this.setColour("#B0276F");
    }
 };
 
@@ -134,7 +134,7 @@ Blockly.Blocks['init_local_variables'] = {
       this.appendDummyInput().appendField("Variables locales")
       this.setPreviousStatement(true, "LOCAL_VARIABLES");
       this.setNextStatement(true, ["VARIABLE_LOCAL", "STATEMENT"]);
-      this.setColour("#F35B05");
+      this.setColour("#C93482");
       this.setTooltip('En este bloque se declaran las variables globales');
    }
 };
@@ -146,7 +146,7 @@ Blockly.Blocks['declare_local_variable'] = {
          .appendField(new Blockly.FieldTextInput("nombreVariable"), "NAME");
       this.setPreviousStatement(true, "VARIABLE_LOCAL");
       this.setNextStatement(true, ["VARIABLE_LOCAL", "STATEMENT"]);
-      this.setColour("#F38C13");
+      this.setColour("#C93482");
       this.setTooltip('Declaración de una variable');
    }
 };
@@ -157,7 +157,7 @@ Blockly.Blocks['one_more_local_variable'] = {
          .appendField(", ")
          .appendField(new Blockly.FieldTextInput("otraVariable"), "NAME");
       this.setOutput(true, "OTHER_LOCAL_VARIABLE");
-      this.setColour("#F38C13");
+      this.setColour("#C93482");
       this.setTooltip('Declaración de otra variable');
    }
 };
@@ -172,7 +172,7 @@ Blockly.Blocks['declare_local_array'] = {
          .appendField(new Blockly.FieldTextInput("nombreLista"), "NAME");
       this.setPreviousStatement(true, "VARIABLE_LOCAL");
       this.setNextStatement(true, ["VARIABLE_LOCAL", "STATEMENT"]);
-      this.setColour("#F0B90C");
+      this.setColour("#C93482");
       this.setTooltip('Declaración de una lista');
    }
 };
@@ -183,7 +183,7 @@ Blockly.Blocks['one_more_local_array'] = {
          .appendField(", ")
          .appendField(new Blockly.FieldTextInput("otraLista"), "NAME");
       this.setOutput(true, "OTHER_LOCAL_ARRAY");
-      this.setColour("#F0B90C");
+      this.setColour("#C93482");
       this.setTooltip('Declaración de otra lista');
    }
 };
@@ -197,7 +197,7 @@ Blockly.Blocks['call_function_without_params'] = {
          .appendField(new Blockly.FieldTextInput("nombreFuncion"), "NAME");
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
-      this.setColour("#F38C13");
+      this.setColour("#EB509A");
    }
 };
 
@@ -206,7 +206,7 @@ Blockly.Blocks['assign_call_function_without_params'] = {
       this.appendDummyInput()
          .appendField(new Blockly.FieldTextInput("nombreFunción"), "NAME");
       this.setOutput(true, null);
-      this.setColour("#3A9C2D");
+      this.setColour("#EB509A");
    }
 };
 
@@ -217,7 +217,7 @@ Blockly.Blocks['call_function_with_params'] = {
          .appendField(new Blockly.FieldTextInput("nombreFunción"), "NAME");
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
-      this.setColour("#3A9C2D");
+      this.setColour("#EB509A");
    }
 };
 
@@ -227,7 +227,7 @@ Blockly.Blocks['assign_call_function_with_params'] = {
          .setCheck(null)
          .appendField(new Blockly.FieldTextInput("nombreFunción"), "NAME");
       this.setOutput(true, null);
-      this.setColour("#3A9C2D");
+      this.setColour("#EB509A");
    }
 };
 
@@ -236,7 +236,7 @@ Blockly.Blocks['function_call_param'] = {
       this.appendValueInput("PARAMETERS").setCheck("OTHER_PARAM_FUNCTION_CALL")
          .appendField(new Blockly.FieldTextInput("nombreParámetro"), "NAME");
       this.setOutput(true, "OTHER_PARAM_FUNCTION_CALL");
-      this.setColour("#F38C13");
+      this.setColour("#EB509A");
    }
 };
 
@@ -250,7 +250,7 @@ Blockly.Blocks['assignment'] = {
          .appendField(" = ");
       this.setPreviousStatement(true, "STATEMENT");
       this.setNextStatement(true, "STATEMENT");
-      this.setColour("#F38C13");
+      this.setColour("#00759A");
    }
 };
 
@@ -259,7 +259,7 @@ Blockly.Blocks['value'] = {
       this.appendDummyInput()
          .appendField(new Blockly.FieldTextInput("ValorOVariable"), "VALUE");
       this.setOutput(true, ['EXPRESSION', 'EXP'])
-      this.setColour("#FFDE00");
+      this.setColour("#00759A");
    }
 };
 
@@ -271,7 +271,7 @@ Blockly.Blocks['expression_simple'] = {
       this.appendValueInput("EXP1").setCheck("EXP");
       this.appendDummyInput();
       this.setOutput(true, ['EXP', 'EXPRESSION']);
-      this.setColour("#E183E8");
+      this.setColour("#0698BE");
    }
 };
 
@@ -294,7 +294,7 @@ Blockly.Blocks['expression_compound'] = {
       this.appendValueInput("EXP2").setCheck("EXP");
       this.appendDummyInput();
       this.setOutput(true, ['EXP', 'EXPRESSION']);
-      this.setColour("#E183E8");
+      this.setColour("#0698BE");
    }
 };
 
@@ -311,7 +311,7 @@ Blockly.Blocks['if'] = {
          .appendField("realiza");
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, ['IF_ELSE', 'ELSE']);
-      this.setColour("#E183E8");
+      this.setColour("#5BCAE2");
    }
 };
 
@@ -325,7 +325,7 @@ Blockly.Blocks['if_else'] = {
          .appendField("realiza");
       this.setPreviousStatement(true, 'IF_ELSE');
       this.setNextStatement(true, null);
-      this.setColour("#E183E8");
+      this.setColour("#5BCAE2");
    }
 };
 
@@ -336,7 +336,7 @@ Blockly.Blocks['else'] = {
          .appendField("Si no sucede realiza");
       this.setPreviousStatement(true, 'ELSE');
       this.setNextStatement(true, null);
-      this.setColour("#E183E8");
+      this.setColour("#5BCAE2");
    }
 };
 
@@ -350,9 +350,7 @@ Blockly.Blocks['while'] = {
          .appendField("realiza");
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
-      this.setColour("#E183E8");
-      this.setTooltip('');
-      this.setHelpUrl('http://www.example.com/');
+      this.setColour("#66E2FC");
    }
 };
 
@@ -366,7 +364,7 @@ Blockly.Blocks['read'] = {
          .appendField(new Blockly.FieldTextInput("nombreVariable"), "VALUE");
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
-      this.setColour("#6BE8F5");
+      this.setColour("#0F2347");
    }
 };
 
@@ -377,7 +375,7 @@ Blockly.Blocks['print'] = {
          .appendField("imprimir");
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
-      this.setColour("#6BE8F5");
+      this.setColour("#0F2347");
    }
 };
 
@@ -392,7 +390,7 @@ Blockly.Blocks['add_to_list'] = {
          .appendField(new Blockly.FieldTextInput("posición"), "POSITION");
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
-      this.setColour("#6BE8F5");
+      this.setColour("#0F2347");
    }
 };
 
@@ -405,7 +403,7 @@ Blockly.Blocks['access_to_list'] = {
          .appendField(new Blockly.FieldTextInput("posición"), "POSITION");
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
-      this.setColour("#6BE8F5");
+      this.setColour("#0F2347");
    }
 };
 
@@ -416,7 +414,7 @@ Blockly.Blocks['remove_last_to_list'] = {
          .appendField(new Blockly.FieldTextInput("lista"), "LIST")
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
-      this.setColour("#6BE8F5");
+      this.setColour("#0F2347");
    }
 };
 
@@ -429,6 +427,6 @@ Blockly.Blocks['random'] = {
          .appendField(new Blockly.FieldTextInput("variableONumero"), "SUP");
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
-      this.setColour("#6BE8F5");
+      this.setColour("#0F2347");
    }
 };
