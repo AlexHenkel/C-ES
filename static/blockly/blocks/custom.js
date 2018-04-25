@@ -7,7 +7,7 @@ Blockly.Blocks['programa'] = {
    init: function () {
       this.appendDummyInput().appendField("Programa");
       this.appendStatementInput("VAR_AND_FUNCS").setCheck(["VARIABLES", "FUNCTIONS"]);
-      this.appendStatementInput("MAIN").setCheck("Main");
+      this.appendStatementInput("MAIN").setCheck(null);
       this.setColour("#009494");
       this.setTooltip('Con este bloque se declara el inicio del programa');
    }

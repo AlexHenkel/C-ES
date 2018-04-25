@@ -6,10 +6,10 @@ Blockly.JavaScript['programa'] = function (block) {
    var code = '';
 
    if (variablesAndFuntions === "") {
-      code = '  <span class="reserved-word">programa</span>\n\n  {\n' + main + '\n  }';
+      code = '<span class="reserved-word">programa</span>\n\n{\n' + main + '\n}';
    } else {
       console.log('programa variablesAndFuntions', variablesAndFuntions);
-      code = '  <span class="reserved-word">programa</span>\n' + variablesAndFuntions + '\n  {\n' + main + '\n  }';
+      code = '<span class="reserved-word">programa</span>\n' + variablesAndFuntions + '\n{\n' + main + '\n}';
    }
 
    return code;
