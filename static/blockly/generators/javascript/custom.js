@@ -382,3 +382,11 @@ Blockly.JavaScript['print'] = function (block) {
    var code = '<span class="reserved-word">imprimir</span>(' + params + ')';
    return code;
 };
+
+Blockly.JavaScript['add_to_list'] = function (block) {
+   var list = block.getFieldValue('LIST');
+   var value = block.getFieldValue('VALUE');
+   var position = block.getFieldValue('POSITION');
+   var code = '<span class="reserved-word">agregar a</span>(' + list + ', ' + value + ', ' + position + ')';
+   return code;
+};

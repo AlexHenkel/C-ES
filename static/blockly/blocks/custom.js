@@ -380,3 +380,18 @@ Blockly.Blocks['print'] = {
       this.setColour("#6BE8F5");
    }
 };
+
+Blockly.Blocks['add_to_list'] = {
+   init: function () {
+      this.appendDummyInput()
+         .appendField("agregar a la lista:")
+         .appendField(new Blockly.FieldTextInput("lista"), "LIST")
+         .appendField("el valor:")
+         .appendField(new Blockly.FieldTextInput("valor"), "VALUE")
+         .appendField("en la posición:")
+         .appendField(new Blockly.FieldTextInput("posición"), "POSITION");
+      this.setPreviousStatement(true, null);
+      this.setNextStatement(true, null);
+      this.setColour("#6BE8F5");
+   }
+};
