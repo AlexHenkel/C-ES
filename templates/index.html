@@ -201,6 +201,17 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
     <script>
+         function loadXMLDoc(dname, callback) {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+               if (xhttp.readyState == 4 && xhttp.status == 200) {
+                  callback(xhttp.responseXML);
+               }
+            }; 
+
+            xhttp.open("GET", dname);
+            xhttp.send();
+         }
         var workspacePlayground = Blockly.inject('blocklyDiv', { 
             toolbox: document.getElementById('toolbox'),
             grid: {
@@ -213,13 +224,19 @@
             sounds: false,
             trashcan: true
         });
+
+         loadXMLDoc("./static/blockly_tests/test.xml", function(xmlDoc) {
+            document.body.appendChild(xmlDoc.getElementsByTagName("xml")[0]);
+            Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'), workspacePlayground);
+         });
+
+       //document.body.innerHTML = '<xml id="startBlocks" style="display: none">' + blocks.getElementsByTagName("xml")[0].innerHTML + '</xml>' + document.body.innerHTML;
+        //Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'), workspacePlayground);
         
         function myUpdateFunction(event) {
             console.log('myUpdateFunction');
             var code = Blockly.JavaScript.workspaceToCode(workspacePlayground);
-            //code = code.replace(/^ +/gm, '');
             document.getElementById('textarea').innerHTML = code;
-            //console.log('code', code.length);
         }
 
         workspacePlayground.addChangeListener(myUpdateFunction);
