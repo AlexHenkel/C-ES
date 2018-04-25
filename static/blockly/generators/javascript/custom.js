@@ -130,7 +130,7 @@ Blockly.JavaScript['function_with_params'] = function (block) {
       if (type === "nada") {
          code = "<span class='reserved-word-3'>funcion</span> " + name + "(" + inputs + ") {\n" + body + "\n}\n";
       } else {
-         code = "<span class='reserved-word-3'>" + type + "</span>" + " <span class='reserved-word-3'>funcion</span> " + name + "(" + inputs + ") {\n" + body + "\n}\n";
+         code = "<span class='reserved-word-3'>" + type + "</span>" + " <span class='reserved-word-3'>funcion</span> " + name + "(" + inputs + ") {\n" + body + "}\n";
       }
    }
    return code;
@@ -164,7 +164,7 @@ Blockly.JavaScript['function_without_params'] = function (block) {
    if (type === "nada") {
       code = "<span class='reserved-word-3'>funcion</span> " + name + "() {\n" + body + "\n}\n";
    } else {
-      code = "<span class='reserved-word-3'>" + type + "</span>" + " <span class='reserved-word-3'>funcion</span> " + name + "() {\n" + body + "\n}\n";
+      code = "<span class='reserved-word-3'>" + type + "</span>" + " <span class='reserved-word-3'>funcion</span> " + name + "() {\n" + body + "}\n";
    }
 
    return code;
