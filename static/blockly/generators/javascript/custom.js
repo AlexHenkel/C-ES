@@ -376,3 +376,9 @@ Blockly.JavaScript['read'] = function (block) {
    var code = '<span class="reserved-word">leer</span>(' + value + ')';
    return code;
 };
+
+Blockly.JavaScript['print'] = function (block) {
+   var params = Blockly.JavaScript.statementToCode(block, 'PARAMETERS').trim();
+   var code = '<span class="reserved-word">imprimir</span>(' + params + ')';
+   return code;
+};

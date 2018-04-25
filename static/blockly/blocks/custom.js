@@ -367,6 +367,16 @@ Blockly.Blocks['read'] = {
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
       this.setColour("#6BE8F5");
-      
+   }
+};
+
+Blockly.Blocks['print'] = {
+   init: function () {
+      this.appendValueInput("PARAMETERS")
+         .setCheck(null)
+         .appendField("imprimir");
+      this.setPreviousStatement(true, null);
+      this.setNextStatement(true, null);
+      this.setColour("#6BE8F5");
    }
 };
