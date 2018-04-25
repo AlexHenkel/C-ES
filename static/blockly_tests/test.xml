@@ -1,4 +1,4 @@
-<xml id="startBlocks" style="display: none">
+<xml id="startBlocks" style="display: none" class="invisible">
    <variables></variables>
    <block type="programa" id="1/?QTTaKFEL92n}|[MAF" x="10" y="70">
       <statement name="VAR_AND_FUNCS">
