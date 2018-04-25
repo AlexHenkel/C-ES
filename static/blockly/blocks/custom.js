@@ -127,6 +127,7 @@ Blockly.Blocks['function_without_params'] = {
    }
 };
 
+
 // ********** Declaración de variables locales **********
 
 Blockly.Blocks['init_local_variables'] = {
@@ -185,6 +186,38 @@ Blockly.Blocks['one_more_local_array'] = {
       this.setOutput(true, "OTHER_LOCAL_ARRAY");
       this.setColour("#F0B90C");
       this.setTooltip('Declaración de otra lista');
+   }
+};
+
+
+// ********** Llamadas a funciones **********
+
+Blockly.Blocks['call_function_without_params'] = {
+   init: function () {
+      this.appendDummyInput()
+         .appendField(new Blockly.FieldTextInput("nombreFuncion"), "NAME");
+      this.setPreviousStatement(true, null);
+      this.setNextStatement(true, null);
+      this.setColour("#F38C13");
+   }
+};
+
+Blockly.Blocks['assign_call_function_without_params'] = {
+   init: function () {
+      this.appendDummyInput()
+         .appendField(new Blockly.FieldTextInput("nombreFunción"), "NAME");
+      this.setOutput(true, null);
+      this.setColour("#3A9C2D");
+   }
+};
+
+Blockly.Blocks['call_function_with_params_2'] = {
+   init: function () {
+      this.appendValueInput("PARAMETROS")
+         .setCheck(null)
+         .appendField(new Blockly.FieldTextInput("nombreFunción"), "NOMBRE");
+      this.setOutput(true, null);
+      this.setColour("#3A9C2D");
    }
 };
 

@@ -250,6 +250,30 @@ Blockly.JavaScript['one_more_local_array'] = function (block) {
 };
 
 
+// ********** Llamadas a funciones **********
+
+Blockly.JavaScript['call_function_without_params'] = function (block) {
+   var name = block.getFieldValue('NAME');
+   return name + '()\n';
+}
+
+Blockly.JavaScript['assign_call_function_without_params'] = function (block) {
+   var name = block.getFieldValue('NAME');
+   console.log('assign_call_function_without_params', name);
+   return name + '()\n';
+};
+
+Blockly.JavaScript['call_function_with_params_2'] = function (block) {
+   var nombre_var = block.getFieldValue('NOMBRE');
+   var parametros = Blockly.JavaScript.statementToCode(block, 'PARAMETROS');
+   var code = nombre_var + '¿ ' + parametros + ' ?\n';
+   code = code.replace(/[()]/g, '');
+   code = code.replace(/[¿]/g, '(');
+   code = code.replace(/[?]/g, ')');
+   return code;
+};
+
+
 // ********** Asignación **********
 
 Blockly.JavaScript['assignment'] = function (block) {
