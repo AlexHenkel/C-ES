@@ -408,3 +408,14 @@ Blockly.Blocks['access_to_list'] = {
       this.setColour("#6BE8F5");
    }
 };
+
+Blockly.Blocks['remove_last_to_list'] = {
+   init: function () {
+      this.appendDummyInput()
+         .appendField("quitar ultimo de lista:")
+         .appendField(new Blockly.FieldTextInput("lista"), "LIST")
+      this.setPreviousStatement(true, null);
+      this.setNextStatement(true, null);
+      this.setColour("#6BE8F5");
+   }
+};

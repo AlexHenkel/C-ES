@@ -397,3 +397,9 @@ Blockly.JavaScript['access_to_list'] = function (block) {
    var code = '<span class="reserved-word">acceder</span>(' + list + ', ' + position + ')';
    return code;
 };
+
+Blockly.JavaScript['remove_last_to_list'] = function (block) {
+   var list = block.getFieldValue('LIST');
+   var code = '<span class="reserved-word">quitar ultimo de</span> ' + list + '()';
+   return code;
+};
