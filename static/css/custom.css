@@ -51,6 +51,11 @@ h1 strong {
    height: 10%;
 }
 
+.execute-code {
+   background-color: #fff;
+   color: rgb(18, 161, 197);
+}
+
 pre {
    background-color: #efefef;
    border-radius: 1.5rem;
@@ -61,7 +66,6 @@ pre {
 .made-by {
    color: #eee;
 }
-
 
 .comment {
    color: rgb(23, 169, 43);
