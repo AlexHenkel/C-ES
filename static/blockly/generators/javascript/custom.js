@@ -96,6 +96,20 @@ Blockly.JavaScript['one_more_array'] = function (block) {
 
 // ********** Declaración de funciones **********
 
+Blockly.JavaScript['init_functions'] = function (block) {
+   console.log('init_functions');
+   var variables = Blockly.JavaScript.statementToCode(block, 'VARIABLES');
+   var code = '\n<span class="reserved-word-2">funciones:</span>\n';
+
+   if (!block.nextConnection.targetConnection) {
+      code = '';
+   } else if (block.nextConnection.targetConnection.check_.length === 2) {
+      code = '';
+   }
+
+   return code;
+}
+
 Blockly.JavaScript['function_with_params'] = function (block) {
    var name = block.getFieldValue('NAME');
    var type = block.getFieldValue('TYPE');
@@ -107,16 +121,16 @@ Blockly.JavaScript['function_with_params'] = function (block) {
    if (inputs === "") {
       console.log('empty');
       if (type === "nada") {
-         code = "\nfuncion " + name + "() {\n" + body + "\n}\n";
+         code = "<span class='reserved-word-3'>funcion</span> " + name + "() {\n" + body + "\n}\n";
       } else {
-         code = "\n" + type + " funcion " + name + "() {\n" + body + "\n}\n";
+         code = "<span class='reserved-word-3'>" + type + "</span>" + " <span class='reserved-word-3'>funcion</span> " + name + "() {\n" + body + "\n}\n";
       }
    } else {
       console.log('no empty');
       if (type === "nada") {
-         code = "\nfuncion " + name + "(" + inputs + ") {\n" + body + "\n}\n";
+         code = "<span class='reserved-word-3'>funcion</span> " + name + "(" + inputs + ") {\n" + body + "\n}\n";
       } else {
-         code = "\n" + type + " funcion " + name + "(" + inputs + ") {\n" + body + "\n}\n";
+         code = "<span class='reserved-word-3'>" + type + "</span>" + " <span class='reserved-word-3'>funcion</span> " + name + "(" + inputs + ") {\n" + body + "\n}\n";
       }
    }
    return code;
@@ -131,10 +145,10 @@ Blockly.JavaScript['function_param'] = function (block) {
 
    if (inputs !== "") {
       console.log('inputssss');
-      code = type + ' ' + name + ', ' + inputs;
+      code = "<span class='reserved-word-3'>" + type + "</span>" + ' ' + name + ', ' + inputs;
    } else {
       console.log('NO inputssss');
-      code = type + ' ' + name;
+      code = "<span class='reserved-word-3'>" + type + "</span>" + ' ' + name;
    }
 
    return code;
@@ -148,9 +162,9 @@ Blockly.JavaScript['function_without_params'] = function (block) {
    console.log('function_without_params', name, type);
 
    if (type === "nada") {
-      code = "\nfuncion " + name + "() {\n" + body + "\n}\n";
+      code = "<span class='reserved-word-3'>funcion</span> " + name + "() {\n" + body + "\n}\n";
    } else {
-      code = "\n" + type + " funcion " + name + "() {\n" + body + "\n}\n";
+      code = "<span class='reserved-word-3'>" + type + "</span>" + " <span class='reserved-word-3'>funcion</span> " + name + "() {\n" + body + "\n}\n";
    }
 
    return code;

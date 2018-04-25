@@ -78,6 +78,15 @@ Blockly.Blocks['one_more_array'] = {
 
 // ********** Declaración de funciones **********
 
+Blockly.Blocks['init_functions'] = {
+   init: function () {
+      this.appendDummyInput().appendField("Funciones:")
+      this.setPreviousStatement(true, ["FUNCTIONS", "VARIABLE"]);
+      this.setNextStatement(true, "FUNCTION");
+      this.setColour("#F35B05");
+      this.setTooltip('En este bloque se declaran las funciones');
+   }
+}
 Blockly.Blocks['function_with_params'] = {
    init: function () {
       this.appendValueInput("PARAMETERS").setCheck('OTHER_PARAM')
@@ -87,8 +96,8 @@ Blockly.Blocks['function_with_params'] = {
          .appendField(new Blockly.FieldTextInput("nombreFunción"), "NAME")
          .appendField("Parámetros:");
       this.appendStatementInput("BODY_FUNCTION").setCheck(["BODY_FUNCTION", "LOCAL_VARIABLES", "STATEMENT"]);
-      this.setPreviousStatement(true, ["FUNCTIONS", "VARIABLE"]);
-      this.setNextStatement(true, "FUNCTIONS");
+      this.setPreviousStatement(true, "FUNCTION");
+      this.setNextStatement(true, "FUNCTION");
       this.setColour("#3A9C2D");
    }
 };
@@ -112,8 +121,8 @@ Blockly.Blocks['function_without_params'] = {
          .appendField("Nombre: ")
          .appendField(new Blockly.FieldTextInput("nombreFunción"), "NAME");
       this.appendStatementInput("BODY_FUNCTION").setCheck(["BODY_FUNCTION", "LOCAL_VARIABLES", "STATEMENT"]);
-      this.setPreviousStatement(true, ["FUNCTIONS", "VARIABLE"]);
-      this.setNextStatement(true, "FUNCTIONS");
+      this.setPreviousStatement(true, "FUNCTION");
+      this.setNextStatement(true, "FUNCTION");
       this.setColour("#3A9C2D");
    }
 };
