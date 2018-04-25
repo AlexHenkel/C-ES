@@ -314,3 +314,10 @@ Blockly.JavaScript['else'] = function (block) {
    var code = '<span class="reserved-word">no sucede</span> ' + '{\n' + accion + '\n}\n';
    return code;
 };
+
+Blockly.JavaScript['while'] = function (block) {
+   var condicion = Blockly.JavaScript.statementToCode(block, 'CONDITION').trim();
+   var accion = Blockly.JavaScript.statementToCode(block, 'ACTION');
+   var code = '<span class="reserved-word">mientras sucede</span> (' + condicion + ') <span class="reserved-word">realiza</span> { \n' + accion + '}\n';
+   return code;
+};

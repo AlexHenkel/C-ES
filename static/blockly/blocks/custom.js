@@ -256,7 +256,7 @@ Blockly.Blocks['if'] = {
          .appendField("si sucede");
       this.appendStatementInput("ACTION")
          .setCheck(null)
-         .appendField("realiza ");
+         .appendField("realiza");
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, ['IF_ELSE', 'ELSE']);
       this.setColour("#E183E8");
@@ -270,7 +270,7 @@ Blockly.Blocks['if_else'] = {
          .appendField("o si sucede");
       this.appendStatementInput("ACTION")
          .setCheck(null)
-         .appendField("realiza ");
+         .appendField("realiza");
       this.setPreviousStatement(true, 'IF_ELSE');
       this.setNextStatement(true, null);
       this.setColour("#E183E8");
@@ -285,5 +285,21 @@ Blockly.Blocks['else'] = {
       this.setPreviousStatement(true, 'ELSE');
       this.setNextStatement(true, null);
       this.setColour("#E183E8");
+   }
+};
+
+Blockly.Blocks['while'] = {
+   init: function () {
+      this.appendValueInput("CONDITION")
+         .setCheck(null)
+         .appendField("Mientras sucede ");
+      this.appendStatementInput("ACTION")
+         .setCheck(null)
+         .appendField("realiza");
+      this.setPreviousStatement(true, null);
+      this.setNextStatement(true, null);
+      this.setColour("#E183E8");
+      this.setTooltip('');
+      this.setHelpUrl('http://www.example.com/');
    }
 };
