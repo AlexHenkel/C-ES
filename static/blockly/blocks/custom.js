@@ -430,3 +430,17 @@ Blockly.Blocks['random'] = {
       this.setColour("#0F2347");
    }
 };
+
+
+// ********** Comentarios **********
+
+Blockly.Blocks['comment'] = {
+   init: function () {
+      this.appendDummyInput()
+         .appendField("Comentario: ")
+         .appendField(new Blockly.FieldTextInput("Mi comentario"), "VALUE");
+      this.setPreviousStatement(true, null);
+      this.setNextStatement(true, null);
+      this.setColour("#17A92B");
+   }
+};

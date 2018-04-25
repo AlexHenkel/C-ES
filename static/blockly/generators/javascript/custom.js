@@ -410,3 +410,12 @@ Blockly.JavaScript['random'] = function (block) {
    var code = '<span class="reserved-word">numero aleatorio</span>(' + inf + ', ' + sup + ')';
    return code;
 };
+
+
+// ********** Comentarios **********
+
+Blockly.JavaScript['comment'] = function (block) {
+   var value = block.getFieldValue('VALUE');
+   var code = '<span class="comment">// ' + value + '</span>';
+   return code;
+};
