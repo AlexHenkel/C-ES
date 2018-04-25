@@ -263,13 +263,18 @@ Blockly.JavaScript['assign_call_function_without_params'] = function (block) {
    return name + '()\n';
 };
 
-Blockly.JavaScript['call_function_with_params_2'] = function (block) {
-   var nombre_var = block.getFieldValue('NOMBRE');
-   var parametros = Blockly.JavaScript.statementToCode(block, 'PARAMETROS');
-   var code = nombre_var + '¿ ' + parametros + ' ?\n';
-   code = code.replace(/[()]/g, '');
-   code = code.replace(/[¿]/g, '(');
-   code = code.replace(/[?]/g, ')');
+Blockly.JavaScript['call_function_with_params'] = function (block) {
+   var name = block.getFieldValue('NAME');
+   var params = Blockly.JavaScript.statementToCode(block, 'PARAMETERS').trim();
+   var code = name + '(' + params + ')\n';
+   return code;
+};
+
+
+Blockly.JavaScript['assign_call_function_with_params'] = function (block) {
+   var name = block.getFieldValue('NAME');
+   var params = Blockly.JavaScript.statementToCode(block, 'PARAMETERS').trim();
+   var code = name + '(' + params + ')\n';
    return code;
 };
 

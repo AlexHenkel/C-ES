@@ -211,11 +211,22 @@ Blockly.Blocks['assign_call_function_without_params'] = {
    }
 };
 
-Blockly.Blocks['call_function_with_params_2'] = {
+Blockly.Blocks['call_function_with_params'] = {
    init: function () {
-      this.appendValueInput("PARAMETROS")
+      this.appendValueInput("PARAMETERS")
          .setCheck(null)
-         .appendField(new Blockly.FieldTextInput("nombreFunción"), "NOMBRE");
+         .appendField(new Blockly.FieldTextInput("nombreFunción"), "NAME");
+      this.setPreviousStatement(true, null);
+      this.setNextStatement(true, null);
+      this.setColour("#3A9C2D");
+   }
+};
+
+Blockly.Blocks['assign_call_function_with_params'] = {
+   init: function () {
+      this.appendValueInput("PARAMETERS")
+         .setCheck(null)
+         .appendField(new Blockly.FieldTextInput("nombreFunción"), "NAME");
       this.setOutput(true, null);
       this.setColour("#3A9C2D");
    }
