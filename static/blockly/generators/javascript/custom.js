@@ -6,10 +6,10 @@ Blockly.JavaScript['programa'] = function (block) {
    var code = '';
 
    if (variablesAndFuntions === "") {
-      code = '<span class="reserved-word">programa</span>\n\n{\n' + main + '\n}';
+      code = '<span class="reserved-word">programa</span>\n\n{\n' + main + '}';
    } else {
       console.log('programa variablesAndFuntions', variablesAndFuntions);
-      code = '<span class="reserved-word">programa</span>\n' + variablesAndFuntions + '\n{\n' + main + '\n}';
+      code = '<span class="reserved-word">programa</span>\n' + variablesAndFuntions + '\n{\n' + main + '}';
    }
 
    return code;
@@ -379,13 +379,13 @@ Blockly.JavaScript['while'] = function (block) {
 
 Blockly.JavaScript['read'] = function (block) {
    var value = block.getFieldValue('VALUE');
-   var code = '<span class="reserved-word">leer</span>(' + value + ')';
+   var code = '<span class="reserved-word">leer</span>(' + value + ')\n';
    return code;
 };
 
 Blockly.JavaScript['print'] = function (block) {
    var params = Blockly.JavaScript.statementToCode(block, 'PARAMETERS').trim();
-   var code = '<span class="reserved-word">imprimir</span>(' + params + ')';
+   var code = '<span class="reserved-word">imprimir</span>(' + params + ')\n';
    return code;
 };
 
@@ -393,27 +393,27 @@ Blockly.JavaScript['add_to_list'] = function (block) {
    var list = block.getFieldValue('LIST');
    var value = block.getFieldValue('VALUE');
    var position = block.getFieldValue('POSITION');
-   var code = '<span class="reserved-word">agregar a</span>(' + list + ', ' + value + ', ' + position + ')';
+   var code = '<span class="reserved-word">agregar a</span>(' + list + ', ' + value + ', ' + position + ')\n';
    return code;
 };
 
 Blockly.JavaScript['access_to_list'] = function (block) {
    var list = block.getFieldValue('LIST');
    var position = block.getFieldValue('POSITION');
-   var code = '<span class="reserved-word">acceder</span>(' + list + ', ' + position + ')';
+   var code = '<span class="reserved-word">acceder</span>(' + list + ', ' + position + ')\n';
    return code;
 };
 
 Blockly.JavaScript['remove_last_to_list'] = function (block) {
    var list = block.getFieldValue('LIST');
-   var code = '<span class="reserved-word">quitar ultimo de</span> ' + list + '()';
+   var code = '<span class="reserved-word">quitar ultimo de</span> ' + list + '()\n';
    return code;
 };
 
 Blockly.JavaScript['random'] = function (block) {
    var inf = block.getFieldValue('INF');
    var sup = block.getFieldValue('SUP');
-   var code = '<span class="reserved-word">numero aleatorio</span>(' + inf + ', ' + sup + ')';
+   var code = '<span class="reserved-word">numero aleatorio</span>(' + inf + ', ' + sup + ')\n';
    return code;
 };
 
@@ -422,6 +422,6 @@ Blockly.JavaScript['random'] = function (block) {
 
 Blockly.JavaScript['comment'] = function (block) {
    var value = block.getFieldValue('VALUE');
-   var code = '<span class="comment">// ' + value + '</span>';
+   var code = '<span class="comment">// ' + value + '</span>\n';
    return code;
 };

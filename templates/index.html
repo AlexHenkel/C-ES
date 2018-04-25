@@ -1,37 +1,39 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="¡Aprende a programar arrastrando y soltando bloques!">
 
-    <link rel="stylesheet" href="./../static/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./../static/css/custom.css">
-    
-    <title>Bloques | C-ES</title>
-    <script src="./../static/blockly/blockly_compressed.js"></script>
-    <script src="./../static/blockly/blocks_compressed.js"></script>
-    <script src="./../static/blockly/msg/js/en.js"></script>
-    <script src="./../static/blockly/javascript_compressed.js"></script>
+<head>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+   <meta name="description" content="¡Aprende a programar arrastrando y soltando bloques!">
+
+   <link rel="stylesheet" href="./../static/css/bootstrap.min.css">
+   <link rel="stylesheet" href="./../static/css/custom.css">
+
+   <title>Bloques | C-ES</title>
+   <script src="./../static/blockly/blockly_compressed.js"></script>
+   <script src="./../static/blockly/blocks_compressed.js"></script>
+   <script src="./../static/blockly/msg/js/en.js"></script>
+   <script src="./../static/blockly/javascript_compressed.js"></script>
    <script src="./../static/blockly/generators/javascript/custom.js"></script>
    <script src="./../static/blockly/blocks/custom.js"></script>
 </head>
 
 <body>
-    <div class="container-fluid main">
-        <div class="row">
-            <div class="col">
-                <h1 class="text-center">¡Aprende a programar con <strong>Bloques de C-ES</strong>!</h1>
-            </div>
-        </div>
+   <div class="container-fluid main">
+      <div class="row">
+         <div class="col">
+            <h1 class="text-center">¡Aprende a programar con
+               <strong>Bloques de C-ES</strong>!</h1>
+         </div>
+      </div>
 
-        <div class="row equal blockly">
-            <div id="blocklyDiv" class="col-xs-12 col-md-6"></div>
-            <div class="col-xs-12 col-md-6 code-wrapper">
-                <form>
-                    <fieldset>
-                        <legend>Código C-ES generado:</legend>
-<pre>
+      <div class="row equal blockly">
+         <div id="blocklyDiv" class="col-xs-12 col-md-6"></div>
+         <div class="col-xs-12 col-md-6 code-wrapper">
+            <form>
+               <fieldset>
+                  <legend>Código C-ES generado:</legend>
+                  <pre>
 <code id="textarea"><span class="comment">// ¡Hola, mundo!</span>
 <span class="reserved-word">programa</span>
 
@@ -40,64 +42,66 @@
 }
 </code>
 </pre>
-                    </fieldset>
-                </form>
-            </div>
-        </div>
+               </fieldset>
+            </form>
+         </div>
+      </div>
 
-        <div class="row hide-xs">
-            <div class="col-sm-4 text-center">
-                <a class="btn btn-light execute-code" href="/manual" target="_blank">Manual del lenguaje</a>
-            </div>
-            <div class="col-sm-4 text-center made-by">
-                <p><span class="emoji">⚒</span> por:
-                    <br>Alejandro Henkel
-                    <br>Fernando López Martínez
-                </p>
-            </div>
+      <div class="row hide-xs">
+         <div class="col-sm-4 text-center">
+            <a class="btn btn-light execute-code" href="/manual" target="_blank">Manual del lenguaje</a>
+         </div>
+         <div class="col-sm-4 text-center made-by">
+            <p>
+               <span class="emoji">⚒</span> por:
+               <br>Alejandro Henkel
+               <br>Fernando López Martínez
+            </p>
+         </div>
 
-            <div class="col-sm-4 text-center">
-                <button type="button" class="btn btn-light execute-code" onclick="executeCode()">Ejecutar código</button>
-            </div>
-        </div>
+         <div class="col-sm-4 text-center">
+            <button type="button" class="btn btn-light execute-code" onclick="executeCode()">Ejecutar código</button>
+         </div>
+      </div>
 
-        <div class="row hide-md">
-            <div class="col-sm-4 text-center">
-                <button type="button" class="btn btn-light execute-code" onclick="executeCode()">Ejecutar código</button>
-            </div>
+      <div class="row hide-md">
+         <div class="col-sm-4 text-center">
+            <button type="button" class="btn btn-light execute-code" onclick="executeCode()">Ejecutar código</button>
+         </div>
 
-            <div class="col-sm-4 text-center">
-               <a class="btn btn-light execute-code" href="/manual" target="_blank">Manual del lenguaje</a>
-            </div>
+         <div class="col-sm-4 text-center">
+            <a class="btn btn-light execute-code" href="/manual" target="_blank">Manual del lenguaje</a>
+         </div>
 
-            <div class="col-sm-4 text-center made-by">
-                <p><span class="emoji">⚒</span> por:
-                    <br>Alejandro Henkel
-                    <br>Fernando López Martínez
-                </p>
-            </div>
-        </div>
-    </div>
+         <div class="col-sm-4 text-center made-by">
+            <p>
+               <span class="emoji">⚒</span> por:
+               <br>Alejandro Henkel
+               <br>Fernando López Martínez
+            </p>
+         </div>
+      </div>
+   </div>
 
-    <!-- Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalTitle" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="myModalTitle">Respuesta</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    ...
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
-                </div>
+   <!-- Modal -->
+   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalTitle" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h5 class="modal-title" id="myModalTitle">Respuesta</h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+               </button>
             </div>
-        </div>
-    </div>
+            <div class="modal-body">
+               ...
+            </div>
+            <div class="modal-footer">
+               <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+            </div>
+         </div>
+      </div>
+   </div>
 
    <xml id="toolbox" style="display: none">
       <category name="Iniciar programa" colour="#00585E">
@@ -140,12 +144,12 @@
             <category name="Inicio de variables locales" colour="#C93482">
                <block type="init_local_variables"></block>
             </category>
-         
+
             <category name="Variables locales" colour="#C93482">
                <block type="declare_local_variable"></block>
                <block type="one_more_local_variable"></block>
             </category>
-         
+
             <category name="Listas locales" colour="#C93482">
                <block type="declare_local_array"></block>
                <block type="one_more_local_array"></block>
@@ -197,76 +201,74 @@
       </category>
    </xml>
 
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
-    <script>
-         function loadXMLDoc(dname, callback) {
-            var xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function () {
-               if (xhttp.readyState == 4 && xhttp.status == 200) {
-                  callback(xhttp.responseXML);
+   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"></script>
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"></script>
+   <script>
+      function loadXMLDoc(dname, callback) {
+         var xhttp = new XMLHttpRequest();
+         xhttp.onreadystatechange = function () {
+            if (xhttp.readyState == 4 && xhttp.status == 200) {
+               callback(xhttp.responseXML);
+            }
+         };
+
+         xhttp.open("GET", dname);
+         xhttp.send();
+      }
+      var workspacePlayground = Blockly.inject('blocklyDiv', {
+         toolbox: document.getElementById('toolbox'),
+         grid: {
+            spacing: 20,
+            length: 2,
+            colour: 'rgb(18, 161, 197)',
+            snap: true
+         },
+         scrollbars: true,
+         sounds: false,
+         trashcan: true
+      });
+
+      loadXMLDoc("./static/blockly_tests/test.xml", function (xmlDoc) {
+         document.body.appendChild(xmlDoc.getElementsByTagName("xml")[0]);
+         Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'), workspacePlayground);
+      });
+
+      function myUpdateFunction(event) {
+         console.log('myUpdateFunction');
+         var code = Blockly.JavaScript.workspaceToCode(workspacePlayground);
+         document.getElementById('textarea').innerHTML = code;
+      }
+
+      workspacePlayground.addChangeListener(myUpdateFunction);
+
+      function executeCode() {
+         console.log('Execute code');
+      }
+
+      $(function () {
+         $("button").click(function () {
+            console.log('submit');
+            var code = jQuery("textarea").val();
+            $.ajax({
+               url: "https://c-es.herokuapp.com/execute",
+               method: "POST",
+               contentType: "text/plain",
+               data: code,
+               success: function (data) {
+                  $('#myModal .modal-body').text(data);
+                  $('#myModal').modal({ show: true });
+               },
+               error: function (erorr) {
+                  $('#myModal .modal-body').text(error);
+                  $('#myModal').modal({ show: true });
                }
-            }; 
-
-            xhttp.open("GET", dname);
-            xhttp.send();
-         }
-        var workspacePlayground = Blockly.inject('blocklyDiv', { 
-            toolbox: document.getElementById('toolbox'),
-            grid: {
-                spacing: 20,
-                length: 2,
-                colour: 'rgb(18, 161, 197)',
-                snap: true
-            },
-            scrollbars: true,
-            sounds: false,
-            trashcan: true
-        });
-
-         loadXMLDoc("./static/blockly_tests/test.xml", function(xmlDoc) {
-            document.body.appendChild(xmlDoc.getElementsByTagName("xml")[0]);
-            Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'), workspacePlayground);
-         });
-
-       //document.body.innerHTML = '<xml id="startBlocks" style="display: none">' + blocks.getElementsByTagName("xml")[0].innerHTML + '</xml>' + document.body.innerHTML;
-        //Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'), workspacePlayground);
-        
-        function myUpdateFunction(event) {
-            console.log('myUpdateFunction');
-            var code = Blockly.JavaScript.workspaceToCode(workspacePlayground);
-            document.getElementById('textarea').innerHTML = code;
-        }
-
-        workspacePlayground.addChangeListener(myUpdateFunction);
-
-        function executeCode() {
-            console.log('Execute code');
-        }
-
-        $(function () {
-            $("button").click(function () {
-                console.log('submit');
-                var code = jQuery("textarea").val();
-                $.ajax({
-                    url: "https://c-es.herokuapp.com/execute",
-                    method: "POST",
-                    contentType: "text/plain",
-                    data: code,
-                    success: function (data) {
-                        $('#myModal .modal-body').text(data);
-                        $('#myModal').modal({show: true});
-                    },
-                    error: function (erorr) {
-                        $('#myModal .modal-body').text(error);
-                        $('#myModal').modal({ show: true });
-                    }
-                });
             });
-        });
-    </script>
+         });
+      });
+   </script>
 </body>
+
 </html>
