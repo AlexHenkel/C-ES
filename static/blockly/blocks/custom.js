@@ -18,7 +18,7 @@ Blockly.Blocks['programa'] = {
 
 Blockly.Blocks['init_variables'] = {
    init: function () {
-      this.appendDummyInput().appendField("Variables")
+      this.appendDummyInput().appendField("Variables:")
       this.setPreviousStatement(true, "VARIABLES");
       this.setNextStatement(true, "VARIABLE");
       this.setColour("#F35B05");
@@ -131,7 +131,7 @@ Blockly.Blocks['function_without_params'] = {
 
 Blockly.Blocks['init_local_variables'] = {
    init: function () {
-      this.appendDummyInput().appendField("Variables locales")
+      this.appendDummyInput().appendField("Variables locales:")
       this.setPreviousStatement(true, "LOCAL_VARIABLES");
       this.setNextStatement(true, ["VARIABLE_LOCAL", "STATEMENT"]);
       this.setColour("#C93482");
