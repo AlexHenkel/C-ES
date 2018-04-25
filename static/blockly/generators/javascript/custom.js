@@ -296,7 +296,7 @@ Blockly.JavaScript['if'] = function (block) {
    var action = Blockly.JavaScript.statementToCode(block, 'ACTION');
    console.log('if', condition, action);
 
-   var code = 'si sucede (' + condition + ') realiza {\n' + action + '\n}\n';
+   var code = '<span class="reserved-word">si sucede</span> (' + condition + ') <span class="reserved-word">realiza</span> {\n' + action + '\n}\n';
    return code;
 };
 
@@ -305,12 +305,12 @@ Blockly.JavaScript['if_else'] = function (block) {
    var action = Blockly.JavaScript.statementToCode(block, 'ACTION');
    console.log('if', condition, action);
 
-   var code = 'o si sucede (' + condition + ') realiza {\n' + action + '\n}\n';
+   var code = '<span class="reserved-word">o si sucede</span> (' + condition + ') <span class="reserved-word">realiza</span> {\n' + action + '\n}\n';
    return code;
 };
 
 Blockly.JavaScript['else'] = function (block) {
    var accion = Blockly.JavaScript.statementToCode(block, 'ACTION');
-   var code = 'no sucede ' + '{\n' + accion + '\n}\n';
+   var code = '<span class="reserved-word">no sucede</span> ' + '{\n' + accion + '\n}\n';
    return code;
 };
