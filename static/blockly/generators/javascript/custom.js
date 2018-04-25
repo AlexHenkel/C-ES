@@ -255,7 +255,7 @@ Blockly.JavaScript['one_more_local_array'] = function (block) {
 Blockly.JavaScript['assignment'] = function (block) {
    var name = block.getFieldValue('NAME');
    var inputs = Blockly.JavaScript.statementToCode(block, 'INPUT').trim();
-   return name + ' = ' + inputs;
+   return name + ' = ' + inputs + '\n';
 }
 
 Blockly.JavaScript['value'] = function (block) {
@@ -268,16 +268,22 @@ Blockly.JavaScript['value'] = function (block) {
 // ********** Expresión **********
 
 Blockly.JavaScript['expression_simple'] = function (block) {
+   var inputs = Blockly.JavaScript.statementToCode(block, 'EXP1').trim();
+   console.log('expression_simple', inputs);
    code = '';
+
+   if (inputs != "") {
+      code = inputs
+   } 
+   
    return code;
 }
 
 Blockly.JavaScript['expression_compound'] = function (block) {
-   code = '';
-   return code;
-}
+   var inputsLeft = Blockly.JavaScript.statementToCode(block, 'EXP1').trim();
+   var inputsRight = Blockly.JavaScript.statementToCode(block, 'EXP2').trim();
+   var type = block.getFieldValue('TYPE');
+   console.log('expression_compound', inputsLeft, inputsRight, type);
 
-Blockly.JavaScript['term'] = function (block) {
-   code = '';
-   return code;
+   return inputsLeft + ' ' + type + ' ' + inputsRight;
 }

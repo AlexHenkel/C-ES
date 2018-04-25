@@ -206,7 +206,7 @@ Blockly.Blocks['value'] = {
    init: function () {
       this.appendDummyInput()
          .appendField(new Blockly.FieldTextInput("Valor"), "VALOR");
-      this.setOutput(true, 'EXPRESSION')
+      this.setOutput(true, ['EXPRESSION', 'EXP'])
       this.setColour("#FFDE00");
    }
 };
@@ -218,7 +218,7 @@ Blockly.Blocks['expression_simple'] = {
    init: function () {
       this.appendValueInput("EXP1").setCheck("EXP");
       this.appendDummyInput();
-      this.setOutput(true, 'Multiple');
+      this.setOutput(true, ['EXP', 'EXPRESSION']);
       this.setColour("#E183E8");
    }
 };
@@ -233,20 +233,15 @@ Blockly.Blocks['expression_compound'] = {
             ["Mayor o igual que", ">="],
             ["Menor o igual que", "<="],
             ["Igual a", "=="],
-            ["Diferente a", "!="]
+            ["Diferente a", "!="],
+            ["+", "+"],
+            ["-", "-"],
+            ["*", "*"],
+            ["/", "/"]
          ]), "TYPE");
       this.appendValueInput("EXP2").setCheck("EXP");
       this.appendDummyInput();
-      this.setOutput(true, 'Multiple');
-      this.setColour("#E183E8");
-   }
-};
-
-Blockly.Blocks['term'] = {
-   init: function () {
-      this.appendValueInput("EXP1").setCheck("EXP");
-      this.appendDummyInput();
-      this.setOutput(true, 'Multiple');
+      this.setOutput(true, ['EXP', 'EXPRESSION']);
       this.setColour("#E183E8");
    }
 };
