@@ -1,0 +1,227 @@
+<xml id="startBlocks" style="display: none" class="invisible">
+   <variables></variables>
+   <block type="programa" id="1/?QTTaKFEL92n}|[MAF" x="10" y="70">
+      <statement name="VAR_AND_FUNCS">
+         <block type="init_functions" id="Cw{xdd|!.IR#{S~,mc1w">
+            <next>
+               <block type="function_with_params" id="a|=(6`BRr+^JR0^V%mp9">
+                  <field name="TYPE">numero</field>
+                  <field name="NAME">factorial</field>
+                  <value name="PARAMETERS">
+                     <block type="function_param" id="w$7/y`SFdk*bd/k|xp(:">
+                        <field name="TYPE">numero</field>
+                        <field name="NAME">n</field>
+                     </block>
+                  </value>
+                  <statement name="BODY_FUNCTION">
+                     <block type="init_local_variables" id="@_{NnUW;R9,Qa!XZ9nub">
+                        <next>
+                           <block type="declare_local_variable" id="|*~h!8_CJy;$10zIMG9l">
+                              <field name="TYPE">numero</field>
+                              <field name="NAME">temporal</field>
+                              <next>
+                                 <block type="if" id="bS/Qaftiil^raIVv)G$8">
+                                    <value name="CONTITION">
+                                       <block type="expression_compound" id="+EP)x`g8a+L)fAa}9ll`">
+                                          <field name="TYPE">&lt;=</field>
+                                          <value name="EXP1">
+                                             <block type="value" id="l2P[6Qp!wfJ]kzFi*W_U">
+                                                <field name="VALUE">n</field>
+                                             </block>
+                                          </value>
+                                          <value name="EXP2">
+                                             <block type="value" id="*1f6iy5dYdAtUILC2H|S">
+                                                <field name="VALUE">1</field>
+                                             </block>
+                                          </value>
+                                       </block>
+                                    </value>
+                                    <statement name="ACTION">
+                                       <block type="return" id="B_BLRFojkCQ|0;8sHES*">
+                                          <value name="RETURN">
+                                             <block type="value" id="A[IJ$57fxrXr.J)`0Q[2">
+                                                <field name="VALUE">1</field>
+                                             </block>
+                                          </value>
+                                       </block>
+                                    </statement>
+                                    <next>
+                                       <block type="else" id="`Oj9pm44]P`/Tzz`EbBm">
+                                          <statement name="ACTION">
+                                             <block type="assignment" id="~f~[S2b5%e814,J_y!wK">
+                                                <field name="NAME">temporal</field>
+                                                <value name="INPUT">
+                                                   <block type="assign_call_function_with_params" id="L`^ASd7T:2cq$GN(+3=G">
+                                                      <field name="NAME">factorial</field>
+                                                      <value name="PARAMETERS">
+                                                         <block type="expression_compound" id="07z9s5X}JUM{{}t)(U@L">
+                                                            <field name="TYPE">-</field>
+                                                            <value name="EXP1">
+                                                               <block type="value" id="xPAOm=`k.E6%.WdZJ6s}">
+                                                                  <field name="VALUE">n</field>
+                                                               </block>
+                                                            </value>
+                                                            <value name="EXP2">
+                                                               <block type="value" id="/A/E.Tl0U}#f5GI0K:+U">
+                                                                  <field name="VALUE">1</field>
+                                                               </block>
+                                                            </value>
+                                                         </block>
+                                                      </value>
+                                                   </block>
+                                                </value>
+                                                <next>
+                                                   <block type="return" id=".O9#kl{xk2LFI{s?H)n}">
+                                                      <value name="RETURN">
+                                                         <block type="expression_compound" id=",jPzPRN3sXM{fq#^JM}k">
+                                                            <field name="TYPE">*</field>
+                                                            <value name="EXP1">
+                                                               <block type="value" id="@V1/vR~cImO`S[1{yvdk">
+                                                                  <field name="VALUE">n</field>
+                                                               </block>
+                                                            </value>
+                                                            <value name="EXP2">
+                                                               <block type="value" id="`#:{;TXbo.y3Co4,Opgy">
+                                                                  <field name="VALUE">temporal</field>
+                                                               </block>
+                                                            </value>
+                                                         </block>
+                                                      </value>
+                                                   </block>
+                                                </next>
+                                             </block>
+                                          </statement>
+                                       </block>
+                                    </next>
+                                 </block>
+                              </next>
+                           </block>
+                        </next>
+                     </block>
+                  </statement>
+               </block>
+            </next>
+         </block>
+      </statement>
+      <statement name="MAIN">
+         <block type="print" id=";o[G/;.vRif1cIU6fp{}">
+            <value name="PARAMETERS">
+               <block type="function_call_param" id="(I5gRYriVa4)]mS:qfv)">
+                  <field name="NAME">"1! = "</field>
+                  <value name="PARAMETERS">
+                     <block type="assign_call_function_with_params" id="vaztcBzON%WS503jq(I5">
+                        <field name="NAME">factorial</field>
+                        <value name="PARAMETERS">
+                           <block type="function_call_param" id="LSSOO9p9^|SU_IA{Io|V">
+                              <field name="NAME">1</field>
+                           </block>
+                        </value>
+                     </block>
+                  </value>
+               </block>
+            </value>
+            <next>
+               <block type="print" id="VMK)cwB[G{$e;u.f4rd[">
+                  <value name="PARAMETERS">
+                     <block type="function_call_param" id="1Gu{gyM!:c$ZWs#Z@vi_">
+                        <field name="NAME">"3! = "</field>
+                        <value name="PARAMETERS">
+                           <block type="assign_call_function_with_params" id="2+8YuQ%0YK9[d$[7n]p2">
+                              <field name="NAME">factorial</field>
+                              <value name="PARAMETERS">
+                                 <block type="function_call_param" id="B~x.iZ!La;4jX}15$8gC">
+                                    <field name="NAME">3</field>
+                                 </block>
+                              </value>
+                           </block>
+                        </value>
+                     </block>
+                  </value>
+                  <next>
+                     <block type="print" id="8A/=0P%tnt.JpJW@%jEC">
+                        <value name="PARAMETERS">
+                           <block type="function_call_param" id="sy7+za@eg0c@jzVoBWi!">
+                              <field name="NAME">"5! = "</field>
+                              <value name="PARAMETERS">
+                                 <block type="assign_call_function_with_params" id="3F*d-Yx0.,%J~|CiUMs!">
+                                    <field name="NAME">factorial</field>
+                                    <value name="PARAMETERS">
+                                       <block type="function_call_param" id="5FYcFjFUPc{2@S8:!Zqw">
+                                          <field name="NAME">5</field>
+                                       </block>
+                                    </value>
+                                 </block>
+                              </value>
+                           </block>
+                        </value>
+                        <next>
+                           <block type="print" id="KWJZPYs:ZMe%ZN?njQ?_">
+                              <value name="PARAMETERS">
+                                 <block type="function_call_param" id="o9HSjm*2}Bvn5$Wo)SF2">
+                                    <field name="NAME">"7! = "</field>
+                                    <value name="PARAMETERS">
+                                       <block type="assign_call_function_with_params" id="x+J3Mh79eAmF5qaNzu_p">
+                                          <field name="NAME">factorial</field>
+                                          <value name="PARAMETERS">
+                                             <block type="function_call_param" id=",c0y#O?Ony%NQOu_xmK4">
+                                                <field name="NAME">7</field>
+                                             </block>
+                                          </value>
+                                       </block>
+                                    </value>
+                                 </block>
+                              </value>
+                              <next>
+                                 <block type="print" id="$XqR9/P%0HJA:Gd+X3uM">
+                                    <value name="PARAMETERS">
+                                       <block type="function_call_param" id="XUOr6??[j)Qy7DTge9n*">
+                                          <field name="NAME">"10! = "</field>
+                                          <value name="PARAMETERS">
+                                             <block type="assign_call_function_with_params" id=";/j:z1+sml|J/3k1mHpR">
+                                                <field name="NAME">factorial</field>
+                                                <value name="PARAMETERS">
+                                                   <block type="function_call_param" id="?bmfm|V`x1PzwZ.}*n?o">
+                                                      <field name="NAME">10</field>
+                                                   </block>
+                                                </value>
+                                             </block>
+                                          </value>
+                                       </block>
+                                    </value>
+                                    <next>
+                                       <block type="comment" id="OuM@[VMB)F.cttNSTGKP">
+                                          <field name="VALUE">1! = 1</field>
+                                          <next>
+                                             <block type="comment" id="2,yiAIzyiki{t~o!=4W]">
+                                                <field name="VALUE">3! = 6</field>
+                                                <next>
+                                                   <block type="comment" id="LTXNmRYj6)hOc_eIiE1?">
+                                                      <field name="VALUE">5! = 120</field>
+                                                      <next>
+                                                         <block type="comment" id="{;7:Glty.WaTD}{RWUdC">
+                                                            <field name="VALUE">7! = 5040</field>
+                                                            <next>
+                                                               <block type="comment" id="SxpOwA`Ko$|orOBWY~){">
+                                                                  <field name="VALUE">10! = 3628800</field>
+                                                               </block>
+                                                            </next>
+                                                         </block>
+                                                      </next>
+                                                   </block>
+                                                </next>
+                                             </block>
+                                          </next>
+                                       </block>
+                                    </next>
+                                 </block>
+                              </next>
+                           </block>
+                        </next>
+                     </block>
+                  </next>
+               </block>
+            </next>
+         </block>
+      </statement>
+   </block>
+</xml>
