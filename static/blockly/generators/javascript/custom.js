@@ -287,3 +287,15 @@ Blockly.JavaScript['expression_compound'] = function (block) {
 
    return inputsLeft + ' ' + type + ' ' + inputsRight;
 }
+
+
+// ********** Control de flujo **********
+
+Blockly.JavaScript['if'] = function (block) {
+   var condition = Blockly.JavaScript.statementToCode(block, 'CONTITION').trim();
+   var action = Blockly.JavaScript.statementToCode(block, 'ACTION');
+   console.log('if', condition, action);
+
+   var code = 'si sucede (' + condition + ') realiza {\n' + action + '\n}\n';
+   return code;
+};

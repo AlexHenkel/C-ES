@@ -245,3 +245,20 @@ Blockly.Blocks['expression_compound'] = {
       this.setColour("#E183E8");
    }
 };
+
+
+// ********** Control de flujo **********
+
+Blockly.Blocks['if'] = {
+   init: function () {
+      this.appendValueInput("CONTITION")
+         .setCheck(null)
+         .appendField("si sucede");
+      this.appendStatementInput("ACTION")
+         .setCheck(null)
+         .appendField("realiza ");
+      this.setPreviousStatement(true, null);
+      this.setNextStatement(true, null);
+      this.setColour("#E183E8");
+   }
+};
