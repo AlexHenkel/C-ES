@@ -257,7 +257,7 @@ Blockly.Blocks['assignment'] = {
 Blockly.Blocks['value'] = {
    init: function () {
       this.appendDummyInput()
-         .appendField(new Blockly.FieldTextInput("Valor"), "VALOR");
+         .appendField(new Blockly.FieldTextInput("ValorOVariable"), "VALOR");
       this.setOutput(true, ['EXPRESSION', 'EXP'])
       this.setColour("#FFDE00");
    }
