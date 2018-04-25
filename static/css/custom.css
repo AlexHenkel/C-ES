@@ -66,6 +66,7 @@ pre {
 
 .made-by {
    color: #eee;
+   margin-top: 2rem;
 }
 
 .comment {
@@ -141,6 +142,7 @@ xml {
 
    .code-wrapper {
       height: 30vh;
+      margin: 0;
    }
 
    .hide-xs {
@@ -149,6 +151,10 @@ xml {
 
    .emoji {
       font-size: 1.2rem;
+   }
+
+   .made-by {
+      margin-top: 0;
    }
 }
 @media (min-width: 576px) { 

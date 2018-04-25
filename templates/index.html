@@ -51,7 +51,7 @@
          <div class="col-sm-4 text-center">
             <a class="btn btn-light execute-code" href="/manual" target="_blank">Manual del lenguaje</a>
          </div>
-         <div class="col-sm-4 text-center made-by">
+         <div class="col-sm-4 text-center">
             <div class="dropdown">
                <button class="btn dropdown-toggle execute-code" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
                   aria-expanded="false">
@@ -64,11 +64,6 @@
                   <a class="dropdown-item" href="#" id="fibonacci_recursivo">Fibonacci de un número (versión recursiva)</a>
                </div>
             </div>
-            <!-- <p>
-               <span class="emoji">⚒</span> por:
-               <br>Alejandro Henkel
-               <br>Fernando López Martínez
-            </p> -->
          </div>
 
          <div class="col-sm-4 text-center">
@@ -76,16 +71,43 @@
          </div>
       </div>
 
+      <!-- <div class="row hide-xs">
+         <div class="col-12 text-center made-by">
+            <p>
+               <span class="emoji">⚒</span> por:
+               <br>Alejandro Henkel
+               <br>Fernando López Martínez
+            </p>
+         </div>
+      </div> -->
+
       <div class="row hide-md">
          <div class="col-sm-4 text-center">
             <button type="button" class="btn btn-light execute-code" onclick="executeCode()">Ejecutar código</button>
          </div>
 
          <div class="col-sm-4 text-center">
-            <a class="btn btn-light execute-code" href="/manual" target="_blank">Manual del lenguaje</a>
+            <div class="dropdown">
+               <button class="btn dropdown-toggle execute-code" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                  aria-expanded="false">
+                  Ejemplos
+               </button>
+               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" href="#" id="factorial_iterativo">Factorial de un número (versión iterativa)</a>
+                  <a class="dropdown-item" href="#" id="factorial_recursivo">Factorial de un número (versión recursiva)</a>
+                  <a class="dropdown-item" href="#" id="fibonacci_iterativo">Fibonacci de un número (versión iterativa)</a>
+                  <a class="dropdown-item" href="#" id="fibonacci_recursivo">Fibonacci de un número (versión recursiva)</a>
+               </div>
+            </div>
          </div>
 
-         <div class="col-sm-4 text-center made-by">
+         <div class="col-sm-4 text-center">
+            <a class="btn btn-light execute-code" href="/manual" target="_blank">Manual del lenguaje</a>
+         </div>
+      </div>
+
+      <div class="row">
+         <div class="col-12 text-center made-by">
             <p>
                <span class="emoji">⚒</span> por:
                <br>Alejandro Henkel
