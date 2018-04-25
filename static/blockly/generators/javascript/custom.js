@@ -170,6 +170,12 @@ Blockly.JavaScript['function_without_params'] = function (block) {
    return code;
 };
 
+Blockly.JavaScript['return'] = function (block) {
+   var returnInput = Blockly.JavaScript.statementToCode(block, 'RETURN').trim();
+   var code = '<span class="reserved-word-3">devolver</span> ' + returnInput + '\n';
+   return code;
+};
+
 
 // ********** Declaración de variables locales **********
 

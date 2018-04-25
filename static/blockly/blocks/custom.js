@@ -126,6 +126,17 @@ Blockly.Blocks['function_without_params'] = {
    }
 };
 
+Blockly.Blocks['return'] = {
+   init: function () {
+      this.appendValueInput("RETURN")
+         .setCheck(null)
+         .appendField("Regresar:");
+      this.setPreviousStatement(true, null);
+      this.setNextStatement(true, null);
+      this.setColour("#B0276F");
+   }
+};
+
 
 // ********** Declaración de variables locales **********
 
