@@ -71,16 +71,6 @@
          </div>
       </div>
 
-      <!-- <div class="row hide-xs">
-         <div class="col-12 text-center made-by">
-            <p>
-               <span class="emoji">⚒</span> por:
-               <br>Alejandro Henkel
-               <br>Fernando López Martínez
-            </p>
-         </div>
-      </div> -->
-
       <div class="row hide-md">
          <div class="col-sm-4 text-center">
             <button type="button" class="btn btn-light execute-code" onclick="executeCode()">Ejecutar código</button>
@@ -235,6 +225,21 @@
       </category>
    </xml>
 
+   <xml id="startBlocks" style="display: none" class="invisible">
+      <variables></variables>
+      <block type="programa" id="y)Ul:MsPB[{tMA41a)d@" x="50" y="50">
+         <statement name="MAIN">
+            <block type="print" id="-)}LAl8H$l5(8Y!+A%Z%">
+               <value name="PARAMETERS">
+                  <block type="function_call_param" id=":LiR1SnDjDcBWa5`?5js">
+                     <field name="NAME">"¡Hola, mundo!"</field>
+                  </block>
+               </value>
+            </block>
+         </statement>
+      </block>
+   </xml>
+
    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
       crossorigin="anonymous"></script>
@@ -265,10 +270,11 @@
          trashcan: true
       });
 
-      loadXMLDoc("./static/blockly_tests/test.xml", function (xmlDoc) {
-         document.body.appendChild(xmlDoc.getElementsByTagName("xml")[0]);
-         Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'), workspacePlayground);
-      });
+      Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'), workspacePlayground);
+      // loadXMLDoc("./static/blockly_tests/hola.xml", function (xmlDoc) {
+      //    document.body.appendChild(xmlDoc.getElementsByTagName("xml")[0]);
+      //    Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'), workspacePlayground);
+      // });
 
       function myUpdateFunction(event) {
          console.log('myUpdateFunction');
@@ -281,6 +287,7 @@
       function executeCode() {
          console.log('Execute code');
       }
+      var xmlDoc2;
 
       $(function () {
          // $("button").click(function () {
@@ -301,15 +308,22 @@
          //       }
          //    });
          // });
-
+            
          $(".dropdown-item").click(function (e) {
             e.preventDefault();
+            workspacePlayground.clear();
+
             var id = $(this).attr('id');
-            var filename = './static/blockly_tests/' + id + '.xml';
+            var filename = './static/blockly_tests/' + id + '_.xml';
             console.log(filename);
 
             loadXMLDoc(filename, function (xmlDoc) {
+               xmlDoc2 = xmlDoc
+               document.body.removeChild(document.getElementById("startBlocks"));
+               console.log(xmlDoc);
+               console.log(xmlDoc.getElementsByTagName("xml")[0]);
                document.body.appendChild(xmlDoc.getElementsByTagName("xml")[0]);
+               console.log(xmlDoc.getElementsByTagName("xml")[0]);
                Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'), workspacePlayground);
             });
          });
