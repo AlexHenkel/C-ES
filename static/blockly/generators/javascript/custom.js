@@ -305,7 +305,7 @@ Blockly.JavaScript['assignment'] = function (block) {
 }
 
 Blockly.JavaScript['value'] = function (block) {
-   var value = block.getFieldValue('VALOR');
+   var value = block.getFieldValue('VALUE');
    console.log('value', value);
    return value;
 }
@@ -365,5 +365,14 @@ Blockly.JavaScript['while'] = function (block) {
    var condicion = Blockly.JavaScript.statementToCode(block, 'CONDITION').trim();
    var accion = Blockly.JavaScript.statementToCode(block, 'ACTION');
    var code = '<span class="reserved-word">mientras sucede</span> (' + condicion + ') <span class="reserved-word">realiza</span> { \n' + accion + '}\n';
+   return code;
+};
+
+
+// ********** Funciones predefinidas **********
+
+Blockly.JavaScript['read'] = function (block) {
+   var value = block.getFieldValue('VALUE');
+   var code = '<span class="reserved-word">leer</span>(' + value + ')';
    return code;
 };

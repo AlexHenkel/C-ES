@@ -257,7 +257,7 @@ Blockly.Blocks['assignment'] = {
 Blockly.Blocks['value'] = {
    init: function () {
       this.appendDummyInput()
-         .appendField(new Blockly.FieldTextInput("ValorOVariable"), "VALOR");
+         .appendField(new Blockly.FieldTextInput("ValorOVariable"), "VALUE");
       this.setOutput(true, ['EXPRESSION', 'EXP'])
       this.setColour("#FFDE00");
    }
@@ -353,5 +353,20 @@ Blockly.Blocks['while'] = {
       this.setColour("#E183E8");
       this.setTooltip('');
       this.setHelpUrl('http://www.example.com/');
+   }
+};
+
+
+// ********** Funciones predefinidas **********
+
+Blockly.Blocks['read'] = {
+   init: function () {
+      this.appendDummyInput()
+         .appendField("leer")
+         .appendField(new Blockly.FieldTextInput("nombreVariable"), "VALUE");
+      this.setPreviousStatement(true, null);
+      this.setNextStatement(true, null);
+      this.setColour("#6BE8F5");
+      
    }
 };
