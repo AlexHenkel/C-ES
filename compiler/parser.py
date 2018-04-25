@@ -985,9 +985,13 @@ else:
             print("Compiling code...")
             result = parser.parse(s)
             print("Compiling success!")
-            executeVM(quads_list, global_variables_dict, function_dict,
+            result = executeVM(quads_list, global_variables_dict, function_dict,
                       constant_dict, curr_func_temp_vars)
             print("Program finished")
+            print(result)
+            for res in result:
+               print(res)
+
         except Exception as error:
             print(error.__class__.__name__ + ': ' + str(error))
 
@@ -1009,11 +1013,12 @@ def runParserWithFile(filename):
         try:
             print("Compiling code...")
             result = parser.parse(s)
+            print("Compiling success!")
+            result = executeVM(quads_list, global_variables_dict,
+                  function_dict, constant_dict, curr_func_temp_vars)
+            return result
         except Exception as error:
             return 'Error: ' + str(error)
-
-        executeVM(quads_list, global_variables_dict,
-                  function_dict, constant_dict, curr_func_temp_vars)
 
     # Program finished
     print("runParserWithFile finished")
