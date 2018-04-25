@@ -176,7 +176,7 @@ Blockly.JavaScript['function_without_params'] = function (block) {
 Blockly.JavaScript['init_local_variables'] = function (block) {
    console.log('init_local_variables');
    var variables = Blockly.JavaScript.statementToCode(block, 'VARIABLES');
-   var code = 'variables: \n';
+   var code = '<span class="reserved-word-2">variables:</span>\n';
 
    if (!block.nextConnection.targetConnection) {
       code = '';
@@ -196,9 +196,9 @@ Blockly.JavaScript['declare_local_variable'] = function (block) {
    console.log('declare_local_variable', inputs, name, type);
 
    if (inputs != "") {
-      code = type + ' ' + name + ', ' + inputs + ';\n';
+      code = "<span class='reserved-word-3'>" + type + "</span>" + ' ' + name + ', ' + inputs + ';\n';
    } else {
-      code = type + ' ' + name + ';\n';
+      code = "<span class='reserved-word-3'>" + type + "</span>" + ' ' + name + ';\n';
    }
    return code;
 };
@@ -227,9 +227,9 @@ Blockly.JavaScript['declare_local_array'] = function (block) {
    console.log('declare_local_array', inputs, name, type, size);
 
    if (inputs != "") {
-      code = 'lista de ' + type + ' de ' + size + ' ' + name + ', ' + inputs + ';\n';
+      code = '<span class="reserved-word-3">lista</span> de ' + "<span class='reserved-word-3'>" + type + "</span>" + ' de ' + size + ' ' + name + ', ' + inputs + ';\n';
    } else {
-      code = 'lista de ' + type + ' de ' + size + ' ' + name + ';\n';
+      code = '<span class="reserved-word-3">lista</span> de ' + "<span class='reserved-word-3'>" + type + "</span>" + ' de ' + size + ' ' + name + ';\n';
    }
 
    return code;
