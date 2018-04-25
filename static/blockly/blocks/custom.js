@@ -262,3 +262,14 @@ Blockly.Blocks['if'] = {
       this.setColour("#E183E8");
    }
 };
+
+Blockly.Blocks['else'] = {
+   init: function () {
+      this.appendStatementInput("ACTION")
+         .setCheck(null)
+         .appendField("Si no sucede");
+      this.setPreviousStatement(true, null);
+      this.setNextStatement(true, null);
+      this.setColour("#E183E8");
+   }
+};

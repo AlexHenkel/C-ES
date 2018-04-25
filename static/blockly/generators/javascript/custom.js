@@ -299,3 +299,9 @@ Blockly.JavaScript['if'] = function (block) {
    var code = 'si sucede (' + condition + ') realiza {\n' + action + '\n}\n';
    return code;
 };
+
+Blockly.JavaScript['else'] = function (block) {
+   var accion = Blockly.JavaScript.statementToCode(block, 'ACCION');
+   var code = 'no sucede ' + '{\n' + accion + '}\n';
+   return code;
+};
