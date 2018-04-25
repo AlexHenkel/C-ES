@@ -1006,6 +1006,7 @@ def runParserWithFile(filename):
     f = open(filename, "r")
     s = f.read()
     f.close()
+    result = ''
 
     # Parse text if found
     if s:
@@ -1016,15 +1017,9 @@ def runParserWithFile(filename):
             print("Compiling success!")
             result = executeVM(quads_list, global_variables_dict,
                   function_dict, constant_dict, curr_func_temp_vars)
-            return result
         except Exception as error:
             return 'Error: ' + str(error)
 
     # Program finished
-    print("runParserWithFile finished")
-
-    result = ''
-    for idx, val in enumerate(quads_list):
-        result += '(' + str(idx) + ', ' + str(val) + ')\n'
-
+    print("runParserWithFile finished", result)
     return result
