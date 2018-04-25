@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="./../static/css/bootstrap.min.css">
     <link rel="stylesheet" href="./../static/css/custom.css">
     
-    <title>Bloques de C-ES</title>
+    <title>Bloques | C-ES</title>
     <script src="./../static/blockly/blockly_compressed.js"></script>
     <script src="./../static/blockly/blocks_compressed.js"></script>
     <script src="./../static/blockly/msg/js/en.js"></script>
@@ -45,16 +45,36 @@
             </div>
         </div>
 
-        <div class="row flex-column-reverse flex-sm-row">
-            <div class="col-sm-6 text-center made-by">
-                <p>⚒ por:
-                    <br>Alejandro Henkel A01270874
-                    <br>Fernando López Martínez A01172527
+        <div class="row hide-xs">
+            <div class="col-sm-4 text-center">
+                <a class="btn btn-light execute-code" href="/manual" target="_blank">Manual del lenguaje</a>
+            </div>
+            <div class="col-sm-4 text-center made-by">
+                <p><span class="emoji">⚒</span> por:
+                    <br>Alejandro Henkel
+                    <br>Fernando López Martínez
                 </p>
             </div>
 
-            <div class="col-sm-2 offset-sm-2 text-center">
+            <div class="col-sm-4 text-center">
                 <button type="button" class="btn btn-light execute-code" onclick="executeCode()">Ejecutar código</button>
+            </div>
+        </div>
+
+        <div class="row hide-md">
+            <div class="col-sm-4 text-center">
+                <button type="button" class="btn btn-light execute-code" onclick="executeCode()">Ejecutar código</button>
+            </div>
+
+            <div class="col-sm-4 text-center">
+               <a class="btn btn-light execute-code" href="/manual" target="_blank">Manual del lenguaje</a>
+            </div>
+
+            <div class="col-sm-4 text-center made-by">
+                <p><span class="emoji">⚒</span> por:
+                    <br>Alejandro Henkel A01270874
+                    <br>Fernando López Martínez A01172527
+                </p>
             </div>
         </div>
     </div>
