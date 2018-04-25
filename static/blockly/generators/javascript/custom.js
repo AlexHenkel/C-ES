@@ -254,9 +254,18 @@ Blockly.JavaScript['one_more_local_array'] = function (block) {
 
 Blockly.JavaScript['assignment'] = function (block) {
    var name = block.getFieldValue('NAME');
-   code = '';
-   return name + ' = ';
+   var inputs = Blockly.JavaScript.statementToCode(block, 'INPUT').trim();
+   return name + ' = ' + inputs;
 }
+
+Blockly.JavaScript['value'] = function (block) {
+   var value = block.getFieldValue('VALOR');
+   console.log('value', value);
+   return value;
+}
+
+
+// ********** Expresión **********
 
 Blockly.JavaScript['expression_simple'] = function (block) {
    code = '';

@@ -202,6 +202,15 @@ Blockly.Blocks['assignment'] = {
    }
 };
 
+Blockly.Blocks['value'] = {
+   init: function () {
+      this.appendDummyInput()
+         .appendField(new Blockly.FieldTextInput("Valor"), "VALOR");
+      this.setOutput(true, 'EXPRESSION')
+      this.setColour("#FFDE00");
+   }
+};
+
 
 // ********** Expresión **********
 
