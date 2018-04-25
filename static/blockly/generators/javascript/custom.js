@@ -403,3 +403,10 @@ Blockly.JavaScript['remove_last_to_list'] = function (block) {
    var code = '<span class="reserved-word">quitar ultimo de</span> ' + list + '()';
    return code;
 };
+
+Blockly.JavaScript['random'] = function (block) {
+   var inf = block.getFieldValue('INF');
+   var sup = block.getFieldValue('SUP');
+   var code = '<span class="reserved-word">numero aleatorio</span>(' + inf + ', ' + sup + ')';
+   return code;
+};

@@ -419,3 +419,16 @@ Blockly.Blocks['remove_last_to_list'] = {
       this.setColour("#6BE8F5");
    }
 };
+
+Blockly.Blocks['random'] = {
+   init: function () {
+      this.appendDummyInput()
+         .appendField("número aleatorio con límite inferior:")
+         .appendField(new Blockly.FieldTextInput("variableONumero"), "INF")
+         .appendField("y límite superior:")
+         .appendField(new Blockly.FieldTextInput("variableONumero"), "SUP");
+      this.setPreviousStatement(true, null);
+      this.setNextStatement(true, null);
+      this.setColour("#6BE8F5");
+   }
+};
