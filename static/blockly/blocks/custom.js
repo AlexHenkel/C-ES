@@ -258,6 +258,20 @@ Blockly.Blocks['if'] = {
          .setCheck(null)
          .appendField("realiza ");
       this.setPreviousStatement(true, null);
+      this.setNextStatement(true, ['IF_ELSE', 'ELSE']);
+      this.setColour("#E183E8");
+   }
+};
+
+Blockly.Blocks['if_else'] = {
+   init: function () {
+      this.appendValueInput("CONTITION")
+         .setCheck(null)
+         .appendField("o si sucede");
+      this.appendStatementInput("ACTION")
+         .setCheck(null)
+         .appendField("realiza ");
+      this.setPreviousStatement(true, 'IF_ELSE');
       this.setNextStatement(true, null);
       this.setColour("#E183E8");
    }
@@ -267,8 +281,8 @@ Blockly.Blocks['else'] = {
    init: function () {
       this.appendStatementInput("ACTION")
          .setCheck(null)
-         .appendField("Si no sucede");
-      this.setPreviousStatement(true, null);
+         .appendField("Si no sucede realiza");
+      this.setPreviousStatement(true, 'ELSE');
       this.setNextStatement(true, null);
       this.setColour("#E183E8");
    }

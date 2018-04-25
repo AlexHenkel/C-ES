@@ -300,8 +300,17 @@ Blockly.JavaScript['if'] = function (block) {
    return code;
 };
 
+Blockly.JavaScript['if_else'] = function (block) {
+   var condition = Blockly.JavaScript.statementToCode(block, 'CONTITION').trim();
+   var action = Blockly.JavaScript.statementToCode(block, 'ACTION');
+   console.log('if', condition, action);
+
+   var code = 'o si sucede (' + condition + ') realiza {\n' + action + '\n}\n';
+   return code;
+};
+
 Blockly.JavaScript['else'] = function (block) {
-   var accion = Blockly.JavaScript.statementToCode(block, 'ACCION');
-   var code = 'no sucede ' + '{\n' + accion + '}\n';
+   var accion = Blockly.JavaScript.statementToCode(block, 'ACTION');
+   var code = 'no sucede ' + '{\n' + accion + '\n}\n';
    return code;
 };
