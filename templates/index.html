@@ -52,11 +52,23 @@
             <a class="btn btn-light execute-code" href="/manual" target="_blank">Manual del lenguaje</a>
          </div>
          <div class="col-sm-4 text-center made-by">
-            <p>
+            <div class="dropdown">
+               <button class="btn dropdown-toggle execute-code" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                  aria-expanded="false">
+                  Ejemplos
+               </button>
+               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" href="#" id="factorial_iterativo">Factorial de un número (versión iterativa)</a>
+                  <a class="dropdown-item" href="#" id="factorial_recursivo">Factorial de un número (versión recursiva)</a>
+                  <a class="dropdown-item" href="#" id="fibonacci_iterativo">Fibonacci de un número (versión iterativa)</a>
+                  <a class="dropdown-item" href="#" id="fibonacci_recursivo">Fibonacci de un número (versión recursiva)</a>
+               </div>
+            </div>
+            <!-- <p>
                <span class="emoji">⚒</span> por:
                <br>Alejandro Henkel
                <br>Fernando López Martínez
-            </p>
+            </p> -->
          </div>
 
          <div class="col-sm-4 text-center">
@@ -249,22 +261,34 @@
       }
 
       $(function () {
-         $("button").click(function () {
-            console.log('submit');
-            var code = jQuery("textarea").val();
-            $.ajax({
-               url: "https://c-es.herokuapp.com/execute",
-               method: "POST",
-               contentType: "text/plain",
-               data: code,
-               success: function (data) {
-                  $('#myModal .modal-body').text(data);
-                  $('#myModal').modal({ show: true });
-               },
-               error: function (erorr) {
-                  $('#myModal .modal-body').text(error);
-                  $('#myModal').modal({ show: true });
-               }
+         // $("button").click(function () {
+         //    console.log('submit');
+         //    var code = jQuery("textarea").val();
+         //    $.ajax({
+         //       url: "https://c-es.herokuapp.com/execute",
+         //       method: "POST",
+         //       contentType: "text/plain",
+         //       data: code,
+         //       success: function (data) {
+         //          $('#myModal .modal-body').text(data);
+         //          $('#myModal').modal({ show: true });
+         //       },
+         //       error: function (erorr) {
+         //          $('#myModal .modal-body').text(error);
+         //          $('#myModal').modal({ show: true });
+         //       }
+         //    });
+         // });
+
+         $(".dropdown-item").click(function (e) {
+            e.preventDefault();
+            var id = $(this).attr('id');
+            var filename = './static/blockly_tests/' + id + '.xml';
+            console.log(filename);
+
+            loadXMLDoc(filename, function (xmlDoc) {
+               document.body.appendChild(xmlDoc.getElementsByTagName("xml")[0]);
+               Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'), workspacePlayground);
             });
          });
       });

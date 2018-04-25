@@ -53,6 +53,7 @@ h1 strong {
 
 .execute-code {
    background-color: #fff;
+   border: none;
    color: rgb(18, 161, 197) !important;
 }
 
