@@ -45,7 +45,7 @@ def executeVM(quadruples, global_variables_dict, function_dict, constant_dict, c
     quadruplesLen = len(quadruples)
     execution_memory = Memory(global_variables_dict,
                               constant_dict, curr_func_temp_vars)
-    prints = []
+
     # Start executing quadruples
     while instructionPointer < quadruplesLen:
         curr_quad = quadruples[instructionPointer]
@@ -214,7 +214,6 @@ def executeVM(quadruples, global_variables_dict, function_dict, constant_dict, c
                         execution_memory, param, curr_operation)
                     params.append(value)
             print "".join(map(str, params))
-            prints.append("".join(map(str, params)))
 
         # READ COMMAND
         elif curr_operation == 'leer':
@@ -364,5 +363,3 @@ def executeVM(quadruples, global_variables_dict, function_dict, constant_dict, c
 
         # Advance instructor pointer
         instructionPointer += 1
-     
-    return prints

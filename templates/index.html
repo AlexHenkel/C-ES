@@ -230,12 +230,10 @@
 
         $(function () {
             $("button").click(function () {
-               var url = "https://c-es.herokuapp.com/execute";
-               //var url = "localhost:5000/execute";
                 console.log('submit');
                 var code = jQuery("textarea").val();
                 $.ajax({
-                    url: url,
+                    url: "https://c-es.herokuapp.com/execute",
                     method: "POST",
                     contentType: "text/plain",
                     data: code,
