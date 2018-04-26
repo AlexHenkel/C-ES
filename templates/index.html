@@ -271,10 +271,19 @@
       });
 
       Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'), workspacePlayground);
+      var leerCommand = false;
 
       function myUpdateFunction(event) {
          console.log('myUpdateFunction');
          var code = Blockly.JavaScript.workspaceToCode(workspacePlayground);
+
+         if (/leer/.test(code)) {
+            console.log('leer comando encontrado');
+            leerCommand = true;
+         } else {
+            leerCommand = false;
+         }
+
          document.getElementById('textarea').innerHTML = code;
       }
 
@@ -284,6 +293,12 @@
          console.log('Execute code');
          var url = "https://c-es.herokuapp.com/execute";
          //var url = "http://localhost:5000/execute";
+
+         if (leerCommand) {
+            $('#myModal .modal-body').text("Si usas el comando 'leer' no podemos ejecutar tu código.");
+            $('#myModal').modal({ show: true });
+            return;
+         }
 
          var code = $("#textarea")[0].innerText;
          console.log('code to submit', code);
