@@ -301,7 +301,7 @@
                   console.log(data[i]);
                }
 
-               $('#myModal .modal-body').text(text);
+               $('#myModal .modal-body').html(text);
                $('#myModal').modal({ show: true });
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
