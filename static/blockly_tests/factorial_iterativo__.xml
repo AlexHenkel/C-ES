@@ -101,7 +101,7 @@
                                                    <block type="return" id="p},`7!a4Oue_EqDdOAO`">
                                                       <value name="RETURN">
                                                          <block type="value" id="pRNf`jhdd%{OQ?)/~k].">
-                                                            <field name="VALUE">contador</field>
+                                                            <field name="VALUE">resultado</field>
                                                          </block>
                                                       </value>
                                                    </block>
