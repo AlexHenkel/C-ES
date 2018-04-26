@@ -4,7 +4,7 @@ from optparse import OptionParser
 import ply.yacc as yacc
 from random import randint
 from semantic_cube import types, short_types, get_semantic_result
-from lex import tokens
+from lex import tokens, restartLineno
 from memory import resetMemory, get_memory_address, reset_local_addresses
 from errors import *
 from virtual_machine import executeVM
@@ -997,7 +997,7 @@ def reset():
 
 def runParserWithFile(filename):
     reset()
-    
+
     # Open and read input
     f = open(filename, "r")
     s = f.read()
@@ -1007,6 +1007,7 @@ def runParserWithFile(filename):
     if s:
         #result = parser.parse(s)
         try:
+            #parser = yacc.yacc()
             print("Compiling code...")
             result = parser.parse(s)
             print("Compiling success!")
@@ -1014,7 +1015,8 @@ def runParserWithFile(filename):
                       constant_dict, curr_func_temp_vars)
             print("Program finished\n")
         except Exception as error:
-            result = error.__class__.__name__ + ': ' + str(error) + '\n'
+            result = [error.__class__.__name__ + ': ' + str(error)]
             print(result)
-
+    
+    restartLineno()
     return result

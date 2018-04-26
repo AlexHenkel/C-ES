@@ -118,3 +118,9 @@ def t_error(t):
 
 # Build the lexer
 lexer = lex.lex()
+
+def restartLineno():
+   print("restartLineno")
+   global lexer
+   lexer.lineno = 1
+   
