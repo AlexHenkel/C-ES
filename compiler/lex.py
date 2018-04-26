@@ -120,7 +120,6 @@ def t_error(t):
 lexer = lex.lex()
 
 def restartLineno():
-   print("restartLineno")
    global lexer
    lexer.lineno = 1
    
