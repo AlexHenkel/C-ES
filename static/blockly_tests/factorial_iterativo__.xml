@@ -1,0 +1,244 @@
+<xml id="startBlocks" style="display: none" class="invisible">
+   <variables></variables>
+   <block type="programa" id="1/?QTTaKFEL92n}|[MAF" x="10" y="70">
+      <statement name="VAR_AND_FUNCS">
+         <block type="init_functions" id="Cw{xdd|!.IR#{S~,mc1w">
+            <next>
+               <block type="function_with_params" id="a|=(6`BRr+^JR0^V%mp9">
+                  <field name="TYPE">numero</field>
+                  <field name="NAME">factorial</field>
+                  <value name="PARAMETERS">
+                     <block type="function_param" id="w$7/y`SFdk*bd/k|xp(:">
+                        <field name="TYPE">numero</field>
+                        <field name="NAME">n</field>
+                     </block>
+                  </value>
+                  <statement name="BODY_FUNCTION">
+                     <block type="init_local_variables" id="@_{NnUW;R9,Qa!XZ9nub">
+                        <next>
+                           <block type="declare_local_variable" id="|*~h!8_CJy;$10zIMG9l">
+                              <field name="TYPE">numero</field>
+                              <field name="NAME">resultado</field>
+                              <value name="INPUT">
+                                 <block type="one_more_local_variable" id="=*{[tb2n+D1cjkpssAb9">
+                                    <field name="NAME">contador</field>
+                                 </block>
+                              </value>
+                              <next>
+                                 <block type="assignment" id="p)S=SaQ8/NcxO2Bw/+_G">
+                                    <field name="NAME">resultado</field>
+                                    <value name="INPUT">
+                                       <block type="value" id="e51s-I{[KgJu89Q6@,oV">
+                                          <field name="VALUE">1</field>
+                                       </block>
+                                    </value>
+                                    <next>
+                                       <block type="assignment" id="*o1_n/D5KKwcizD+}U78">
+                                          <field name="NAME">contador</field>
+                                          <value name="INPUT">
+                                             <block type="value" id="/yA[AFFUeBq^z)J5}Tlt">
+                                                <field name="VALUE">1</field>
+                                             </block>
+                                          </value>
+                                          <next>
+                                             <block type="while" id="_PY%TcqKQ$/}Gb=[p#;+">
+                                                <value name="CONDITION">
+                                                   <block type="expression_compound" id="Wcpl0}+g%Rm1moUs.x7t">
+                                                      <field name="TYPE">&lt;=</field>
+                                                      <value name="EXP1">
+                                                         <block type="value" id=",vvL_XyNwoDv]@G-yepa">
+                                                            <field name="VALUE">contador</field>
+                                                         </block>
+                                                      </value>
+                                                      <value name="EXP2">
+                                                         <block type="value" id="`IPR}3v2diNaV1?nvKCE">
+                                                            <field name="VALUE">n</field>
+                                                         </block>
+                                                      </value>
+                                                   </block>
+                                                </value>
+                                                <statement name="ACTION">
+                                                   <block type="assignment" id="6f`S*5Gchjv1FhByUV4X">
+                                                      <field name="NAME">resultado</field>
+                                                      <value name="INPUT">
+                                                         <block type="expression_compound" id="N+k!_o?.8$UnYd(tIEl^">
+                                                            <field name="TYPE">*</field>
+                                                            <value name="EXP1">
+                                                               <block type="value" id="=CvPQw04,wq@hxl[~aA|">
+                                                                  <field name="VALUE">resultado</field>
+                                                               </block>
+                                                            </value>
+                                                            <value name="EXP2">
+                                                               <block type="value" id=".BSOU!gsJFZ?,[_,E7m~">
+                                                                  <field name="VALUE">contador</field>
+                                                               </block>
+                                                            </value>
+                                                         </block>
+                                                      </value>
+                                                      <next>
+                                                         <block type="assignment" id="E5g0CmXXaD+fiXjU!|5r">
+                                                            <field name="NAME">contador</field>
+                                                            <value name="INPUT">
+                                                               <block type="expression_compound" id="[c@u;dWEe]6]_~?cO,V@">
+                                                                  <field name="TYPE">+</field>
+                                                                  <value name="EXP1">
+                                                                     <block type="value" id="zfEg#A}3}kX{-i,1kXf]">
+                                                                        <field name="VALUE">contador</field>
+                                                                     </block>
+                                                                  </value>
+                                                                  <value name="EXP2">
+                                                                     <block type="value" id="oI);uFgOB6.Ttf#hg2@p">
+                                                                        <field name="VALUE">1</field>
+                                                                     </block>
+                                                                  </value>
+                                                               </block>
+                                                            </value>
+                                                         </block>
+                                                      </next>
+                                                   </block>
+                                                </statement>
+                                                <next>
+                                                   <block type="return" id="p},`7!a4Oue_EqDdOAO`">
+                                                      <value name="RETURN">
+                                                         <block type="value" id="pRNf`jhdd%{OQ?)/~k].">
+                                                            <field name="VALUE">contador</field>
+                                                         </block>
+                                                      </value>
+                                                   </block>
+                                                </next>
+                                             </block>
+                                          </next>
+                                       </block>
+                                    </next>
+                                 </block>
+                              </next>
+                           </block>
+                        </next>
+                     </block>
+                  </statement>
+               </block>
+            </next>
+         </block>
+      </statement>
+      <statement name="MAIN">
+         <block type="print" id=";o[G/;.vRif1cIU6fp{}">
+            <value name="PARAMETERS">
+               <block type="function_call_param" id="(I5gRYriVa4)]mS:qfv)">
+                  <field name="NAME">"1! = "</field>
+                  <value name="PARAMETERS">
+                     <block type="assign_call_function_with_params" id="vaztcBzON%WS503jq(I5">
+                        <field name="NAME">factorial</field>
+                        <value name="PARAMETERS">
+                           <block type="function_call_param" id="LSSOO9p9^|SU_IA{Io|V">
+                              <field name="NAME">1</field>
+                           </block>
+                        </value>
+                     </block>
+                  </value>
+               </block>
+            </value>
+            <next>
+               <block type="print" id="VMK)cwB[G{$e;u.f4rd[">
+                  <value name="PARAMETERS">
+                     <block type="function_call_param" id="1Gu{gyM!:c$ZWs#Z@vi_">
+                        <field name="NAME">"3! = "</field>
+                        <value name="PARAMETERS">
+                           <block type="assign_call_function_with_params" id="2+8YuQ%0YK9[d$[7n]p2">
+                              <field name="NAME">factorial</field>
+                              <value name="PARAMETERS">
+                                 <block type="function_call_param" id="B~x.iZ!La;4jX}15$8gC">
+                                    <field name="NAME">3</field>
+                                 </block>
+                              </value>
+                           </block>
+                        </value>
+                     </block>
+                  </value>
+                  <next>
+                     <block type="print" id="8A/=0P%tnt.JpJW@%jEC">
+                        <value name="PARAMETERS">
+                           <block type="function_call_param" id="sy7+za@eg0c@jzVoBWi!">
+                              <field name="NAME">"5! = "</field>
+                              <value name="PARAMETERS">
+                                 <block type="assign_call_function_with_params" id="3F*d-Yx0.,%J~|CiUMs!">
+                                    <field name="NAME">factorial</field>
+                                    <value name="PARAMETERS">
+                                       <block type="function_call_param" id="5FYcFjFUPc{2@S8:!Zqw">
+                                          <field name="NAME">5</field>
+                                       </block>
+                                    </value>
+                                 </block>
+                              </value>
+                           </block>
+                        </value>
+                        <next>
+                           <block type="print" id="KWJZPYs:ZMe%ZN?njQ?_">
+                              <value name="PARAMETERS">
+                                 <block type="function_call_param" id="o9HSjm*2}Bvn5$Wo)SF2">
+                                    <field name="NAME">"7! = "</field>
+                                    <value name="PARAMETERS">
+                                       <block type="assign_call_function_with_params" id="x+J3Mh79eAmF5qaNzu_p">
+                                          <field name="NAME">factorial</field>
+                                          <value name="PARAMETERS">
+                                             <block type="function_call_param" id=",c0y#O?Ony%NQOu_xmK4">
+                                                <field name="NAME">7</field>
+                                             </block>
+                                          </value>
+                                       </block>
+                                    </value>
+                                 </block>
+                              </value>
+                              <next>
+                                 <block type="print" id="$XqR9/P%0HJA:Gd+X3uM">
+                                    <value name="PARAMETERS">
+                                       <block type="function_call_param" id="XUOr6??[j)Qy7DTge9n*">
+                                          <field name="NAME">"10! = "</field>
+                                          <value name="PARAMETERS">
+                                             <block type="assign_call_function_with_params" id=";/j:z1+sml|J/3k1mHpR">
+                                                <field name="NAME">factorial</field>
+                                                <value name="PARAMETERS">
+                                                   <block type="function_call_param" id="?bmfm|V`x1PzwZ.}*n?o">
+                                                      <field name="NAME">10</field>
+                                                   </block>
+                                                </value>
+                                             </block>
+                                          </value>
+                                       </block>
+                                    </value>
+                                    <next>
+                                       <block type="comment" id="OuM@[VMB)F.cttNSTGKP">
+                                          <field name="VALUE">1! = 1</field>
+                                          <next>
+                                             <block type="comment" id="2,yiAIzyiki{t~o!=4W]">
+                                                <field name="VALUE">3! = 6</field>
+                                                <next>
+                                                   <block type="comment" id="LTXNmRYj6)hOc_eIiE1?">
+                                                      <field name="VALUE">5! = 120</field>
+                                                      <next>
+                                                         <block type="comment" id="{;7:Glty.WaTD}{RWUdC">
+                                                            <field name="VALUE">7! = 5040</field>
+                                                            <next>
+                                                               <block type="comment" id="SxpOwA`Ko$|orOBWY~){">
+                                                                  <field name="VALUE">10! = 3628800</field>
+                                                               </block>
+                                                            </next>
+                                                         </block>
+                                                      </next>
+                                                   </block>
+                                                </next>
+                                             </block>
+                                          </next>
+                                       </block>
+                                    </next>
+                                 </block>
+                              </next>
+                           </block>
+                        </next>
+                     </block>
+                  </next>
+               </block>
+            </next>
+         </block>
+      </statement>
+   </block>
+</xml>
