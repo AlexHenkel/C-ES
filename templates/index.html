@@ -271,10 +271,6 @@
       });
 
       Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'), workspacePlayground);
-      // loadXMLDoc("./static/blockly_tests/hola.xml", function (xmlDoc) {
-      //    document.body.appendChild(xmlDoc.getElementsByTagName("xml")[0]);
-      //    Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'), workspacePlayground);
-      // });
 
       function myUpdateFunction(event) {
          console.log('myUpdateFunction');
@@ -289,8 +285,8 @@
          var url = "https://c-es.herokuapp.com/execute";
          //var url = "http://localhost:5000/execute";
 
-         var code = jQuery("textarea").val();
-
+         var code = $("#textarea")[0].innerText;
+         console.log('code to submit', code);
          $.ajax({
             url: url,
             method: "POST",
@@ -316,25 +312,6 @@
       }
 
       $(function () {
-         // $("button").click(function () {
-         //    console.log('submit');
-         //    var code = jQuery("textarea").val();
-         //    $.ajax({
-         //       url: "https://c-es.herokuapp.com/execute",
-         //       method: "POST",
-         //       contentType: "text/plain",
-         //       data: code,
-         //       success: function (data) {
-         //          $('#myModal .modal-body').text(data);
-         //          $('#myModal').modal({ show: true });
-         //       },
-         //       error: function (erorr) {
-         //          $('#myModal .modal-body').text(error);
-         //          $('#myModal').modal({ show: true });
-         //       }
-         //    });
-         // });
-            
          $(".dropdown-item").click(function (e) {
             e.preventDefault();
             workspacePlayground.clear();
