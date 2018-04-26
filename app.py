@@ -54,6 +54,9 @@ def executeCode():
     if not header == 'text/plain':
         return jsonify({ 'error': 'No correct header sent.' }), 400
     
+    print('***** request.data *****')
+    print(request.data)
+    print('***************')
     fileName = 'code.txt'
     f = open(fileName, 'w')
     f.write(request.data)
@@ -61,8 +64,8 @@ def executeCode():
     codeResult = runParserWithFile(fileName)
     #codeResult = ''
     print('codeResult', codeResult)
-    return codeResult, 200
-    #return jsonify({ 'result': result }), 200
+    #return codeResult, 200
+    return jsonify({ 'result': codeResult }), 200
 
 if __name__ == '__main__':
     app.run(debug=True,host='0.0.0.0')

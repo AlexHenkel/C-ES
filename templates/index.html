@@ -286,8 +286,34 @@
 
       function executeCode() {
          console.log('Execute code');
+         var url = "https://c-es.herokuapp.com/execute";
+         //var url = "http://localhost:5000/execute";
+
+         var code = jQuery("textarea").val();
+
+         $.ajax({
+            url: url,
+            method: "POST",
+            crossDomain: true,
+            contentType: "text/plain",
+            data: code,
+            success: function (data) {
+               var text = '';
+
+               for (var i in data) {
+                  text += "<p>" + data[i] + "</p>";
+                  console.log(data[i]);
+               }
+
+               $('#myModal .modal-body').text(data);
+               $('#myModal').modal({ show: true });
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+               $('#myModal .modal-body').text("Un error ocurrió");
+               $('#myModal').modal({ show: true });
+            }
+         });
       }
-      var xmlDoc2;
 
       $(function () {
          // $("button").click(function () {
@@ -318,7 +344,6 @@
             console.log(filename);
 
             loadXMLDoc(filename, function (xmlDoc) {
-               xmlDoc2 = xmlDoc
                document.body.removeChild(document.getElementById("startBlocks"));
                console.log(xmlDoc);
                console.log(xmlDoc.getElementsByTagName("xml")[0]);

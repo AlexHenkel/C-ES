@@ -4,3 +4,9 @@
 compiler/**/*.pyc
 compiler/**/*.out
 compiler/parsetab.py
+
+.Python
+bin/
+include/
+lib/
+pip-selfcheck.json

@@ -877,7 +877,7 @@ def p_empty(p):
 
 
 # Build the parser
-parser = yacc.yacc()
+#parser = yacc.yacc()
 
 # Setup command line parser
 cmd_parser = OptionParser()
@@ -945,54 +945,54 @@ def reset():
     jumps_else_if = []
     print_stack = []
 
-if options.tests:
-    test_files = glob.glob("./tests/test*.txt")
-    print('\n********** EXECUTING TESTS **********\n')
-    test_files.sort()
+# if options.tests:
+#     test_files = glob.glob("./tests/test*.txt")
+#     print('\n********** EXECUTING TESTS **********\n')
+#     test_files.sort()
 
-    for file_name in test_files:
-        #reset()
-        #parser = yacc.yacc()
-        f = open(file_name, "r")
-        name = file_name[8:-4]
-        description = f.readline()
-        print('***** ' + name + ': ' + description[3:-1] + '  *****')
+#     for file_name in test_files:
+#         #reset()
+#         #parser = yacc.yacc()
+#         f = open(file_name, "r")
+#         name = file_name[8:-4]
+#         description = f.readline()
+#         print('***** ' + name + ': ' + description[3:-1] + '  *****')
 
-        s = f.read()
+#         s = f.read()
 
-        if s:
-            try:
-                print("Compiling code...")
-                result = parser.parse(s)
-                print("Compiling success!")
-                executeVM(quads_list, global_variables_dict, function_dict,
-                      constant_dict, curr_func_temp_vars)
-            except Exception as error:
-                print(error.__class__.__name__ + ': ' + str(error))
+#         if s:
+#             try:
+#                 print("Compiling code...")
+#                 result = parser.parse(s)
+#                 print("Compiling success!")
+#                 executeVM(quads_list, global_variables_dict, function_dict,
+#                       constant_dict, curr_func_temp_vars)
+#             except Exception as error:
+#                 print(error.__class__.__name__ + ': ' + str(error))
 
-        # Program finished
-        print("***** " + name + " finished *****\n")
+#         # Program finished
+#         print("***** " + name + " finished *****\n")
 
-    print('********** TESTS FINISHED **********\n')
-else:
-    # Open and read input
-    f = open("input.txt", "r")
-    s = f.read()
+#     print('********** TESTS FINISHED **********\n')
+# else:
+#     # Open and read input
+#     f = open("input.txt", "r")
+#     s = f.read()
 
-    # Parse text if found
-    if s:
-        try:
-            print("Compiling code...")
-            result = parser.parse(s)
-            print("Compiling success!")
-            executeVM(quads_list, global_variables_dict, function_dict,
-                      constant_dict, curr_func_temp_vars)
-            print("Program finished")
-        except Exception as error:
-            print(error.__class__.__name__ + ': ' + str(error))
+#     # Parse text if found
+#     if s:
+#         try:
+#             print("Compiling code...")
+#             result = parser.parse(s)
+#             print("Compiling success!")
+#             executeVM(quads_list, global_variables_dict, function_dict,
+#                       constant_dict, curr_func_temp_vars)
+#             print("Program finished")
+#         except Exception as error:
+#             print(error.__class__.__name__ + ': ' + str(error))
 
-    # Program finished
-    # print("*")
+#     # Program finished
+#     # print("*")
 
 
 def runParserWithFile(filename):
@@ -1002,24 +1002,26 @@ def runParserWithFile(filename):
     f = open(filename, "r")
     s = f.read()
     f.close()
-
+    result = ''
     # Parse text if found
     if s:
         #result = parser.parse(s)
         try:
+            parser = yacc.yacc()
             print("Compiling code...")
             result = parser.parse(s)
+            print("Compiling success!")
+            result = executeVM(quads_list, global_variables_dict, function_dict,
+                      constant_dict, curr_func_temp_vars)
+            print("Program finished")
         except Exception as error:
-            return 'Error: ' + str(error)
-
-        executeVM(quads_list, global_variables_dict,
-                  function_dict, constant_dict, curr_func_temp_vars)
+            print(error.__class__.__name__ + ': ' + str(error))
 
     # Program finished
     print("runParserWithFile finished")
 
-    result = ''
-    for idx, val in enumerate(quads_list):
-        result += '(' + str(idx) + ', ' + str(val) + ')\n'
+   #  result = ''
+   #  for idx, val in enumerate(quads_list):
+   #      result += '(' + str(idx) + ', ' + str(val) + ')\n'
 
     return result
