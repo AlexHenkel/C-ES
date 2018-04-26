@@ -294,9 +294,8 @@
             contentType: "text/plain",
             data: code,
             success: function (data) {
-               dataResponse = data;
+               dataResponse = data.result;
                var text = '';
-
 
                for (var i in dataResponse) {
                   text += "<p>" + dataResponse[i] + "</p><br />";
