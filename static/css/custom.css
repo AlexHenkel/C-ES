@@ -64,6 +64,15 @@ pre {
    height: 85%;
 }
 
+.modal-dialog {
+   top: 15vh;
+   right: 25vw;
+}
+
+.modal-body p {
+   margin-bottom: 0;
+}
+
 .made-by {
    color: #eee;
    margin-top: 2rem;
@@ -101,6 +110,12 @@ xml {
    .code-wrapper legend {
       height: 10%;
    }
+
+   .modal-dialog {
+      right: 25vw;
+      width: 400px;
+   }
+
 }
 
 @media (max-width: 768px) { 
@@ -128,6 +143,11 @@ xml {
    
    .btn {
       margin-bottom: 3rem;
+   }
+
+   .modal-dialog {
+      right: 0;
+      width: auto;
    }
 }
 
