@@ -1,6 +1,28 @@
-// ¡Hola, mundo!
 programa
 
+  funciones:
+  numero funcion factorial(numero n) {
+    variables:
+    numero resultado, contador;
+    resultado = 1
+    contador = 1
+    mientras sucede (contador <= n) realiza {
+      resultado = resultado * contador
+      contador = contador + 1
+    }
+
+    devolver resultado
+  }
+
 {
-   imprimir("¡Hola, mundo!'")
+  imprimir("1! = ", factorial(1))
+  imprimir("3! = ", factorial(3))
+  imprimir("5! = ", factorial(5))
+  imprimir("7! = ", factorial(7))
+  imprimir("10! = ", factorial(10))
+  // 1! = 1
+  // 3! = 6
+  // 5! = 120
+  // 7! = 5040
+  // 10! = 3628800
 }
