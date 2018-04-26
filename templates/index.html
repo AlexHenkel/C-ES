@@ -279,7 +279,7 @@
       }
 
       workspacePlayground.addChangeListener(myUpdateFunction);
-
+      var dataResponse = '';
       function executeCode() {
          console.log('Execute code');
          var url = "https://c-es.herokuapp.com/execute";
@@ -294,13 +294,13 @@
             contentType: "text/plain",
             data: code,
             success: function (data) {
-               var json = JSON.parse(data);
+               dataResponse = data;
                var text = '';
 
 
-               for (var i in json) {
-                  text += "<p>" + json[i] + "</p><br />";
-                  console.log(json[i]);
+               for (var i in dataResponse) {
+                  text += "<p>" + dataResponse[i] + "</p><br />";
+                  console.log(dataResponse[i]);
                }
 
                console.log('text', text);
