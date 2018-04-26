@@ -5,7 +5,7 @@ import ply.yacc as yacc
 from random import randint
 from semantic_cube import types, short_types, get_semantic_result
 from lex import tokens
-from memory import get_memory_address, reset_local_addresses
+from memory import resetMemory, get_memory_address, reset_local_addresses
 from errors import *
 from virtual_machine import executeVM
 
@@ -877,7 +877,7 @@ def p_empty(p):
 
 
 # Build the parser
-#parser = yacc.yacc()
+parser = yacc.yacc()
 
 # Setup command line parser
 cmd_parser = OptionParser()
@@ -887,7 +887,8 @@ cmd_parser.add_option("-t", "--tests", action="store_true",
 (options, args) = cmd_parser.parse_args()
 
 def reset():
-    print("reset")
+    resetMemory()
+
     # Define global helpers
     global current_scope
     global current_var_type
@@ -994,10 +995,9 @@ def reset():
 #     # Program finished
 #     # print("*")
 
-
 def runParserWithFile(filename):
     reset()
-
+    
     # Open and read input
     f = open(filename, "r")
     s = f.read()
@@ -1007,21 +1007,14 @@ def runParserWithFile(filename):
     if s:
         #result = parser.parse(s)
         try:
-            parser = yacc.yacc()
             print("Compiling code...")
             result = parser.parse(s)
             print("Compiling success!")
             result = executeVM(quads_list, global_variables_dict, function_dict,
                       constant_dict, curr_func_temp_vars)
-            print("Program finished")
+            print("Program finished\n")
         except Exception as error:
-            print(error.__class__.__name__ + ': ' + str(error))
-
-    # Program finished
-    print("runParserWithFile finished")
-
-   #  result = ''
-   #  for idx, val in enumerate(quads_list):
-   #      result += '(' + str(idx) + ', ' + str(val) + ')\n'
+            result = error.__class__.__name__ + ': ' + str(error) + '\n'
+            print(result)
 
     return result

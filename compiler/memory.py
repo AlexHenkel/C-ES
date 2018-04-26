@@ -27,6 +27,9 @@ initial_addresses = [1000, 2500, 5000, 7500, 10000, 12500, 15000, 17500, 20000,
 ordered_contexts = ['glob_num', 'glob_dec', 'glob_tex', 'glob_bin', 'loc_num', 'loc_dec', 'loc_tex', 'loc_bin',
                     'temp_num', 'temp_dec', 'temp_tex', 'temp_bin', 'const_num', 'const_dec', 'const_tex', 'const_bin']
 
+def resetMemory():
+    global memory_addresses
+    memory_addresses = copy.deepcopy(memory_addresses_original)
 
 def get_memory_address(scope, curr_type, length=1):
     mem_key = "{}_{}".format(scope, short_types[curr_type])
