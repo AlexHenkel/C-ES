@@ -58,7 +58,7 @@
                   Ejemplos
                </button>
                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" href="#" id="factorial_iterativo">Factorial de un número (versión iterativa)</a>
+                  <a class="dropdown-item" href="#" id="factorial_iterativo_">Factorial de un número (versión iterativa)</a>
                   <a class="dropdown-item" href="#" id="factorial_recursivo">Factorial de un número (versión recursiva)</a>
                   <!-- <a class="dropdown-item" href="#" id="fibonacci_iterativo">Fibonacci de un número (versión iterativa)</a>
                   <a class="dropdown-item" href="#" id="fibonacci_recursivo">Fibonacci de un número (versión recursiva)</a> -->
@@ -294,13 +294,16 @@
             contentType: "text/plain",
             data: code,
             success: function (data) {
+               var json = JSON.parse(data);
                var text = '';
 
-               for (var i in data) {
-                  text += "<p>" + data[i] + "</p><br />";
-                  console.log(data[i]);
+
+               for (var i in json) {
+                  text += "<p>" + json[i] + "</p><br />";
+                  console.log(json[i]);
                }
 
+               console.log('text', text);
                $('#myModal .modal-body').html(text);
                $('#myModal').modal({ show: true });
             },
