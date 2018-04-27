@@ -1020,3 +1020,5 @@ def runParserWithFile(filename):
     
     restartLineno()
     return result
+
+runParserWithFile('input.txt')
