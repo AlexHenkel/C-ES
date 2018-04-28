@@ -43,6 +43,10 @@ def bloque_principal():
 def ejemplos(): 
     return render_template('ejemplos.html')
 
+@app.route('/demo')
+def demo(): 
+    return render_template('demo.html')
+
 @app.route('/execute', methods=['POST'])
 @cross_origin()
 def executeCode():

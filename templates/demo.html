@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta charset="utf-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+   <meta name="description" content="Manual de referencia del lenguaje de programación C-ES.">
+
+   <title>Manual | C-ES</title>
+   
+   <link rel="stylesheet" href="./../static/css/bootstrap.min.css">
+   <link rel="stylesheet" href="./../static/css/manual.css">
+</head>
+
+<body>
+   <div id="wrapper">
+      <div id="sidebar-wrapper">
+         <div class="sidebar-header">
+            <h3>Menú</h3>
+         </div>
+
+         <ul class="list-unstyled components sidebar-nav">
+            <li><a href="/manual">Bienvenido a C-ES</a></li>
+            <li><a href="/inicio">Inicio de programa</a></li>
+            <li><a href="/variables">Variables</a></li>
+            <li><a href="/operadores">Operadores</a></li>
+            <li><a href="/funciones">Funciones</a></li>
+            <li><a href="/control-de-flujo">Control de flujo</a></li>
+            <li><a href="/ejemplos">Ejemplos de programas</a></li>
+            <li class="active"><a href="/demo">Video demo</a></li>
+         </ul>
+
+         <ul class="list-unstyled CTAs">
+            <li><a href="/" class="try" target="_blank">Probar el lenguaje</a></li>
+         </ul>
+      </div>
+
+      <div id="page-content-wrapper">
+         <nav class="navbar navbar-default">
+            <div class="container-fluid">
+               <div class="navbar-header">
+                  <button type="button" id="sidebarCollapse" class="navbar-btn">
+                     <span></span>
+                     <span></span>
+                     <span></span>
+                  </button>
+               </div>
+               <div class="sidebar-header right">
+                  <h3>Manual de referencia del lenguaje</h3>
+               </div>
+            </div>
+         </nav>
+         <div class="container-fluid">
+            <div class="row">
+               <div class="col-12">
+                  <p class="text-left"><a href="/ejemplos" class="resource">< Ejemplos de programas</a></p>
+                  <h2>Video demo</h2>
+                  <p>A continuación puedes ver un video que te enseña a grandes rasgos lo que puedes hacer con Bloques de C-ES.</p>
+                  <br />
+               </div>
+
+               <div class="offset-2 col-8">
+                  <div class="embed-responsive embed-responsive-16by9">
+                     <video controls>
+                        <source src="./static/c-es-demo.mp4" type="video/mp4">
+                        Tu navegador no soporta videos.
+                     </video>
+                  </div>
+               </div>
+            </div>
+
+         </div>
+      </div>
+   </div>
+
+   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+   <script>
+      $(document).ready(function () {
+         $('#sidebarCollapse').on('click', function () {
+            $(this).toggleClass('active');
+            $("#wrapper").toggleClass("toggled");
+         });
+      });
+   </script>
+</body>
+</html>
