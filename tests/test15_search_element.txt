@@ -1,0 +1,48 @@
+// Test search element
+programa
+
+variables:
+numero miNumeroABuscar;
+lista de numero de 5 miListaDeNumeros;
+
+funciones:
+binario funcion buscaEnListaElNumero(numero numeroABuscar, numero tamanio) {
+   variables:
+   numero i;
+   i = 0
+
+   mientras sucede (i < tamanio - 1) realiza {
+      si sucede (acceder (miListaDeNumeros, i) == numeroABuscar) realiza {
+         devolver verdadero
+      }
+      
+      i = i + 1
+   }
+
+   devolver falso
+}
+
+{
+   agregar a (miListaDeNumeros, 20, 0)
+   agregar a (miListaDeNumeros, 15, 1)
+   agregar a (miListaDeNumeros, 10, 2)
+   agregar a (miListaDeNumeros, 5, 3)
+   agregar a (miListaDeNumeros, 1, 4)
+   miNumeroABuscar = 100
+
+   imprimir ("miListaDeNumeros = ", miListaDeNumeros)
+   
+   si sucede (buscaEnListaElNumero(miNumeroABuscar, 5)) realiza {
+      imprimir (miNumeroABuscar, " si está en ", miListaDeNumeros)
+   } no sucede {
+      imprimir (miNumeroABuscar, " no está en ", miListaDeNumeros)
+   }
+
+   miNumeroABuscar = 10
+
+   si sucede (buscaEnListaElNumero(miNumeroABuscar, 5)) realiza {
+      imprimir (miNumeroABuscar, " si está en ", miListaDeNumeros)
+   } no sucede {
+      imprimir (miNumeroABuscar, " no está en ", miListaDeNumeros)
+   }
+}
