@@ -3,14 +3,10 @@ programa
 
 funciones:
 numero funcion factorial(numero n) {
-   variables:
-   numero temporal;
-
    si sucede (n <= 1) realiza {
       devolver 1
    } no sucede {
-      temporal = factorial(n - 1)
-      devolver n * temporal
+      devolver n * factorial(n - 1)
    }
 }
 
