@@ -886,6 +886,14 @@ cmd_parser.add_option("-t", "--tests", action="store_true",
 
 (options, args) = cmd_parser.parse_args()
 
+def printQuads():
+   instructionPointer = 0
+   quadruplesLen = len(quads_list)
+
+   while instructionPointer < quadruplesLen:
+      print instructionPointer, quads_list[instructionPointer]
+      instructionPointer = instructionPointer + 1
+
 def reset():
     resetMemory()
 
@@ -954,12 +962,14 @@ def runParserWithFile(filename):
     s = f.read()
     f.close()
     result = ''
+
     # Parse text if found
     if s:
         try:
             print("Compiling code...")
             result = parser.parse(s)
             print("Compiling success!")
+            # printQuads()
             result = executeVM(quads_list, global_variables_dict, function_dict,
                       constant_dict, curr_func_temp_vars)
             print("Program finished\n")
@@ -977,7 +987,6 @@ if options.tests:
 
     for file_name in test_files:
         reset()
-        #parser = yacc.yacc()
         f = open(file_name, "r")
         name = file_name[8:-4]
         description = f.readline()
