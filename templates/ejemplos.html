@@ -129,15 +129,11 @@
    <span class="reserved-word">programa</span>
 
    <span class="reserved-word-2">funciones:</span>
-   <span class="reserved-word-3">numero</span> <span class="reserved-word-3">funcion</span> factorial(<span class="reserved-word-3">numero</span> n) {
-      <span class="reserved-word-2">variables:</span>
-      <span class="reserved-word-3">numero</span> temporal;
-
+   <span class="reserved-word-3">numero</span> <span class="reserved-word-3">funcion</span> factorial(<span class="reserved-word-3">numero</span> n) {      
       <span class="reserved-word">si sucede</span> (n <= 1) <span class="reserved-word">realiza</span> {
          <span class="reserved-word-3">devolver</span> 1
       } <span class="reserved-word">no sucede</span> {
-         temporal = factorial(n - 1)
-         <span class="reserved-word-3">devolver</span> n * temporal
+         <span class="reserved-word-3">devolver</span> n * factorial(n - 1)
       }
    }
 
@@ -246,15 +242,10 @@
 
    <span class="reserved-word-2">funciones:</span>
    <span class="reserved-word-3">numero</span> <span class="reserved-word-3">funcion</span> fibo(<span class="reserved-word-3">numero</span> n) {
-      <span class="reserved-word-2">variables:</span>
-      <span class="reserved-word-3">numero</span> n1, n2;
-
       <span class="reserved-word">si sucede</span> (n == 0 o n == 1) <span class="reserved-word">realiza</span> {
          <span class="reserved-word-3">devolver</span> n
       } <span class="reserved-word">no sucede</span> {
-         n1 = fibo(n - 1)
-         n2 = fibo(n - 2)
-         <span class="reserved-word-3">devolver</span> n1 + n2
+         <span class="reserved-word-3">devolver</span> fibo(n - 1) + fibo(n - 2)
       }
    }
 
