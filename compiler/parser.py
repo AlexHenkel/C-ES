@@ -714,8 +714,14 @@ def p_add_random_sign(p):
 
 # Expression
 def p_expression(p):
-    'expression : exp_comp expression_opt'
+    'expression : exp_comp exp_logic_verify expression_opt'
     if len(operators_stack) and operators_stack[-1] in ['y', 'o']:
+        verify_semantics()
+
+
+def p_exp_logic_verify(p):
+    'exp_logic_verify : empty'
+    while len(operators_stack) and operators_stack[-1] in ['y', 'o']:
         verify_semantics()
 
 
@@ -725,8 +731,14 @@ def p_expression_opt(p):
 
 
 def p_exp_comp(p):
-    'exp_comp : exp_add exp_comp_opt'
+    'exp_comp : exp_add exp_comp_verify exp_comp_opt'
     if len(operators_stack) and operators_stack[-1] in ['<', '>', '==', '!=', '<=', '>=']:
+        verify_semantics()
+
+
+def p_exp_comp_verify(p):
+    'exp_comp_verify : empty'
+    while len(operators_stack) and operators_stack[-1] in ['<', '>', '==', '!=', '<=', '>=']:
         verify_semantics()
 
 
@@ -736,8 +748,14 @@ def p_exp_comp_opt(p):
 
 
 def p_exp_add(p):
-    'exp_add : exp_multiply exp_add_opt'
+    'exp_add : exp_multiply exp_add_verify exp_add_opt'
     if len(operators_stack) and operators_stack[-1] in ['+', '-']:
+        verify_semantics()
+
+
+def p_exp_add_verify(p):
+    'exp_add_verify : empty'
+    while len(operators_stack) and operators_stack[-1] in ['+', '-']:
         verify_semantics()
 
 
@@ -747,8 +765,14 @@ def p_exp_add_opt(p):
 
 
 def p_exp_multiply(p):
-    'exp_multiply : term exp_multiply_opt'
+    'exp_multiply : term exp_multiply_verify exp_multiply_opt'
     if len(operators_stack) and operators_stack[-1] in ['*', '/']:
+        verify_semantics()
+
+
+def p_exp_multiply_verify(p):
+    'exp_multiply_verify : empty'
+    while len(operators_stack) and operators_stack[-1] in ['*', '/']:
         verify_semantics()
 
 
@@ -886,13 +910,15 @@ cmd_parser.add_option("-t", "--tests", action="store_true",
 
 (options, args) = cmd_parser.parse_args()
 
-def printQuads():
-   instructionPointer = 0
-   quadruplesLen = len(quads_list)
 
-   while instructionPointer < quadruplesLen:
-      print instructionPointer, quads_list[instructionPointer]
-      instructionPointer = instructionPointer + 1
+def printQuads():
+    instructionPointer = 0
+    quadruplesLen = len(quads_list)
+
+    while instructionPointer < quadruplesLen:
+        print instructionPointer, quads_list[instructionPointer]
+        instructionPointer = instructionPointer + 1
+
 
 def reset():
     resetMemory()
@@ -954,6 +980,7 @@ def reset():
     jumps_else_if = []
     print_stack = []
 
+
 def runParserWithFile(filename):
     reset()
 
@@ -971,14 +998,15 @@ def runParserWithFile(filename):
             print("Compiling success!")
             # printQuads()
             result = executeVM(quads_list, global_variables_dict, function_dict,
-                      constant_dict, curr_func_temp_vars)
+                               constant_dict, curr_func_temp_vars)
             print("Program finished\n")
         except Exception as error:
             result = [error.__class__.__name__ + ': ' + str(error)]
             print(result)
-    
+
     restartLineno()
     return result
+
 
 if options.tests:
     test_files = glob.glob("./tests/test*.txt")
@@ -1000,7 +1028,7 @@ if options.tests:
                 result = parser.parse(s)
                 print("Compiling success!")
                 executeVM(quads_list, global_variables_dict, function_dict,
-                      constant_dict, curr_func_temp_vars)
+                          constant_dict, curr_func_temp_vars)
             except Exception as error:
                 print(error.__class__.__name__ + ': ' + str(error))
 
