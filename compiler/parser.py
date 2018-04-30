@@ -441,7 +441,7 @@ def p_iteration(p):
 
 # Function
 def p_function(p):
-    'function : function_declaration "(" function_params ")" save_pointer function_update_first "{" function_variables_opt function_stm "}"'
+    'function : function_declaration term_nested_open function_params term_nested_close save_pointer function_update_first "{" function_variables_opt function_stm "}"'
     update_last_function_second()
 
 
@@ -554,7 +554,7 @@ def p_add_read_op(p):
 
 # Print
 def p_print(p):
-    'print : PRINT "(" print_params ")"'
+    'print : PRINT term_nested_open print_params term_nested_close'
     global print_stack
     print_params = copy.deepcopy(print_stack)
     print_stack = []
@@ -580,7 +580,7 @@ def p_print_params_rec(p):
 
 # Local function call
 def p_local_function(p):
-    'local_function : ID local_funcion_generate_eva "(" expr_params ")"'
+    'local_function : ID local_funcion_generate_eva term_nested_open expr_params term_nested_close'
     global curr_func_temp_vars
     global curr_function_call_param
     global current_scope
@@ -667,7 +667,7 @@ def p_expr_params_rec(p):
 
 # List functions
 def p_list_push(p):
-    'list_push : PUSH TO add_list_push_sign "(" add_id "," expression "," expression ")"'
+    'list_push : PUSH TO add_list_push_sign term_nested_open add_id "," expression "," expression term_nested_close'
     # Get index data, to allow semantic verification
     index_var = variables_stack.pop()
     index_type = types_stack.pop()
@@ -682,7 +682,7 @@ def p_add_list_push_sign(p):
 
 
 def p_list_pop(p):
-    'list_pop : POP FROM add_list_pop_sign "(" add_id "," expression ")"'
+    'list_pop : POP FROM add_list_pop_sign term_nested_open add_id "," expression term_nested_close'
     verify_semantics(False, True)
 
 
@@ -692,7 +692,7 @@ def p_add_list_pop_sign(p):
 
 
 def p_list_access(p):
-    'list_access : ACCESS add_list_access_sign "(" add_id "," expression ")"'
+    'list_access : ACCESS add_list_access_sign term_nested_open add_id "," expression term_nested_close'
     verify_semantics(False, True)
 
 
@@ -703,7 +703,7 @@ def p_add_list_access_sign(p):
 
 # Random number
 def p_random(p):
-    'random : RANDOM add_random_sign "(" FROM expression "," TO expression ")"'
+    'random : RANDOM add_random_sign term_nested_open FROM expression "," TO expression term_nested_close'
     verify_semantics()
 
 
@@ -788,7 +788,17 @@ def p_term(p):
 
 
 def p_term_nested(p):
-    'term_nested : "(" expression ")"'
+    'term_nested : term_nested_open expression term_nested_close'
+
+
+def p_term_nested_open(p):
+    'term_nested_open : "("'
+    operators_stack.append('(')
+
+
+def p_term_nested_close(p):
+    'term_nested_close : ")"'
+    operators_stack.pop()
 
 
 def p_term_body(p):

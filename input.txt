@@ -12,11 +12,8 @@ numero funcion fibo(numero n) {
 
    si sucede (n == 0 o n == 1) realiza {
       devolver n
-   } no sucede {
-      n1 = fibo(n - 1)
-      n2 = fibo(n - 2)
-      devolver n1 + n2
    }
+   devolver fibo(n - 1) + fibo(n - 2)
 }
 
 {
