@@ -1,4 +1,5 @@
 <xml id="startBlocks" style="display: none" class="invisible">
+   xmlns="http://www.w3.org/1999/xhtml">
    <variables></variables>
    <block type="programa" id="1/?QTTaKFEL92n}|[MAF" x="10" y="70">
       <statement name="VAR_AND_FUNCS">
@@ -14,87 +15,67 @@
                      </block>
                   </value>
                   <statement name="BODY_FUNCTION">
-                     <block type="init_local_variables" id="@_{NnUW;R9,Qa!XZ9nub">
+                     <block type="if" id="bS/Qaftiil^raIVv)G$8">
+                        <value name="CONTITION">
+                           <block type="expression_compound" id="+EP)x`g8a+L)fAa}9ll`">
+                              <field name="TYPE">&lt;=</field>
+                              <value name="EXP1">
+                                 <block type="value" id="l2P[6Qp!wfJ]kzFi*W_U">
+                                    <field name="VALUE">n</field>
+                                 </block>
+                              </value>
+                              <value name="EXP2">
+                                 <block type="value" id="*1f6iy5dYdAtUILC2H|S">
+                                    <field name="VALUE">1</field>
+                                 </block>
+                              </value>
+                           </block>
+                        </value>
+                        <statement name="ACTION">
+                           <block type="return" id="B_BLRFojkCQ|0;8sHES*">
+                              <value name="RETURN">
+                                 <block type="value" id="A[IJ$57fxrXr.J)`0Q[2">
+                                    <field name="VALUE">1</field>
+                                 </block>
+                              </value>
+                           </block>
+                        </statement>
                         <next>
-                           <block type="declare_local_variable" id="|*~h!8_CJy;$10zIMG9l">
-                              <field name="TYPE">numero</field>
-                              <field name="NAME">temporal</field>
-                              <next>
-                                 <block type="if" id="bS/Qaftiil^raIVv)G$8">
-                                    <value name="CONTITION">
-                                       <block type="expression_compound" id="+EP)x`g8a+L)fAa}9ll`">
-                                          <field name="TYPE">&lt;=</field>
+                           <block type="else" id="`Oj9pm44]P`/Tzz`EbBm">
+                              <statement name="ACTION">
+                                 <block type="return" id=".O9#kl{xk2LFI{s?H)n}">
+                                    <value name="RETURN">
+                                       <block type="expression_compound" id=",jPzPRN3sXM{fq#^JM}k">
+                                          <field name="TYPE">*</field>
                                           <value name="EXP1">
-                                             <block type="value" id="l2P[6Qp!wfJ]kzFi*W_U">
+                                             <block type="value" id="@V1/vR~cImO`S[1{yvdk">
                                                 <field name="VALUE">n</field>
                                              </block>
                                           </value>
                                           <value name="EXP2">
-                                             <block type="value" id="*1f6iy5dYdAtUILC2H|S">
-                                                <field name="VALUE">1</field>
-                                             </block>
-                                          </value>
-                                       </block>
-                                    </value>
-                                    <statement name="ACTION">
-                                       <block type="return" id="B_BLRFojkCQ|0;8sHES*">
-                                          <value name="RETURN">
-                                             <block type="value" id="A[IJ$57fxrXr.J)`0Q[2">
-                                                <field name="VALUE">1</field>
-                                             </block>
-                                          </value>
-                                       </block>
-                                    </statement>
-                                    <next>
-                                       <block type="else" id="`Oj9pm44]P`/Tzz`EbBm">
-                                          <statement name="ACTION">
-                                             <block type="assignment" id="~f~[S2b5%e814,J_y!wK">
-                                                <field name="NAME">temporal</field>
-                                                <value name="INPUT">
-                                                   <block type="assign_call_function_with_params" id="L`^ASd7T:2cq$GN(+3=G">
-                                                      <field name="NAME">factorial</field>
-                                                      <value name="PARAMETERS">
-                                                         <block type="expression_compound" id="07z9s5X}JUM{{}t)(U@L">
-                                                            <field name="TYPE">-</field>
-                                                            <value name="EXP1">
-                                                               <block type="value" id="xPAOm=`k.E6%.WdZJ6s}">
-                                                                  <field name="VALUE">n</field>
-                                                               </block>
-                                                            </value>
-                                                            <value name="EXP2">
-                                                               <block type="value" id="/A/E.Tl0U}#f5GI0K:+U">
-                                                                  <field name="VALUE">1</field>
-                                                               </block>
-                                                            </value>
+                                             <block type="assign_call_function_with_params" id="L`^ASd7T:2cq$GN(+3=G">
+                                                <field name="NAME">factorial</field>
+                                                <value name="PARAMETERS">
+                                                   <block type="expression_compound" id="07z9s5X}JUM{{}t)(U@L">
+                                                      <field name="TYPE">-</field>
+                                                      <value name="EXP1">
+                                                         <block type="value" id="xPAOm=`k.E6%.WdZJ6s}">
+                                                            <field name="VALUE">n</field>
+                                                         </block>
+                                                      </value>
+                                                      <value name="EXP2">
+                                                         <block type="value" id="/A/E.Tl0U}#f5GI0K:+U">
+                                                            <field name="VALUE">1</field>
                                                          </block>
                                                       </value>
                                                    </block>
                                                 </value>
-                                                <next>
-                                                   <block type="return" id=".O9#kl{xk2LFI{s?H)n}">
-                                                      <value name="RETURN">
-                                                         <block type="expression_compound" id=",jPzPRN3sXM{fq#^JM}k">
-                                                            <field name="TYPE">*</field>
-                                                            <value name="EXP1">
-                                                               <block type="value" id="@V1/vR~cImO`S[1{yvdk">
-                                                                  <field name="VALUE">n</field>
-                                                               </block>
-                                                            </value>
-                                                            <value name="EXP2">
-                                                               <block type="value" id="`#:{;TXbo.y3Co4,Opgy">
-                                                                  <field name="VALUE">temporal</field>
-                                                               </block>
-                                                            </value>
-                                                         </block>
-                                                      </value>
-                                                   </block>
-                                                </next>
                                              </block>
-                                          </statement>
+                                          </value>
                                        </block>
-                                    </next>
+                                    </value>
                                  </block>
-                              </next>
+                              </statement>
                            </block>
                         </next>
                      </block>
